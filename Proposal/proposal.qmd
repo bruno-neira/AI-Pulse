@@ -1,0 +1,37 @@
+# Project Proposal: AI Compute and Usage Trends Analysis
+**Team Members:** Michael Chen, Bruno Neira
+**Date:** October 30, 2025
+
+
+## 1 Introduction 
+
+Artificial intelligence has seen an explosion in growth and adoption in the last 3 years. Generative AI models have been integrated into workflows of essentially every major company. Furthermore, many philosophers and technologists have speculated over the future of artificial intelligence and how it will evolve beyond the current moment. In order to do this effectively, it is first important to understand the current and historical context around macro-trends of AI. In addition, there has been much discussion around the factors that drive growth in AI. Some possible factors include compute spend, advancement in model architectures, and data quantity/quality. Notably, mapping moments of major advancement (whether in adoption or new model releases) with these other factors will help us understand what might be the bottlenecks of AI development today.
+
+Some questions we are considering:
+
+- How do reported active user metrics relate to cluster compute capacity (H100 equivalents, Power MW)?
+    - Common companies between datasets
+    - How usage-compute capacity evolves over time
+    - Which countries/industry sectors dominate compute-usage as a whole?
+- Is there a correlation between a company’s reported activity (tokens/messages per day) and the size/cost of their clusters?
+    - Any high compute, low usage companies? (underperformers)
+    - Any high usage, low compute companies? (overachievers)
+- When there has been a major advancement in AI capabilities, how do those moments of breakthroughs relate to changes in compute capacity?
+    - Ex: GPT-4 launch, LLaMA launch, etc.
+    - Do companies tend to increase compute capacity before or after major model launches?
+
+
+## 2 Data
+
+We have decided to use EpochAI’s repository on said macro-trends, focusing specifically on two datasets. The main dataset– gpu_clusters (786 rows × 55 cols)– contains details on existing global aggregate GPU cluster performance as of March 2025. This tabulated data contains geospatial information on large hardware facilities, including those used for AI training and inference. Combined with our second file– ai_companies_usage_reports (40 rows x 16 cols)– on the usage rates of llms across different foundation model developers from 2024-2025,  we hope to identify regional trends on compute concentration, model scaling, and ecosystem trends.
+
+
+How EpochAI collects the data (https://epoch.ai/data/ai-companies#explore-the-data): “In this database, we collect data from direct statements from AI companies and their executives and staff, as well as information reported in established media outlets (generally from insider sources or documents provided to journalists). We rely on public reports rather than proprietary databases, since our goal is to provide a free resource with transparent sourcing”. As for the cluster data on the GPU’s, the methodology is less transparent but the validity of each datapoint is listed according to a certainty field feature.
+
+
+We anticipate that there may be issues merging the datasets because they aren't perfectly aligned on the columns (Order, Name). There may also be time jumps in our data which could complicate our time series analysis and graphics comparing companies, AI usage, and compute capabilities from year to year.
+
+Sources:
+
+1. GPU: https://epoch.ai/data/gpu-clusters?view=table
+2. Usage: https://epoch.ai/data/ai-companies
