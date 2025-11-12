@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -26,15 +26,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="proposal_files/libs/clipboard/clipboard.min.js"></script>
 <script src="proposal_files/libs/quarto-html/quarto.js" type="module"></script>
 <script src="proposal_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="proposal_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="proposal_files/libs/quarto-html/popper.min.js"></script>
 <script src="proposal_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="proposal_files/libs/quarto-html/anchor.min.js"></script>
 <link href="proposal_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="proposal_files/libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="proposal_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="proposal_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="proposal_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="proposal_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="proposal_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -54,9 +53,14 @@ ul.task-list li input[type="checkbox"] {
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">1 Introduction</h2>
 <p>Artificial intelligence has seen an explosion in growth and adoption in the last 3 years. Generative AI models have been integrated into workflows of essentially every major company. Furthermore, many philosophers and technologists have speculated over the future of artificial intelligence and how it will evolve beyond the current moment. In order to do this effectively, it is first important to understand the current and historical context around macro-trends of AI.</p>
+<p>*In addition, there has been much discussion around the factors that drive growth in AI. Some major factors include compute spend and usage rates– one focus of our study. Also of note, mapping moments of major advancement, whether in adoption or new model releases, with these other factors will help us understand what might be the bottlenecks of AI development today.</p>
+<ul>
+<li>For an aggregate overview of all foundation model developers, we hypothesize that as compute capacity increases, usage will likewise scale-up but eventually, it will plateau as there is a ceiling to how much usage is even possible (only so many people in the globe with access to technology)</li>
+<li>We also theorize that inverse relationships between compute and usage can be attributable to research developments in new model architectures, data quantity/quality, and others factors outside of direct usage metrics from these datasets– which signifies that low-usage AI companies may not necessarily be underperforming or that overperforming companies are directing their compute resources efficiently.</li>
+</ul>
 <p>Some questions we are considering:</p>
 <ul>
-<li>How do reported active user metrics relate to cluster compute capacity (H100 equivalents, Power MW)?
+<li>How do reported active user metrics rela te to cluster compute capacity (H100 equivalents, Power MW)?
 <ul>
 <li>Common companies between datasets</li>
 <li>How usage-compute capacity evolves over time</li>
@@ -66,6 +70,11 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>Any high compute, low usage companies? (underperformers)</li>
 <li>Any high usage, low compute companies? (overachievers)</li>
+</ul></li>
+<li>When there has been a major advancement in AI capabilities, how do those moments of breakthroughs relate to changes in compute capacity?
+<ul>
+<li>Ex: GPT-4 launch, LLaMA launch, etc.</li>
+<li>Do companies tend to increase compute capacity before or after major model launches?</li>
 </ul></li>
 </ul>
 </section>
@@ -135,14 +144,13 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

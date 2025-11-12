@@ -5,11 +5,16 @@
 
 ## 1 Introduction 
 
-Artificial intelligence has seen an explosion in growth and adoption in the last 3 years. Generative AI models have been integrated into workflows of essentially every major company. Furthermore, many philosophers and technologists have speculated over the future of artificial intelligence and how it will evolve beyond the current moment. In order to do this effectively, it is first important to understand the current and historical context around macro-trends of AI. In addition, there has been much discussion around the factors that drive growth in AI. Some possible factors include compute spend, advancement in model architectures, and data quantity/quality. Notably, mapping moments of major advancement (whether in adoption or new model releases) with these other factors will help us understand what might be the bottlenecks of AI development today.
+Artificial intelligence has seen an explosion in growth and adoption in the last 3 years. Generative AI models have been integrated into workflows of essentially every major company. Furthermore, many philosophers and technologists have speculated over the future of artificial intelligence and how it will evolve beyond the current moment. In order to do this effectively, it is first important to understand the current and historical context around macro-trends of AI. 
+
+*In addition, there has been much discussion around the factors that drive growth in AI. Some major factors include compute spend and usage rates-- one focus of our study. Also of note, mapping moments of major advancement, whether in adoption or new model releases, with these other factors will help us understand what might be the bottlenecks of AI development today. 
+
+- For an aggregate overview of all foundation model developers, we hypothesize that as compute capacity increases, usage will likewise scale-up but eventually, it will plateau as there is a ceiling to how much usage is even possible (only so many people in the globe with access to technology)
+- We also theorize that inverse relationships between compute and usage can be attributable to research developments in new model architectures, data quantity/quality, and others factors outside of direct usage metrics from these datasets-- which signifies that low-usage AI companies may not necessarily be underperforming or that overperforming companies are directing their compute resources efficiently. 
 
 Some questions we are considering:
 
-- How do reported active user metrics relate to cluster compute capacity (H100 equivalents, Power MW)?
+- How do reported active user metrics rela  te to cluster compute capacity (H100 equivalents, Power MW)?
     - Common companies between datasets
     - How usage-compute capacity evolves over time
     - Which countries/industry sectors dominate compute-usage as a whole?
