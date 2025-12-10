@@ -8,11 +8,11 @@ execute:
   message: false
 
 book:
-  title: "YOUR PROJECT TITLE"
+  title: "AI Pulse: Exploring the Drivers of AI Development"
   author:
-    - AUTHOR1 (UNI1)
-    - AUTHOR2 (UNI2)
-  repo-url: https://github.com/YOUR_GITHUB_ACCOUNT/REPO_NAME
+    - Bruno Neira (bn2402)
+    - Michael Chen (mwc2150)
+  repo-url: https://github.com/bruno-neira/AI-Pulse
   date: today
   page-footer:
     right: |

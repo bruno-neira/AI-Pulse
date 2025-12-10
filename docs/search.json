@@ -2,7 +2,7 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "YOUR PROJECT TITLE",
+    "title": "AI Pulse: Exploring the Drivers of AI Development",
     "section": "",
     "text": "1 Introduction\nFrom it’s humble beginnings in the 1950s, and throught a cycle of dark and golder ages, AI finally exploded in the early 2020s with the introduction of large language models. Studying the history of AI development, we see breakthoughs resulting for innovations in various front. AlexNet in 2012 ushered in a new era of deep learning fueled by the availability of large datasets and shift towards GPU training. Five years later, in 2017, an algorithmic innovation, attenion and the transformer architecture, ushered in yet another era of AI, namely the era of large language models which is still experiencing rapid growth today.\nWhether it be hardware infrastructure, data quantity and quality, or algorithmic innovations, each of these factors has played an important role in the development of new AI techniques or as bottlenecks to said breakthroughs. In this project we aim to explore how these factors have changed over time in order to have an in-depth understanding of the driving forces behind AI development. With this understanding, we hope to be better able to understand where AI may be heading in the future.",
     "crumbs": [
