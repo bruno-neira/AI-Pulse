@@ -150,8 +150,10 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#description" id="toc-description" class="nav-link active" data-scroll-target="#description"><span class="header-section-number">2.1</span> Description</a>
   <ul class="collapse">
   <li><a href="#collection-methods" id="toc-collection-methods" class="nav-link" data-scroll-target="#collection-methods"><span class="header-section-number">2.1.1</span> Collection Methods</a></li>
+  <li><a href="#datasets-overview" id="toc-datasets-overview" class="nav-link" data-scroll-target="#datasets-overview"><span class="header-section-number">2.1.2</span> Datasets Overview</a></li>
   </ul></li>
   <li><a href="#missing-value-analysis" id="toc-missing-value-analysis" class="nav-link" data-scroll-target="#missing-value-analysis"><span class="header-section-number">2.2</span> Missing value analysis</a></li>
+  <li><a href="#other-problems-and-limitations-of-the-data" id="toc-other-problems-and-limitations-of-the-data" class="nav-link" data-scroll-target="#other-problems-and-limitations-of-the-data"><span class="header-section-number">2.3</span> Other problems and limitations of the data</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/bruno-neira/AI-Pulse/edit/main/data.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/bruno-neira/AI-Pulse/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -179,14 +181,12 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="description" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="description"><span class="header-section-number">2.1</span> Description</h2>
-<ul>
-<li>Collected from Epoch AI
-<ul>
-<li>Who exactly are them</li>
-<li>Who has trusted their data previously</li>
-</ul></li>
-<li>Here are collection methods (inlude links to their pages on that)</li>
-<li>We divide our dataset as inputs and output for AI models and AI companies:
+<p>Our data is collected by an non-profit organization called <a href="https://epoch.ai/">Epoch AI</a>. From their (website)[https://epoch.ai/about], Epoch AI’s mission is:</p>
+<blockquote class="blockquote">
+<p>Epoch AI is a multidisciplinary non-profit research institute investigating the future of artificial intelligence. We examine the driving forces behind AI and forecast its economic and societal impact. We emphasize making our research accessible through our reports, models and visualizations to help ground the discussion of AI on a solid empirical footing. Our goal is to create a healthy scientific environment, where claims about AI are discussed with the rigor they merit.</p>
+</blockquote>
+<p>In the past, Epoch AI’s work has been cited in <a href="https://ourworldindata.org/brief-history-of-ai">Our World in Data</a>, <a href="https://time.com/6300942/ai-progress-charts/">Time Magazine</a>, by <a href="https://blog.google/technology/ai/bard-google-ai-search-updates/">Google CEO Sundar Pichai</a>, and other reputable sources.</p>
+<p>Generally, we frame our work in terms of inputs factors and output results and further subdivide this into input factors for AI models, input factors for AI companies, output results for AI models, and output results for AI companies:</p>
 <ul>
 <li>AI Models:
 <ul>
@@ -214,36 +214,83 @@ ul.task-list li input[type="checkbox"] {
 <li>Revenue</li>
 </ul></li>
 </ul></li>
-</ul></li>
-<li>include table of datasets used with the following infomration:
-<ul>
-<li>title</li>
-<li>description</li>
-<li>frequency of updates</li>
-<li>dimensions</li>
-<li>notes</li>
-</ul></li>
-<li>Problems with the data</li>
 </ul>
-<p>Our data is collected by an non-profit organization called <a href="https://epoch.ai/">Epoch AI</a>. From their (website)[https://epoch.ai/about], Epoch AI’s mission is:</p>
-<blockquote class="blockquote">
-<p>Epoch AI is a multidisciplinary non-profit research institute investigating the future of artificial intelligence. We examine the driving forces behind AI and forecast its economic and societal impact. We emphasize making our research accessible through our reports, models and visualizations to help ground the discussion of AI on a solid empirical footing. Our goal is to create a healthy scientific environment, where claims about AI are discussed with the rigor they merit.</p>
-</blockquote>
-<p>In the past, Epoch AI’s work has been cited in <a href="https://ourworldindata.org/brief-history-of-ai">Our World in Data</a>, <a href="https://time.com/6300942/ai-progress-charts/">Time Magazine</a>, by <a href="https://blog.google/technology/ai/bard-google-ai-search-updates/">Google CEO Sundar Pichai</a>, and other reputable sources.</p>
 <section id="collection-methods" class="level3" data-number="2.1.1">
 <h3 data-number="2.1.1" class="anchored" data-anchor-id="collection-methods"><span class="header-section-number">2.1.1</span> Collection Methods</h3>
 <p>Epoch AI collects data on variety of different components related to AI progress including hardware advancements, GPU cluster advanacements, model releases, AI company funding, etc. For the most part, Epoch uses a mix of automated collections methods (for example, automatic updates of AI benchmark scores) and manual data collection from public sources of information (company blog posts, new posts, public satellite imagery). Here we link to the full set of data collection methodologies:</p>
 <ul>
 <li><a href="https://epoch.ai/data/machine-learning-hardware-documentation#inclusion">ML Hardware Data</a></li>
-<li><a href="https://epoch.ai/data/ai-companies-documentation#inclusion">AI Company Data</a></li>
 <li><a href="https://epoch.ai/data/gpu-clusters-documentation#inclusion">GPU Cluster Data</a></li>
-<li><a href="https://epoch.ai/data/data-centers-documentation#methodology">Frontier Data Centers Data</a></li>
+<li><a href="https://epoch.ai/data/ai-companies-documentation#inclusion">AI Company Data</a></li>
 <li><a href="https://epoch.ai/data/ai-models-documentation#inclusion">AI Model Data</a></li>
+<li><a href="https://epoch.ai/benchmarks/about">AI Benchmark Data</a></li>
 </ul>
+</section>
+<section id="datasets-overview" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="datasets-overview"><span class="header-section-number">2.1.2</span> Datasets Overview</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 21%">
+<col style="width: 35%">
+<col style="width: 20%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Title</th>
+<th>Description</th>
+<th>Frequency of Updates</th>
+<th>Dimensions</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ML Hardware</td>
+<td>Dataset listing hardward used to train ML models including GPUs, TPUs, and other less common hardware types</td>
+<td>Daily</td>
+<td>170 rows, 38 columns</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>GPU Clusters</td>
+<td>Dataset listing planned, existing, and previous GPU clusters</td>
+<td>Daily</td>
+<td>786 rows, 55 columns</td>
+<td>Daily refreshes, but data may not necesarily be updated daily.</td>
+</tr>
+<tr class="odd">
+<td>AI Companies</td>
+<td>Various different datasets pertaining to AI company revenue, compute spend, staffing, funding rounds, user usage, and general information</td>
+<td>Daily</td>
+<td>Various datasets</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>AI Models</td>
+<td>Dataset listing AI models over the years (including primitive models)</td>
+<td>Daily</td>
+<td>3000+ rows, 56 columns</td>
+<td>Divided into “Frontier”, “Notable”, and “Large Scale” models</td>
+</tr>
+<tr class="odd">
+<td>AI Benchmark Data</td>
+<td>A collection of different datasets of ML model performance on different benchmarks</td>
+<td>not found</td>
+<td>Various datasets</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Please see links above for finer details on the datasets.</p>
 </section>
 </section>
 <section id="missing-value-analysis" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="missing-value-analysis"><span class="header-section-number">2.2</span> Missing value analysis</h2>
+</section>
+<section id="other-problems-and-limitations-of-the-data" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="other-problems-and-limitations-of-the-data"><span class="header-section-number">2.3</span> Other problems and limitations of the data</h2>
 
 
 </section>
