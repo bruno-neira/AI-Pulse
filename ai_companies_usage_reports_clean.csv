@@ -1,0 +1,62 @@
+Id,Company,Active users,Active users time period,Daily tokens,Daily messages,Date,Report date,Source 1,Source 2,Graph note,Notes,Source type,Product,Confidence,Exclude from graph view
+ChatGPT 50M WAU,OpenAI,217410714.28571427,Monthly,,,2023-03-25,2025-09-14,https://cdn.openai.com/pdf/a253471f-8260-40c6-a2cc-aa93fe9f142e/economic-research-chatgpt-usage-paper.pdf,https://www.nber.org/papers/w34255,,"From Figure 3, weekly active ChatGPT users on consumer plans (Free, Plus, Pro). Number extracted using plotdigitizer and rounded to the nearest 5M.",Company disclosure,ChatGPT,Likely,
+ChatGPT 80M WAU,OpenAI,347857142.85714287,Monthly,,,2023-09-20,2025-09-14,https://cdn.openai.com/pdf/a253471f-8260-40c6-a2cc-aa93fe9f142e/economic-research-chatgpt-usage-paper.pdf,https://www.nber.org/papers/w34255,,"From Figure 3, weekly active ChatGPT users on consumer plans (Free, Plus, Pro). Number extracted using plotdigitizer and rounded to the nearest 5M.",Company disclosure,ChatGPT,Likely,
+ChatGPT 125M WAU,OpenAI,543526785.7142857,Monthly,,,2024-03-20,2025-09-14,https://cdn.openai.com/pdf/a253471f-8260-40c6-a2cc-aa93fe9f142e/economic-research-chatgpt-usage-paper.pdf,https://www.nber.org/papers/w34255,,"From Figure 3, weekly active ChatGPT users on consumer plans (Free, Plus, Pro). Number extracted using plotdigitizer and rounded to the nearest 5M.",Company disclosure,ChatGPT,Likely,
+100M MAU,OpenAI,100000000.0,Monthly,,,2024-03-30,2024-09-27,https://www.nytimes.com/2024/09/27/technology/openai-chatgpt-investors-funding.html,,All products,"""about 350 million people — up from around 100 million in March — used its services each month as of June.""
+
+likely primarily ChatGPT. May be substantially rounded down (given rapid growth in a few months, and OpenAI later claimed 125M *weekly* actives at the same time)",Media report,All products,Uncertain,
+350M MAU,OpenAI,350000000.0,Monthly,,,2024-06-30,2024-09-27,https://www.nytimes.com/2024/09/27/technology/openai-chatgpt-investors-funding.html,,All products,"""about 350 million people — up from around 100 million in March — used its services each month as of June.""
+
+likely primarily ChatGPT",Media report,All products,Likely,
+ChatGPT 240M WAU,OpenAI,1043571428.5714285,Monthly,,,2024-09-15,2025-09-14,https://www.nber.org/papers/w34255,,,"From Figure 3, weekly active ChatGPT users on consumer plans (Free, Plus, Pro). Number extracted using plotdigitizer and rounded to the nearest 5M.",Company disclosure,ChatGPT,Likely,
+Meta AI 400M MAU,Meta,400000000.0,Monthly,,,2024-09-25,2024-09-25,https://about.fb.com/news/2024/09/metas-ai-product-news-connect/,,,"""More than 400 million people are using Meta AI monthly, with 185 million people using it across our products each week.""",Company disclosure,Meta AI assistant,Confident,
+Meta AI 185M WAU,Meta,804419642.8571428,Monthly,,,2024-09-25,2024-09-25,https://about.fb.com/news/2024/09/metas-ai-product-news-connect/,,,"""More than 400 million people are using Meta AI monthly, with 185 million people using it across our products each week.""",Company disclosure,Meta AI assistant,Confident,
+Meta AI 500M MAU,Meta,500000000.0,Monthly,,,2024-10-30,2024-10-30,https://www.engadget.com/social-media/meta-ai-has-more-than-500-million-users-220353427.html,,,Zuckerberg on earnings call,Company disclosure,Meta AI assistant,Confident,
+ChatGPT 300M WAU,OpenAI,1304464285.7142856,Monthly,,1000000000.0,2024-12-04,2024-12-04,https://x.com/OpenAINewsroom/status/1864373399218475440,,,"""Fresh numbers shared by 
+@sama
+ earlier today: 
+
+300M weekly active ChatGPT users
+
+1B user messages sent on ChatGPT every day
+
+1.3M devs have built on OpenAI in the US""",Company disclosure,ChatGPT,Confident,
+Meta AI 600M MAU,Meta,600000000.0,Monthly,,,2024-12-15,2025-02-27,https://www.cnbc.com/2025/02/27/meta-plans-to-release-a-standalone-meta-ai-app.html,https://www.marketingweek.com/meta-advertiser-demand-content-policy/,,"Susan Li spoke Jan 29, according to the start of the paywalled Marketing Week piece. CNBC just says ""in January"" when saying ""roughly 700 million active monthly users, up from 600 million in December"".",Company disclosure,Meta AI assistant,Confident,
+Meta AI 700M MAU,Meta,700000000.0,Monthly,,,2025-01-29,2025-02-27,https://www.cnbc.com/2025/02/27/meta-plans-to-release-a-standalone-meta-ai-app.html,https://www.marketingweek.com/meta-advertiser-demand-content-policy/,,"Susan Li spoke Jan 29, according to the start of the paywalled Marketing Week piece. CNBC just says ""in January"" when saying ""roughly 700 million active monthly users, up from 600 million in December"".",Company disclosure,Meta AI assistant,Confident,
+ChatGPT 430M WAU,OpenAI,1869732142.8571427,Monthly,,,2025-03-13,2025-09-14,https://cdn.openai.com/pdf/a253471f-8260-40c6-a2cc-aa93fe9f142e/economic-research-chatgpt-usage-paper.pdf,https://www.nber.org/papers/w34255,,"From Figure 3, weekly active ChatGPT users on consumer plans (Free, Plus, Pro). Number extracted using plotdigitizer and rounded to the nearest 5M.",Company disclosure,ChatGPT,Likely,
+Gemini 350M MAU,Google,350000000.0,Monthly,,,2025-03-15,2025-04-23,https://www.theinformation.com/briefings/googles-gemini-user-numbers-revealed-court?rc=4ylmkj,,,"""As of last month, Gemini worldwide was seeing 35 million daily active users and 350 million monthly active users, according to internal Google analysis""",Company disclosure,Gemini,Confident,
+ChatGPT Google trial,OpenAI,4870000000.0,Monthly,,1200000000.0,2025-03-28,2025-07-11,https://semianalysis.com/2025/07/11/meta-superintelligence-leadership-compute-talent-and-data/#chatappstats,https://www.theverge.com/google/654641/google-reveals-gemini-ai-has-350-million-monthly-active-users ,,"from Google's testimony at the Google anti-trust trial
+
+for context, this was an internal Google estimate, so it is reliable for Google, but not necessarily other companies. See Source 2.
+
+",Other,ChatGPT,Likely,
+Meta Google trial,Meta,3043750000.0,Monthly,,200000000.0,2025-03-28,2025-07-11,https://semianalysis.com/2025/07/11/meta-superintelligence-leadership-compute-talent-and-data/#chatappstats,https://www.theverge.com/google/654641/google-reveals-gemini-ai-has-350-million-monthly-active-users ,,"from Google's testimony at the Google anti-trust trial
+
+for context, this was an internal Google estimate, so it is reliable for Google, but not necessarily other companies
+
+https://www.theverge.com/google/654641/google-reveals-gemini-ai-has-350-million-monthly-active-users ",Other,Meta AI assistant,Likely,
+xAI Google trial,xAI,456562500.0,Monthly,,75000000.0,2025-03-28,2025-07-11,https://semianalysis.com/2025/07/11/meta-superintelligence-leadership-compute-talent-and-data/#chatappstats,https://www.theverge.com/google/654641/google-reveals-gemini-ai-has-350-million-monthly-active-users ,,"from Google's testimony at the Google anti-trust trial
+
+for context, this was an internal Google estimate, so it is reliable for Google, but not necessarily other companies
+
+https://www.theverge.com/google/654641/google-reveals-gemini-ai-has-350-million-monthly-active-users ",Other,Grok,Likely,
+DeepSeek Google trial,DeepSeek,304375000.0,Monthly,,50000000.0,2025-03-28,2025-07-11,https://semianalysis.com/2025/07/11/meta-superintelligence-leadership-compute-talent-and-data/#chatappstats,https://www.theverge.com/google/654641/google-reveals-gemini-ai-has-350-million-monthly-active-users ,,"from Google's testimony at the Google anti-trust trial
+
+for context, this was an internal Google estimate, so it is reliable for Google, but not necessarily other companies
+
+https://www.theverge.com/google/654641/google-reveals-gemini-ai-has-350-million-monthly-active-users",Other,DeepSeek,Likely,
+Gemini Google trial,Google,1065312500.0,Monthly,,140000000.0,2025-03-28,2025-04-23,https://www.theinformation.com/briefings/googles-gemini-user-numbers-revealed-court?rc=4ylmkj,https://semianalysis.com/2025/07/11/meta-superintelligence-leadership-compute-talent-and-data/#chatappstats,,"""As of last month, Gemini worldwide was seeing 35 million daily active users and 350 million monthly active users, according to internal Google analysis""
+
+140M daily messages (source 2)",Company disclosure,Gemini,Confident,
+Gemini 400M+ MAU,Google,400000000.0,Monthly,,,2025-05-20,2025-05-20,https://www.youtube.com/live/o8NiE3XMPrM?t=394s,https://techcrunch.com/2025/05/20/googles-gemini-ai-app-has-400m-monthly-active-users/,,"""Google’s Gemini AI app now has more than 400 million monthly active users, CEO Sundar Pichai said during a press briefing ahead of Google I/O 2025.""",Company disclosure,Gemini,Confident,
+AI Overviews 1.5B MAU,Google,1500000000.0,Monthly,,,2025-05-20,2025-05-20,https://www.youtube.com/live/o8NiE3XMPrM?t=394s,,,"""Over 1.5B"" AI Overviews in Google search",Company disclosure,AI Overviews,Confident,True
+Meta AI 1B MAU,Meta,1000000000.0,Monthly,,,2025-05-28,2025-05-28,https://www.cnbc.com/2025/05/28/zuckerberg-meta-ai-one-billion-monthly-users.html,,,"Meta’s AI assistant now has one billion monthly active users across the company’s family of apps, CEO Mark Zuckerberg said Wednesday at the company’s annual shareholder meeting.",Company disclosure,Meta AI assistant,Confident,
+ChatGPT 700M WAU,OpenAI,3348125000.0,Monthly,,,2025-07-15,2025-09-14,https://cdn.openai.com/pdf/a253471f-8260-40c6-a2cc-aa93fe9f142e/economic-research-chatgpt-usage-paper.pdf,https://www.nber.org/papers/w34255,,"From Figure 3, weekly active ChatGPT users on consumer plans (Free, Plus, Pro). Number extracted using plotdigitizer and rounded to the nearest 5M.",Company disclosure,ChatGPT,Confident,
+Gemini 450M MAU,Google,450000000.0,Monthly,,,2025-07-23,2025-07-23,https://www.theverge.com/news/712638/alphabet-google-earnings-q2-2025-ceo-sundar-pichai-ai,,,"""Pichai also said that the Gemini app now has 450 million monthly active users, “with daily requests growing over 50 percent from Q1.”""
+
+AI Mode also has more than 100 million monthly active users in the US and India, while AI Overviews has more than 2 billion monthly users.",Company disclosure,Gemini,Confident,
+ChatGPT 700M WAU,OpenAI,3043750000.0,Monthly,,,2025-08-04,2025-08-04,https://www.cnbc.com/2025/08/04/openai-chatgpt-700-million-users.html,,,"""OpenAI is set to hit 700 million weekly active users for ChatGPT this week, up from 500 million in March, marking a more than fourfold year-over-year surge in growth, the company said Monday.
+
+The figure spans all ChatGPT artificial intelligence products — free, Plus Pro, Enterprise, Team, and Edu — and comes as daily user messages surpassed three billion, according to the company. The growth rate is also accelerating, compared with 2.5 times year-over-year growth at this time last year.""",Company disclosure,ChatGPT,Confident,
+xAI 64M MAU,xAI,64000000.0,Monthly,,,2025-09-17,2025-09-18,https://www.nytimes.com/2025/09/18/technology/elon-musk-artificial-intelligence-xai.html,,,"""Mr. Musk and his executives said on Wednesday that Grok, xAI’s chatbot, now has 64 million monthly users, one company leader said during the meeting""",Media report,Grok,Confident,
+ChatGPT 800M WAU,OpenAI,3478571428.5714283,Monthly,,,2025-10-06,2025-10-06,https://techcrunch.com/2025/10/06/sam-altman-says-chatgpt-has-hit-800m-weekly-active-users/,https://www.youtube.com/watch?v=hS1YqcewH0c,,"Dev Day announcement, summarized by TechCrunch: ""OpenAI CEO Sam Altman said Monday that ChatGPT has reached 800 million weekly active users""",Company disclosure,ChatGPT,Confident,
