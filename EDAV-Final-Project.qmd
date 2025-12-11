@@ -1,0 +1,302 @@
+---
+title: "EDAV Final Project Fall 2025"
+authors: Michael Chen, Bruno Neira
+execute:
+  echo: true
+  warning: false
+  message: false
+format:
+  html:
+    fig-width: 6
+    fig-height: 4
+    out-width: 60%
+    embed-resources: true
+---
+
+```{r}
+remotes::install_github("jtr13/redav")
+library(ggplot2)
+install.packages('alr4', repos = "https://cloud.r-project.org")
+library(alr4)
+install.packages('gridExtra', repos = "https://cloud.r-project.org")
+library(gridExtra)
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+install.packages("readr") 
+library(readr)   
+library(stringr)
+install.packages('patchwork')
+
+compute_spend <- read_csv("C:/Users/micha/Downloads/AI-Pulse/Data/ai_companies_dataset/ai_companies_compute_spend.csv")
+compute_spend
+
+# library(readr)
+# compute_spend <- read.csv("C:/Users/micha/Downloads/AI-Pulse/Data/ai_companies_dataset/ai_companies_compute_spend.csv", 
+#                          sep = ",", 
+#                          quote = '"', 
+#                          fill = TRUE, 
+#                          stringsAsFactors = FALSE)
+# 
+# compute_spend
+# lines <- readLines("C:/Users/micha/Downloads/AI-Pulse/Data/ai_companies_dataset/ai_companies_compute_spend.csv", n=5)
+# print(lines)
+```
+
+## 1. Compute Spend
+
+(a). Examine the overall amount spent on compute by foundation model developers over time. Filter by compute expenditure category. 
+```{r}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(scales)
+
+compute_stacked <- compute_spend |>
+  select(Date, Company, 
+         `Inference compute spend`, 
+         `R&D compute spend`, 
+         `Total compute spend`) |>
+  pivot_longer(cols = ends_with("compute spend"), 
+               names_to = "Category", 
+               values_to = "Amount") |>
+  filter(!is.na(Amount))
+
+ggplot(compute_stacked, aes(x = Date, y = Amount, fill = Category)) +
+  geom_col(position = "stack") +  # Stacked bars
+  facet_wrap(~Company) +
+  labs(title = "Breakdown of Compute Spend Over Time", 
+       y = "Amount of Dollars Spent",
+       fill = "Expenditure Type") +
+  theme_minimal() + 
+  theme(
+    strip.text = element_text(),
+    strip.background = element_rect(fill = "gray", color = "lightgray")
+  )
+
+```
+
+```{r}
+library(redav)
+p1 <- plot_missing(compute_spend, max_cols = 10, num_char = 7, percent = FALSE)
+p2 <- plot_missing(compute_spend, num_char = 2, percent = TRUE)
+p1 / p2
+# plot_missing(compute_spend, , percent=FALSE)
+```
+
+(b). Outline the trend of major releases of consumer facing products. How does this map onto the trend in compute spending shown in the previous graph?
+```{r}
+frontier_ai_models <- read_csv("C:/Users/micha/Downloads/frontier_ai_models.csv")
+frontier_ai_models
+```
+```{r}
+# library(lubridate)
+# release_trend <- frontier_ai_models |>
+#   filter(year(`Publication date`) >= 2023,
+#          year(`Publication date`) <= 2026) |>
+#   mutate(`Publication date` = as.Date(`Publication date`)) |>
+#   count(`Publication date`, name = "releases") |>
+#   arrange(`Publication date`)
+# 
+# release_cumulative <- release_trend |>
+#   mutate(cumulative_releases = cumsum(releases))
+# 
+# ggplot(release_cumulative, aes(x = `Publication date`, y = cumulative_releases)) +
+#   geom_line(linewidth = 1.2) +
+#   geom_point(size = 2) +
+#   labs(
+#     title = "Cumulative Foundation Model Releases (2023–2026)",
+#     x = "Publication date",
+#     y = "Cumulative count of models"
+#   ) +
+#   theme_minimal()
+```
+
+(c). Show compute spending for non-improbable GPU cluster projects in across the the private and public sector. ..... maps onto GPU cluster opening for OpenAI???.
+```{r}
+gpu_clusters <- read_csv("C:/Users/micha/Downloads/gpu_clusters.csv")
+gpu_clusters <- gpu_clusters |>
+  rename(
+    first_operational_date = `First Operational Date`,
+    calculated_cost        = `Calculated Cost`,
+    owner                  = `Owner`
+  ) |>
+  mutate(
+    calculated_cost = as.numeric(calculated_cost)
+  )
+gpu_clusters
+```
+```{r}
+gpu_clusters_filtered <- gpu_clusters |>
+  filter(
+    !is.na(first_operational_date),
+    !is.na(calculated_cost),
+    !is.na(owner),
+    !is.na(Sector),
+    Certainty %in% c("Confirmed", "Likely"),
+    Sector %in% c("Private", 'Public', 'Public/Private')
+  ) |>
+  mutate(calculated_cost_billions = calculated_cost / 1e9)
+
+cost_by_owner <- gpu_clusters_filtered |>
+  group_by(owner, Sector) |>
+  summarise(
+    total_calculated_cost = sum(calculated_cost_billions, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+top_n <- 15  # or 10, etc.
+
+plot_data <- cost_by_owner |>
+  group_by(Sector) |>
+  mutate(
+    owner_rank = min_rank(desc(total_calculated_cost))
+  ) |>
+  filter(owner_rank <= top_n) |>
+  arrange(Sector, total_calculated_cost) |>
+  mutate(
+    owner_short = str_trunc(as.character(owner), width = 30, side = "right"),
+    owner_short = factor(owner_short, levels = owner_short)
+  ) |>
+  ungroup()
+
+ggplot(plot_data, aes(x = total_calculated_cost, y = owner_short)) +
+  geom_point(size=2, color='blue') +
+  facet_grid(Sector ~ ., scales = "free_y", space = "free_y") +
+  ggtitle(paste('Top', top_n, "Total Calculated Cost in GPU Cluster Projects \nGrouped By Owner")) +
+  xlab("Total Calculated Cost (in billions of USD)") +
+  ylab("") +
+  theme_linedraw() +
+  theme(
+    axis.text.y = element_text(size = 7),  # smaller text
+    strip.text.y = element_text(size = 8, margin = margin(2, 2, 2, 2)),
+    legend.position = "none"
+  )
+```
+
+
+## 4. Benchmarks: Frontier Math
+We will focus on one single benchmark for now: FrontierMath since this is a good test of the upper bound of reasoning and "intelligence" of models, and might exhibit emergent behavior.
+
+From previous bullshit, Outline the trend of major releases of consumer facing products. How does this map onto the trend in compute spending shown in the previous graph?
+```{r}
+# frontier_ai_models <- read_csv("C:/Users/micha/Downloads/frontier_ai_models.csv")
+# frontier_ai_models
+# 
+# library(lubridate)
+# release_trend <- frontier_ai_models |>
+#   filter(year(`Publication date`) >= 2023,
+#          year(`Publication date`) <= 2026) |>
+#   mutate(`Publication date` = as.Date(`Publication date`)) |>
+#   count(`Publication date`, name = "releases") |>
+#   arrange(`Publication date`)
+# 
+# release_cumulative <- release_trend |>
+#   mutate(cumulative_releases = cumsum(releases))
+# 
+# ggplot(release_cumulative, aes(x = `Publication date`, y = cumulative_releases)) +
+#   geom_line(linewidth = 1.2) +
+#   geom_point(size = 2) +
+#   labs(
+#     title = "Cumulative Foundation Model Releases (2023–2026)",
+#     x = "Publication date",
+#     y = "Cumulative count of models"
+#   ) +
+#   theme_minimal()
+```
+PCA Biplot of best performing models? and Time series 
+```{r}
+frontier_merged <- read_csv("C:/Users/micha/Downloads/frontier_merged.csv")
+frontier_merged
+```
+
+
+```{r}
+df_num <- frontier_merged |>
+  select(where(is.numeric)) |>
+  select(where(~ !all(is.na(.)))) |>
+  mutate(across(everything(), ~ ifelse(is.na(.), mean(., na.rm = TRUE), .)))
+
+df_num_imputed <- df_num |>
+  select(where(~ var(.x, na.rm = TRUE) > 0 & !is.na(var(.x, na.rm = TRUE))))
+
+# version for PCA (no Best score + no zero-variance)
+df_num_pca <- df_num |>
+  select(-`Best score (across scorers)`) |>
+  select(where(~ var(.x, na.rm = TRUE) > 0 & !is.na(var(.x, na.rm = TRUE))))
+
+pca <- prcomp(df_num_pca, scale. = TRUE)
+summary(pca)
+
+```
+```{R}
+mat_round <- function(matrix, n = 3) apply(matrix, 2, function(x) round(x, n))
+mat_round(pca$rotation)
+```
+```{R}
+library(redav)
+library(patchwork)
+
+# names(df_num_imputed)
+# constant_cols <- sapply(df_num_imputed, function(x) length(unique(x[!is.na(x)])) == 1)
+# names(df_num_imputed)[constant_cols]
+p1 <- draw_biplot(
+  df_num_imputed,
+  key_axis = "Best score (across scorers)",
+  fix_sign = TRUE,
+  point_color = "grey20",
+  point_labels = TRUE,
+  arrows = FALSE,
+  mult = 5
+)
+
+p2 <- draw_biplot(
+  df_num_imputed,
+  fix_sign = TRUE,
+  point_labels = FALSE,
+  point_color = "grey20",
+  arrows = TRUE,
+  mult = 5
+)
+
+# Side by side
+p1 + p2 + 
+  plot_annotation(
+    title = "Frontier Model Benchmarks (PCA biplots)",
+    subtitle = "Best Scoring Model Indicators"
+  )
+
+# install.packages('ggfortify')
+# library(ggfortify)
+# p <- prcomp(df_num_imputed_clean, scale = TRUE)
+# 
+# autoplot(
+#   p,
+#   loadings = TRUE, # arrows
+#   loadings.label = TRUE, # text
+#   loadings.colour = 'deepskyblue3',
+#   loadings.label.colour = 'deepskyblue3',
+#   loadings.label.repel = TRUE # overlap
+# )
+
+# scores <- pca$x[,1:2]
+# k <- kmeans(scores, centers = 6)
+# scores <- data.frame(scores) |>
+#   mutate(cluster = factor(k$cluster), country = ratings$country)
+# g4 <- ggplot(scores, aes(PC1, PC2, color = cluster, label = country)) +
+#   geom_point() +
+#   geom_text(nudge_y = .2) +
+#   guides(color="none")
+# g4
+```
+```{R}
+print('Sanity check with total contribution to PC1 & PC2')
+loadings_12 <- pca$rotation[, 1:2]
+total_contribution <- sqrt(loadings_12[,1]^2 + loadings_12[,2]^2)
+sort(total_contribution, decreasing = TRUE)
+```
+
+```{r}
+
+
+```
+
+
