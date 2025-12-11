@@ -49,6 +49,7 @@ library(ggplot2)
 library(dplyr)
 library(tidyr)
 library(scales)
+library(lubridate)
 
 compute_stacked <- compute_spend |>
   select(Date, Company, 
@@ -58,29 +59,82 @@ compute_stacked <- compute_spend |>
   pivot_longer(cols = ends_with("compute spend"), 
                names_to = "Category", 
                values_to = "Amount") |>
-  filter(!is.na(Amount))
+  filter(!is.na(Amount)) |>
+  mutate(
+    Date = ymd(Date),
+    Year = year(Date)
+  )
+compute_stacked
+```
 
-ggplot(compute_stacked, aes(x = Date, y = Amount, fill = Category)) +
+```{R}
+ggplot(compute_stacked, aes(x = Year, y = Amount, fill = Category)) +
   geom_col(position = "stack") +  # Stacked bars
   facet_wrap(~Company) +
-  labs(title = "Breakdown of Compute Spend Over Time", 
+  labs(title = "Breakdown of Total Compute Spend Over Time", 
        y = "Amount of Dollars Spent",
        fill = "Expenditure Type") +
   theme_minimal() + 
   theme(
     strip.text = element_text(),
-    strip.background = element_rect(fill = "gray", color = "lightgray")
+    strip.background = element_rect(fill = "gray", color = "lightgray"),
   )
-
 ```
 
 ```{r}
 library(redav)
 p1 <- plot_missing(compute_spend, max_cols = 10, num_char = 7, percent = FALSE)
 p2 <- plot_missing(compute_spend, num_char = 2, percent = TRUE)
-p1 / p2
+p1
+p2
 # plot_missing(compute_spend, , percent=FALSE)
 ```
+```{r}
+usage_reports <- read_csv("C:/Users/micha/Downloads/ai_companies_usage_reports_clean.csv")
+usage_reports
+```
+```{R}
+g1 <- ggplot(usage_reports, aes(Date, `Active users`/ 1e9)) + 
+  # geom_line(color = "grey30") + 
+  geom_point(size = 1) +  
+  geom_smooth(method = "loess", span = 0.5, se = FALSE) +
+  labs(title = "Loess Curve of OpenAI's Monthly Active Users Over Time",
+       x = "Date",
+       y = "Number of Users (in billions)") +
+  theme_minimal()
+
+# Only keep OpenAI rows
+openai_stacked <- compute_stacked |>
+  filter(Company == "OpenAI",
+         Category %in% c("Inference compute spend"))
+  
+g2 <- ggplot() +
+  geom_col(data = openai_stacked, aes(x = Date, y = Amount / 1e9, fill = Category), position = "stack") +
+  geom_point(data = usage_reports, aes(x = Date, y = `Active users` / 1e9), size = 1, color = "black") +
+  geom_smooth(data = usage_reports, aes(x = Date, y = `Active users` / 1e9), method = "loess", span = 0.5, se = FALSE) +
+  labs(title = "OpenAI's Inference Spending overlayed by Monthly Active Users (in billions)",
+       x = "Date",
+       y = "Dollars Spent (bars) / Users (loess curve)") +
+  theme_minimal() + 
+  theme(legend.position = "none")
+
+g1 
+g2
+
+
+# ggplot() +
+#   geom_col(data = openai_stacked, aes(x = Date, y = Amount, fill = Category), position = "stack") +
+#   geom_point(data = usage_reports, aes(x = Date, y = `Active users`), size = 1, color = "black") +
+#   geom_smooth(data = usage_reports, aes(x = Date, y = `Active users`), method = "loess", span = 0.5, se = FALSE) +
+#   labs(title = "OpenAI's Inference Spending overlayed by Monthly Active Users",
+#        x = "Date",
+#        y = "Dollars Spent (stacked bars) / Users (loess curve)") +
+#   theme_minimal()
+```
+In May 2025, key OpenAI news focused on a major corporate restructuring and the announcement of a multi-billion dollar data center project, with CEO Sam Altman also testifying before the U.S. Senate. 
+- limitations of this graph; combined into one y-axis since the dollars spent and number of users have roughly the same number of observations. it just so happens that inference costs align almost 1:1 with the number of users but this is not entirely representative of our data since the total compute costs are not accounted for. this graph will not be suitable should dollars spent outpace the number of users by a (visually) significant amount or vice versa.
+- 
+
 
 (b). Outline the trend of major releases of consumer facing products. How does this map onto the trend in compute spending shown in the previous graph?
 ```{r}
@@ -143,7 +197,7 @@ cost_by_owner <- gpu_clusters_filtered |>
     .groups = "drop"
   )
 
-top_n <- 15  # or 10, etc.
+top_n <- 10  # or 10, etc.
 
 plot_data <- cost_by_owner |>
   group_by(Sector) |>
@@ -170,6 +224,51 @@ ggplot(plot_data, aes(x = total_calculated_cost, y = owner_short)) +
     strip.text.y = element_text(size = 8, margin = margin(2, 2, 2, 2)),
     legend.position = "none"
   )
+```
+```{r}
+library(vcd)
+
+# Get top most frequently appearing countries
+top_countries <- gpu_clusters_filtered |>
+  filter(Certainty %in% c("Confirmed", "Likely")) |>
+  count(Country, sort = TRUE) |>
+  slice_head(n = 6) |>
+  pull(Country)
+print(top_countries)
+
+
+mosaic_data <- gpu_clusters_filtered |>
+  filter(Certainty %in% c("Confirmed", "Likely"),
+         Country %in% top_countries) |>
+  mutate(country_short = str_trunc(Country, width = 15, side = "right"))
+mosaic_data |> group_by(Country) |> count()
+
+
+mosaic_data |>
+  dplyr::select(Certainty, Country, Sector, `Single cluster?`) |>
+  table() |>
+  pairs(
+        space = .15,
+        lower_panel = pairs_mosaic(highlighting = 2, spacing = spacing_equal(0)),
+        upper_panel = pairs_mosaic(spacing = spacing_equal(0)),
+        diag_panel = pairs_barplot(
+          gp_vartext = gpar(fontsize = 8),
+          gp_leveltext = gpar(fontsize = 8),
+          abbreviate = 2),
+        main = "Pairwise Associations: GPU Cluster Characteristics",
+        main_gp = gpar(fontsize = 12)
+      )
+
+# vcd::mosaic(
+#   Certainty ~ Country + Sector, mosaic_data,
+#   direction = c("v", "v", "h"),
+#   highlighting_fill = RColorBrewer::brewer.pal(3, "Accent"),
+#   labeling_args = list(
+#     gp_labels   = gpar(fontsize = 6),
+#     gp_varnames = gpar(fontsize = 10)
+#   )
+# )
+
 ```
 
 
