@@ -1,0 +1,230 @@
+name,owner,date,training_compute,type,total_compute_available
+Qwen3-Omni-30B-A3B,Alibaba,2025-09-22,3.6e+22,model,
+AgentFounder-30B,Alibaba,2025-09-16,6.5367e+23,model,
+Qwen3-Max,Alibaba,2025-09-05,1.512e+25,model,
+gpt-oss-120b,OpenAI,2025-08-05,4.94e+24,model,
+gpt-oss-20b,OpenAI,2025-08-05,5.49e+23,model,
+Qwen3-Coder-480B-A35B,Alibaba,2025-07-22,1.575e+24,model,
+Grok 4,xAI,2025-07-09,5.0000000000001e+26,model,
+FGN,Google DeepMind,2025-06-12,9.61895088e+21,model,
+Qwen3-235B-A22B,Alibaba,2025-04-29,4.752e+24,model,
+QwQ-32B,Alibaba,2025-03-06,3.51e+24,model,
+GPT-4.5,OpenAI,2025-02-27,2.1000001e+26,model,
+Grok 3,xAI,2025-02-17,3.5000000000000006e+26,model,
+Amazon Nova Pro,Amazon,2024-12-03,6.000010000000001e+24,model,
+NVLM-X 72B,NVIDIA,2024-10-22,3.0398181e+24,model,
+NVLM-H 72B,NVIDIA,2024-10-22,3.02e+24,model,
+NVLM-D 72B,NVIDIA,2024-10-22,3.02e+24,model,
+Qwen2.5-72B,Alibaba,2024-09-19,7.8e+24,model,
+Qwen2.5 Instruct (72B),Alibaba,2024-09-19,7.8516e+24,model,
+Qwen2.5-32B,Alibaba,2024-09-17,3.51e+24,model,
+Grok-2,xAI,2024-08-13,2.9599999999999996e+25,model,
+Nemotron-4 340B,NVIDIA,2024-06-14,1.7999999999999999e+25,model,
+Qwen2-72B,Alibaba,2024-06-07,3.02e+24,model,
+GenCast,Google DeepMind,2024-05-01,8.169984e+20,model,
+Reka Core,Reka AI,2024-04-15,8.400010000000001e+24,model,
+Inflection-2.5,Inflection AI,2024-03-07,8.000001e+24,model,
+Aramco Metabrain AI,Saudi Aramco,2024-03-04,1.05e+25,model,
+Stable Diffusion 3,Stability AI,2024-02-22,5e+22,model,
+Qwen1.5-72B,Alibaba,2024-02-04,1.3e+24,model,
+FunSearch,Google DeepMind,2023-12-14,3.87e+23,model,
+Gemini 1.0 Ultra,Google DeepMind,2023-12-06,5.0000000001e+25,model,
+Qwen-72B,Alibaba,2023-11-30,1.3e+24,model,
+Inflection-2,Inflection AI,2023-11-22,1.001e+25,model,
+Nemotron-3-8B,NVIDIA,2023-11-15,1.8e+23,model,
+GraphCast,Google DeepMind,2023-11-14,2.1e+22,model,
+Grok-1,xAI,2023-11-04,2.90000000001e+24,model,
+ChatGLM3-6B,Zhipu AI,2023-10-27,5.04e+22,model,
+Amazon Titan,Amazon,2023-09-28,4.7999999999999996e+24,model,
+Falcon-180B,Technology Innovation Institute,2023-09-06,3.76e+24,model,
+SigLIP 400M,Google DeepMind,2023-03-27,4.9467301e+21,model,
+GPT-4,OpenAI,2023-03-15,2.1e+25,model,
+Falcon-40B,Technology Innovation Institute,2023-03-15,2.4e+23,model,
+VALL-E,Microsoft,2023-01-05,1.01e+19,model,
+CaLM,University of Oxford,2022-12-19,2.9e+19,model,
+GPT-3.5,OpenAI,2022-11-28,2.578e+24,model,
+Fusion in Encoder,Samsung,2022-11-18,1.3e+20,model,
+eDiff-I,NVIDIA,2022-11-02,5.46e+19,model,
+Whisper,OpenAI,2022-09-21,4.2072663e+21,model,
+BEIT-3,Microsoft,2022-08-22,7e+19,model,
+AlexaTM 20B,Amazon,2022-08-02,2.04374016e+23,model,
+DALL·E 2,OpenAI,2022-04-06,3.3695784e+23,model,
+GPT-NeoX-20B,EleutherAI,2022-02-09,9.31627008e+22,model,
+InstructGPT 175B,OpenAI,2022-01-27,3.19181e+23,model,
+Florence,Microsoft,2021-11-22,4.831e+22,model,
+Turing ULRv5,Microsoft,2021-09-28,2.8983951e+22,model,
+HyperCLOVA 204B,NAVER,2021-09-10,2.0000000001e+23,model,
+Codex,OpenAI,2021-07-07,7.344e+22,model,
+DeBERTa,Microsoft,2021-06-10,2.588e+22,model,
+ADM,OpenAI,2021-05-11,6.2e+21,model,
+PLUG,Alibaba,2021-04-19,3.5997696e+22,model,
+M6-T,Alibaba,2021-03-05,5.5e+21,model,
+DALL-E,OpenAI,2021-01-05,4.7e+22,model,
+CLIP (ViT L/14@336px),OpenAI,2021-01-05,1.05e+22,model,
+GPT-3 175B (davinci),OpenAI,2020-05-28,3.14e+23,model,
+Turing-NLG,Microsoft,2020-02-13,1.57e+22,model,
+OpenAI Five Rerun,OpenAI,2019-12-13,1.3e+22,model,
+OpenAI Five,OpenAI,2019-12-13,6.7e+22,model,
+Megatron-LM (8.3B),NVIDIA,2019-09-17,9.1e+21,model,
+Megatron-LM (1.2B),NVIDIA,2019-09-17,1.13e+22,model,
+Megatron-BERT,NVIDIA,2019-09-17,2.2e+22,model,
+AWD-LSTM + MoS + Partial Shuffled,University of Texas at Austin,2019-06-10,3.15e+17,model,
+MuseNet,OpenAI,2019-04-25,2.208301056e+20,model,
+BERT-Large-CAS (PTB+WT2+WT103),Amazon,2019-04-20,1.5405e+20,model,
+WeNet (Penn Treebank),Amazon,2019-04-08,7.30000001e+17,model,
+GPT-2 (1.5B),OpenAI,2019-02-14,1.920000000001e+21,model,
+StyleGAN,NVIDIA,2018-12-12,3.93e+16,model,
+Big-Little Net (speech),IBM,2018-07-10,4.290048e+17,model,
+Big-Little Net,IBM,2018-07-10,2.46048e+17,model,
+GPT-1,OpenAI,2018-06-01,1.7578125e+19,model,
+OpenAI TI7 DOTA 1v1,OpenAI,2017-08-11,6.046095222592002e+20,model,
+"Variational (untied weights, MC) LSTM (Large)",University of Cambridge,2015-12-16,5886144000000000.0,model,
+ResNet-152 (ImageNet),Microsoft,2015-12-10,1.041408e+19,model,
+ResNet-101 (ImageNet),Microsoft,2015-12-10,7.004e+18,model,
+VGG19,University of Oxford,2014-09-04,1.1e+19,model,
+VGG16,University of Oxford,2014-09-04,1.2291e+19,model,
+RCTM,University of Oxford,2013-10-01,9331200000000000.0,model,
+LISSOM,University of Texas at Austin,1995-11-27,195544800000.0,model,
+TD-Gammon,IBM,1992-05-01,18232157622832.703,model,
+NetTalk (transcription),Princeton University,1987-06-06,28328002560.0,model,
+NetTalk (dictionary),Princeton University,1987-06-06,27664065000.0,model,
+LTE speaker verification system,IBM,1966-11-01,105917060.0,model,
+Print Recognition Logic,IBM,1963-01-01,22500000.0,model,
+Samuel Neural Checkers,IBM,1959-07-01,428400000.0,model,
+xAI Colossus Memphis Phase 3,xAI,2025-07-22,,cluster,275795.85649723833
+xAI Colossus Memphis Phase 2,xAI,2025-02-18,,cluster,200000.000002945
+OpenAI/Microsoft Goodyear Arizona,OpenAI,2024-10-02,,cluster,100000.00000147166
+xAI Colossus Memphis Phase 1,xAI,2024-09-02,,cluster,100000.00000147166
+AWS EC2 P5 UltraClusters,Amazon,2023-07-26,,cluster,20000.000000294494
+Microsoft GPT-4 cluster,OpenAI,2022-04-30,,cluster,7882.769075406651
+Microsoft Azure Eagle,Microsoft,2023-11-15,,cluster,14400.000000212056
+NVIDIA MLPerf v4.0 Submission 2024,NVIDIA,2024-06-12,,cluster,11616.000000170978
+NVIDIA CoreWeave Eos-DFW Phase 1,NVIDIA,2023-11-08,,cluster,10752.000000158252
+Microsoft Azure MLPerf 3.1 Submission,Microsoft,2023-11-08,,cluster,10752.000000158252
+Google TPUv5e,Google DeepMind,2023-11-08,,cluster,10116.721576702756
+Google Oklahoma TPU v4 Pods,Google DeepMind,2022-05-12,,cluster,4553.410813609226
+Amazon Titan training cluster,Amazon,2023-01-15,,cluster,4338.676099103813
+Magic G4 Google Cloud Rental,Google DeepMind,,,cluster,8000.000000117801
+Gemini 1.0 Ultra training cluster A,Google DeepMind,2023-08-20,,cluster,3984.234461908105
+Gemini 1.0 Ultra training cluster B,Google DeepMind,2023-08-20,,cluster,3984.234461908105
+Aramco Groq Inference Cluster,Saudi Aramco,2025-01-15,,cluster,7475.366346749768
+Inflection-2 training cluster,Inflection AI,2023-07-30,,cluster,5000.000000073624
+NVIDIA Eos Phase 2,NVIDIA,2023-11-01,,cluster,4608.000000067861
+Azure OpenAI GPT-3 Cluster,OpenAI,2020-04-15,,cluster,631.6321374524499
+Microsoft Azure ND H100 v5 VM,Microsoft,2023-03-13,,cluster,4000.0000000589
+NVIDIA Coreweave MLPerf v3.0 Submission 2023,Inflection AI,2023-06-01,,cluster,3584.000000052779
+Saudi Aramco Dammam-7,Saudi Aramco,2021-01-21,,cluster,499.7473471523815
+Microsoft Azure Meta AI Rental,Microsoft,2022-05-27,,cluster,1702.678120287825
+NVIDIA Selene Phase 2,NVIDIA,2020-11-30,,cluster,1412.592218312862
+Paper on Megatron-Turing,Microsoft,2022-01-28,,cluster,1412.592218312862
+NVIDIA SATURN V Phase 3,NVIDIA,2020-05-14,,cluster,88.28701364455384
+NVIDIA SATURN V Phase 2,NVIDIA,2018-03-26,,cluster,333.5017685748941
+Samsung SSC4,Samsung,2025-06-15,,cluster,2496.0000000367363
+AWS EC2 P4d,Amazon,2020-11-02,,cluster,1261.2430520650546
+Ezra-1 Stability AI AWS Cluster,Amazon,2022-07-20,,cluster,1261.2430520650546
+Paper on Falcon 180B,Amazon,2023-11-28,,cluster,1291.5128853146175
+NVIDIA Israel-1 Phase 2,NVIDIA,2024-11-20,,cluster,2048.00000003016
+Reka H100 Rental,Reka AI,2023-12-15,,cluster,2000.0000000294333
+Paper on AFM-server,Google DeepMind,2024-06-10,,cluster,1138.3527034023157
+Google TensorFlow Research Cloud,Google DeepMind,2017-05-17,,cluster,93.13794846018872
+IBM Vela,IBM,2022-05-30,,cluster,908.0949974868404
+Paper on PaLM,Google DeepMind,2022-04-05,,cluster,853.7645275517368
+Microsoft Ares/Maia,Microsoft,2023-11-15,,cluster,827.892875201677
+Microsoft Explorer-WUS3,Microsoft,2023-06-01,,cluster,371.5816068776298
+Google MLPerf 0.7 Submission,Google DeepMind,2020-07-29,,cluster,254.57705912451675
+NVIDIA Selene Phase 1,NVIDIA,2020-06-22,,cluster,706.2961091564309
+Paper on Gopher,Google DeepMind,2021-12-08,,cluster,254.57705912451675
+NAVER Corp Sejong,NAVER,2023-11-15,,cluster,706.2961091564309
+Microsoft Azure Voyager-EUS2,Microsoft,2021-11-01,,cluster,665.9363314903499
+ND A100 v4,Microsoft,2021-06-01,,cluster,630.6215260325272
+Samsung SSC-21,Samsung,2021-11-01,,cluster,554.9469429086291
+Google TPU v4 Pod,Google DeepMind,2021-05-19,,cluster,569.1763517011531
+NVIDIA Eos Phase 1,NVIDIA,2023-05-22,,cluster,1024.0000000150794
+NVIDIA Israel-1 Phase 1,NVIDIA,2023-11-23,,cluster,1024.0000000150794
+NVIDIA Helios,NVIDIA,2023-11-15,,cluster,1024.0000000150794
+IBM Blue Vela,IBM,2024-07-07,,cluster,1024.0000000150794
+Paper on Mamba 2 Hybrid,NVIDIA,2024-06-12,,cluster,1024.0000000150794
+Paper on Gemma 2 9B,Google DeepMind,2024-06-27,,cluster,569.1763517011531
+AWS Fast BERT Training,Amazon,2019-12-03,,cluster,129.35826175026193
+Paper on AlphaCode,Google DeepMind,2022-02-08,,cluster,521.0965133982759
+Microsoft Azure Pioneer-EUS,Microsoft,2021-06-01,,cluster,413.6877210773397
+Microsoft Azure Pioneer-WEU,Microsoft,2021-06-01,,cluster,413.6877210773397
+Microsoft Azure Pioneer-WUS2,Microsoft,2021-06-01,,cluster,413.6877210773397
+Microsoft Azure Pioneer-SCUS,Microsoft,2021-06-01,,cluster,413.6877210773397
+Naver DGX Superpod,NAVER,2020-10-05,,cluster,353.1480545782183
+Paper on ViT,Google DeepMind,2021-06-08,,cluster,127.28852956225732
+NVIDIA Taipei-1,NVIDIA,2024-06-01,,cluster,558.8276907611325
+Paper on AlphaZero,Google DeepMind,2017-12-05,,cluster,232.4406265825018
+Paper on HyperCLOVA,NAVER,2021-09-10,,cluster,322.8782213286543
+NVIDIA DGX SuperPOD 2019,NVIDIA,2019-06-17,,cluster,97.01869631269646
+Nemotron-3-8B training cluster,NVIDIA,2024-04-04,,cluster,322.8782213286543
+Microsoft Azure Immunity Bio,Microsoft,2020-04-01,,cluster,78.95401718155685
+Paper on CoCa,Google DeepMind,2022-05-04,,cluster,284.58817585057653
+Paper on Phi-3.5-Mini,Microsoft,2024-04-22,,cluster,512.0000000075355
+Princeton Della Phase 2,Princeton University,2024-03-15,,cluster,395.6382011174993
+Paper on DALL-E,OpenAI,2021-02-24,,cluster,64.67913087513097
+Paper on GLM-130B,Zhipu AI,2022-10-05,,cluster,242.15866599649075
+Saudi Aramco Tuwaiq-1,Saudi Aramco,2024-06-01,,cluster,416.00000000612255
+NVIDIA SATURN V Phase 1,NVIDIA,2016-11-01,,cluster,9.373623042078371
+Paper on Flamingo ,Google DeepMind,2022-04-29,,cluster,213.4411318879324
+NVIDIA Cambridge-1,NVIDIA,2021-06-01,,cluster,201.79888833040883
+Microsoft Azure ND v2 Largest Stated,Microsoft,2019-11-18,,cluster,50.53057099619643
+Google TPUv3 POD Generic,Google DeepMind,2019-05-07,,cluster,63.644264781129166
+Paper on Noisy Student,Google DeepMind,2019-11-11,,cluster,63.644264781129166
+Paper on Meena,Google DeepMind,2020-01-27,,cluster,63.644264781129166
+Paper on GShard,Google DeepMind,2020-10-30,,cluster,63.644264781129166
+Paper on Pseudo Labels,Google DeepMind,2020-03-23,,cluster,63.644264781129166
+Paper on Switch transformer,Google DeepMind,2021-01-11,,cluster,63.644264781129166
+TACC Frontera,University of Texas at Austin,2019-08-31,,cluster,32.35371399744464
+Paper on LaMDA,Google DeepMind,2022-01-20,,cluster,63.644264781129166
+Paper on Florence,Microsoft,2021-11-22,,cluster,161.43911066432713
+Paper on CodeFuse,Alibaba,2023-10-10,,cluster,161.43911066432713
+Paper on Stable LM,Stability AI,2023-01-18,,cluster,161.43911066432713
+NVIDIA Circe,NVIDIA,2018-11-01,,cluster,36.38201111726117
+Microsoft Research Hypercluster,Microsoft,2019-11-01,,cluster,36.38201111726117
+Paper on GLaM,Google DeepMind,2021-12-13,,cluster,142.29408792528824
+Paper on Minerva,Google DeepMind,2022-06-29,,cluster,142.29408792528824
+Paper on PaLI,Google DeepMind,2022-09-14,,cluster,142.29408792528824
+Paper on Falcon Mamba 7B,Technology Innovation Institute,2024-07-24,,cluster,256.0000000037698
+Paper on ViT-22B,Google DeepMind,2023-02-10,,cluster,142.29408792528824
+NVIDIA In-house DGX A100 Cluster,NVIDIA,2020-05-14,,cluster,126.12430520650648
+University of Oxford Jade2,University of Oxford,2020-11-01,,cluster,31.83425972760378
+Paper on CogView,Alibaba,2021-05-26,,cluster,32.33956543756574
+Paper on M6-T,Alibaba,2021-05-31,,cluster,30.318342597717876
+Paper on Megatron-LM,NVIDIA,2019-09-17,,cluster,32.33956543756574
+University of Cambridge Wilkes-3,University of Cambridge,2021-06-01,,cluster,100.89944416520522
+Princeton Della Phase 1,Princeton University,2023-02-01,,cluster,99.6382011131394
+Paper on ALBERT,Google DeepMind,2019-09-26,,cluster,31.82213239056458
+Paper on T5,Google DeepMind,2019-10-23,,cluster,31.82213239056458
+Paper on ALIGN,Google DeepMind,2021-02-11,,cluster,31.82213239056458
+Paper on Stable Diffusion,Stability AI,2021-12-20,,cluster,80.71955533216355
+Paper on Pythia,EleutherAI,2023-04-03,,cluster,80.71955533216355
+Paper on Polyglot,EleutherAI,2023-06-04,,cluster,80.71955533216355
+IBM DYEUS,IBM,2019-11-18,,cluster,18.69631126859268
+Paper on AlphaStar,Google DeepMind,2019-10-30,,cluster,23.86659929292344
+NVIDIA SATURN V Volta,NVIDIA,2017-11-01,,cluster,16.675088428744704
+TACC Lonestar6,University of Texas at Austin,2022-11-14,,cluster,79.45831228009851
+NVIDIA Tethys,NVIDIA,2021-11-01,,cluster,50.449722082602605
+Samsung SSC-21 Scalable Module,Samsung,2021-11-01,,cluster,45.40474987434201
+Google Hypercomputer TPU v5p pod,Google DeepMind,2023-12-06,,cluster,4156.28095003594
+AWS EC2 Trn1,Amazon,2022-10-11,,cluster,6366.851945520705
+Microsoft Air Gapped Supercomputer,Microsoft,2024-05-07,,cluster,
+Paper on Gemma 2 27B,Google DeepMind,2024-06-27,,cluster,2850.021222881789
+Paper on AFM-on-device,Google DeepMind,2024-06-10,,cluster,950.0070742939296
+Alibaba Cloud in Mexico,Alibaba,2025-02-15,,cluster,
+Alibaba Cloud in Singapore,Alibaba,2015-07-02,,cluster,
+Alibaba Cloud in Malaysia Phase 2,Alibaba,2025-07-01,,cluster,
+Alibaba Cloud in Thailand Phase 2,Alibaba,2025-01-15,,cluster,
+Alibaba Cloud in South Korea Phase 2,Alibaba,2025-06-15,,cluster,
+Alibaba Cloud in Malaysia Phase 1,Alibaba,2017-07-01,,cluster,
+Alibaba Cloud in Indonesia,Alibaba,2018-07-01,,cluster,
+Alibaba Cloud in Thailand Phase 1,Alibaba,2022-07-01,,cluster,
+Alibaba Cloud in Philippines Phase 1,Alibaba,2021-07-01,,cluster,
+Alibaba Cloud in Japan,Alibaba,2016-07-01,,cluster,
+Alibaba Cloud in South Korea Phase 1,Alibaba,2022-07-01,,cluster,
+Alibaba Cloud in Virginia,Alibaba,2015-07-01,,cluster,
+Alibaba Cloud in Silicon Valley,Alibaba,2014-07-01,,cluster,
+Alibaba Cloud in Germany,Alibaba,2016-07-01,,cluster,
+Alibaba Cloud in United Kingdom,Alibaba,2018-07-01,,cluster,
+Alibaba Cloud in UAE,Alibaba,2016-07-01,,cluster,
+Alibaba Cloud in Saudi Arabia,Alibaba,2022-06-07,,cluster,

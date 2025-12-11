@@ -14,7 +14,7 @@ Artificial intelligence has seen an explosion in growth and adoption in the last
 
 Some questions we are considering:
 
-- How do reported active user metrics rela  te to cluster compute capacity (H100 equivalents, Power MW)?
+- How do reported active user metrics relate to cluster compute capacity (H100 equivalents, Power MW)?
     - Common companies between datasets
     - How usage-compute capacity evolves over time
     - Which countries/industry sectors dominate compute-usage as a whole?

@@ -44,7 +44,7 @@
     "href": "data.html#other-problems-and-limitations-of-the-data",
     "title": "2  Data",
     "section": "2.3 Other problems and limitations of the data",
-    "text": "2.3 Other problems and limitations of the data",
+    "text": "2.3 Other problems and limitations of the data\n\ninconsistent location format in the GPU cluster dataset",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Data</span>"
     ]
