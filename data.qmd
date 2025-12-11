@@ -1,7 +1,49 @@
 # Data
 
-teasd;lfjas;dlkfja;skj
-
 ## Description
+
+- Collected from Epoch AI
+    - Who exactly are them
+    - Who has trusted their data previously
+- Here are collection methods (inlude links to their pages on that)
+- We divide our dataset as inputs and output for AI models and AI companies:
+    - AI Models:
+        - Inputs:
+            - GPU Clusters
+            - Compute Spend
+            - Hardware advacements
+        - Outpus:
+            - Performance on model benchmarks
+    - AI Companies:
+        - Inputs:
+            - Staffing
+            - Funding
+        - Outputs:
+            - Usage of AI tools
+            - Revenue
+- include table of datasets used with the following infomration:
+    - title
+    - description
+    - frequency of updates
+    - dimensions
+    - notes
+- Problems with the data
+
+Our data is collected by an non-profit organization called [Epoch AI](https://epoch.ai/). From their (website)[https://epoch.ai/about], Epoch AI's mission is:
+
+> Epoch AI is a multidisciplinary non-profit research institute investigating the future of artificial intelligence. We examine the driving forces behind AI and forecast its economic and societal impact. We emphasize making our research accessible through our reports, models and visualizations to help ground the discussion of AI on a solid empirical footing. Our goal is to create a healthy scientific environment, where claims about AI are discussed with the rigor they merit.
+
+In the past, Epoch AI's work has been cited in [Our World in Data](https://ourworldindata.org/brief-history-of-ai), [Time Magazine](https://time.com/6300942/ai-progress-charts/), by [Google CEO Sundar Pichai](https://blog.google/technology/ai/bard-google-ai-search-updates/), and other reputable sources.
+
+### Collection Methods
+
+Epoch AI collects data on variety of different components related to AI progress including hardware advancements, GPU cluster advanacements, model releases, AI company funding, etc. For the most part, Epoch uses a mix of automated collections methods (for example, automatic updates of AI benchmark scores) and manual data collection from public sources of information (company blog posts, new posts, public satellite imagery). Here we link to the full set of data collection methodologies:
+
+- [ML Hardware Data](https://epoch.ai/data/machine-learning-hardware-documentation#inclusion)
+- [AI Company Data](https://epoch.ai/data/ai-companies-documentation#inclusion)
+- [GPU Cluster Data](https://epoch.ai/data/gpu-clusters-documentation#inclusion)
+- [Frontier Data Centers Data](https://epoch.ai/data/data-centers-documentation#methodology)
+- [AI Model Data](https://epoch.ai/data/ai-models-documentation#inclusion)
+        
 
 ## Missing value analysis
