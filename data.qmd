@@ -2,7 +2,7 @@
 
 ## Description
 
-Our data is collected by an non-profit organization called [Epoch AI](https://epoch.ai/). From their (website)[https://epoch.ai/about], Epoch AI's mission is:
+Our data is collected by a non-profit organization called [Epoch AI](https://epoch.ai/). From their (website)[https://epoch.ai/about], Epoch AI's mission is:
 
 > Epoch AI is a multidisciplinary non-profit research institute investigating the future of artificial intelligence. We examine the driving forces behind AI and forecast its economic and societal impact. We emphasize making our research accessible through our reports, models and visualizations to help ground the discussion of AI on a solid empirical footing. Our goal is to create a healthy scientific environment, where claims about AI are discussed with the rigor they merit.
 
@@ -14,7 +14,7 @@ Generally, we frame our work in terms of inputs factors and output results and f
     - Inputs:
         - GPU Clusters
         - Compute Spend
-    - Outpus:
+    - Outputs:
         - Performance on model benchmarks
 - AI Companies:
     - Inputs:
@@ -26,7 +26,7 @@ Generally, we frame our work in terms of inputs factors and output results and f
 
 ### Collection Methods
 
-Epoch AI collects data on variety of different components related to AI progress including hardware advancements, GPU cluster advanacements, model releases, AI company funding, etc. For the most part, Epoch uses a mix of automated collections methods (for example, automatic updates of AI benchmark scores) and manual data collection from public sources of information (company blog posts, new posts, public satellite imagery). Here we link to the full set of data collection methodologies:
+Epoch AI collects data on variety of different components related to AI progress including hardware advancements, GPU cluster advancements, model releases, AI company funding, etc. For the most part, Epoch uses a mix of automated collections methods (for example, automatic updates of AI benchmark scores) and manual data collection from public sources of information (company blog posts, new posts, public satellite imagery). Here we link to the full set of data collection methodologies:
 
 - [GPU Cluster Data](https://epoch.ai/data/gpu-clusters-documentation#inclusion)
 - [AI Company Data](https://epoch.ai/data/ai-companies-documentation#inclusion)
@@ -37,7 +37,7 @@ Epoch AI collects data on variety of different components related to AI progress
 
 | Title | Description | Frequency of Updates | Dimensions | Notes |
 |-------|-------------|---------------------|------------|-------|
-|  GPU Clusters     |    Dataset listing planned, existing, and previous GPU clusters         |         Daily            |      786 rows,  55 columns     |   Daily refreshes, but data may not necesarily be updated daily.    |
+|  GPU Clusters     |    Dataset listing planned, existing, and previous GPU clusters         |         Daily            |      786 rows,  55 columns     |   Daily refreshes, but data may not necessarily be updated daily.    |
 |  AI Companies     |      Various different datasets pertaining to AI company revenue, compute spend, staffing, funding rounds, user usage, and general information       |         Daily            |     Various datasets       |       |
 |   AI Models    |     Dataset listing AI models over the years (including primitive models)        |         Daily            |     3000+ rows, 56 columns       |  Divided into "Frontier", "Notable", and "Large Scale" models   |
 | AI Benchmark Data      |   A collection of different datasets of ML model performance on different benchmarks          |      not found               |     Various datasets       |       |
