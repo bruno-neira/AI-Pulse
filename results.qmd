@@ -20,17 +20,6 @@ library(lubridate)
 library(redav)
 library(patchwork)
 library(vcd)
-
-# library(readr)
-# compute_spend <- read.csv("./Data/ai_companies_dataset/ai_companies_compute_spend.csv", 
-#                          sep = ",", 
-#                          quote = '"', 
-#                          fill = TRUE, 
-#                          stringsAsFactors = FALSE)
-# 
-# compute_spend
-# lines <- readLines("C:/Users/micha/Downloads/AI-Pulse/Data/ai_companies_dataset/ai_companies_compute_spend.csv", n=5)
-# print(lines)
 ```
 
 Data loading:
@@ -140,21 +129,10 @@ plot_data <- cost_by_owner |>
     owner_short = factor(owner_short, levels = owner_short)
   ) |>
   ungroup()
-
-# vcd::mosaic(
-#   Certainty ~ Country + Sector, mosaic_data,
-#   direction = c("v", "v", "h"),
-#   highlighting_fill = RColorBrewer::brewer.pal(3, "Accent"),
-#   labeling_args = list(
-#     gp_labels   = gpar(fontsize = 6),
-#     gp_varnames = gpar(fontsize = 10)
-#   )
-# )
-
 ```
 
 
-## Compute Spend and Usage
+## Are User Growth and Inference Costs Rising Together?
 
 Looking at active user metrics as they relate to cluster compute capacity -- we wanted to start off simple with a scatterplot and trendline to give a taste of the scale and direction the industry of AI is heading towards. Let's begin by looking at the elephant in the room, OpenAI:
 
@@ -169,14 +147,6 @@ g1 <- ggplot(usage_reports, aes(Date, `Active users`/ 1e9)) +
   theme_minimal()
 
 g1
-# ggplot() +
-#   geom_col(data = openai_stacked, aes(x = Date, y = Amount, fill = Category), position = "stack") +
-#   geom_point(data = usage_reports, aes(x = Date, y = `Active users`), size = 1, color = "black") +
-#   geom_smooth(data = usage_reports, aes(x = Date, y = `Active users`), method = "loess", span = 0.5, se = FALSE) +
-#   labs(title = "OpenAI's Inference Spending overlayed by Monthly Active Users",
-#        x = "Date",
-#        y = "Dollars Spent (stacked bars) / Users (loess curve)") +
-#   theme_minimal()
 ```
 
 For this graph, we used the Loess method to see if we see could extrapolate some patterns out of our noisy user-metrics
@@ -233,7 +203,7 @@ Back to the analysis though, it just so happens that inference costs align almos
 
 ## GPU Clusters
 
-### GPU Clusters and Model Development Timeline
+### How Closely Are New Models Tied to New Compute Infrastructure?
 
 ```{r}
 library(ggplot2)
@@ -331,7 +301,7 @@ xAI (behind the Grok set of models) provides an interesting example of a clear c
 
 Overall, the this plot reveals the strengths and weaknesses of different players in the AI ecosystem. Google, being a legacy tech company which has always required heavy computational resources, already had many compute centers before releasing their first model. Alibaba follows a similar trend. On the other hand, an AI-first company like OpenAI likely had to outsource their model training compute to other companies before having their own clusters. 
 
-### Cumulative Compute Over Time by Organization
+### Do Companies Build Clusters Before Models or Models Before Clusters?
 
 ```{r}
 library(ggplot2)
@@ -393,7 +363,7 @@ ggplot() +
 
 We can further understand the relationship between cluster development and model development by looking at similar graphs which instead plot compute capacity over time with model release dates overlaid. Particularly we are plotting cumulative compute capacity for major companies over time. We derive the cumulative compute available to companies over time as the sum of compute for their data centers. For these graph, we define cluster compute in terms of number of H100 equivalents (H100 being a popular GPU). We only plot notable companies with clusters to focus our results. Above is an example with OpenAI.
 
-### Cumulative Compute Over Time by Organization (Faceted)
+### Is Everyone Scaling Compute at the Same Pace?
 
 ```{r}
 library(ggplot2)
@@ -512,7 +482,10 @@ Note: The data from GPU clusters is more suited for quantitative rather than qua
 - We see sharp associations between certainty of the GPU cluster's status and the particular sector the frontier model developer is involved with (big differences in the rectangle areas on the bottom right triangle). When the certainty was likely, we see that the pair-plot section becomes dominated for sectors.
 - In each variable, the US had a fairly dominant proportion of each subrectangle. This makes sense intuitively from what we observe about day-to-day developments in AI; however, this could also suggest that our dataset is imbalanced (oversampling of US based companies).
 
-### GPU Cluster Cost
+### How does OpenAI rank in cluster cost? Is the public sector keeping up?
+
+Now that we know the impact of variables such as sector and certainty in our dataset from our mosaic, we can now have a more birds-eye view of the industry. Seeing our top AI companies in terms of GPU cluster costs in the Cleveland Dot Plot below reveals a couple interesting things:
+
 
 ```{r}
 ggplot(plot_data, aes(x = total_calculated_cost, y = owner_short)) +
@@ -528,6 +501,12 @@ ggplot(plot_data, aes(x = total_calculated_cost, y = owner_short)) +
     legend.position = "none"
   )
 ```
+
+OpenAI is actually trailing behind MetaAi and xAI in ~$3b and ~$6b respectively despite being the center of much of our analysis.
+- Anthropic does not make the cut into the top 10, or even top 20 when peering at previous iterations of the graph. Still, comparing a company’s cluster costs to how well-known or widely used their llm is, this does not indicate that Anthropic is an overachiever anymore than it indicates that xAI or MetaAi are underachievers.
+- Almost every cluster owner in the public sector was outcompeted by owners in the private sector except for the US Department of Energy. The DOE also spent around $1-1.5b more than OpenAI.
+- Companies that were under the label of private/public had the least calculated costs in GPU clusters.
+
 
 ## Dataset Size Over Time
 
@@ -574,7 +553,7 @@ ggplot(dataset_plot_data, aes(x = `Publication date`, y = `Training dataset size
 
 This graph simply plots dataset size over time. We adjust the y-axis to be on a log scale, meaning that seemingly linear increases actually correspond to exponential increases in non-log scales. At first it is hard to discern any notable trends other than a clear increase in recent year of dataset size.
 
-### Dataset Size Over Time with Key Models
+### Are Datasets Growing Faster Because of New Model Architectures?
 
 ```{r}
 library(ggplot2)
@@ -772,7 +751,7 @@ ggplot(parameters_plot_data, aes(x = `Publication date`, y = Parameters)) +
 
 In this plot we see a trend that follows almost exactly the same trend as the trends in dataset size. Until the the transformer, parameter count is increase rapidly (exponentially, in fact) already, but once the transformer is introduced we start to see an even more rapid increase.
 
-## Training Time Analysis
+## Is Compute Supply Finally Catching Up With Model Demands?
 
 So overall, we see both an exponential increases in the demand of compute (increases in dataset size and model size) and exponential increases in the supply of compute (GPU cluster computer availability). Naturally, we can wonder whether the supply of compute is keeping pace with the demand, or is the demand putting strain on the supply.
 
@@ -815,7 +794,9 @@ ggplot(training_times, aes(x = `First Operational Date`, y = `Training time (hou
 
 Here we plot the average training time in hours for the top 10 best models at the time of the first operational date of the best GPU cluster at the time of its opening. Simply put, we graph the training time of the best models on the best GPU cluster of the time. We see a really interesting trend here. If compute supply where to keep pace with compute demand, we would expect there to be no change in average training time. Instead, we see that in that in the early 2020s there is an exponential increase in the training time of best models (even using the best GPU cluster). However, nearing 2024 and 2025, we see that compute availability starts to catch up.
 
-## Benchmarks
+## What Factors Explain Most of the Variation in Benchmark Performance?
+
+The purpose of PCA (principle component analysis) is to reduce dimensionality by finding a few linear combinations of the variables that capture most of the variance. In this case, we wanted to see how different quantitative variables contributed to the frontier AI models with the best score.
 
 ```{r}
 # names(df_num_imputed)
@@ -847,34 +828,17 @@ p1 + p2 +
     subtitle = "Best Scoring Model Indicators"
   )
 
-# install.packages('ggfortify')
-# library(ggfortify)
-# p <- prcomp(df_num_imputed_clean, scale = TRUE)
-# 
-# autoplot(
-#   p,
-#   loadings = TRUE, # arrows
-#   loadings.label = TRUE, # text
-#   loadings.colour = 'deepskyblue3',
-#   loadings.label.colour = 'deepskyblue3',
-#   loadings.label.repel = TRUE # overlap
-# )
-
-# scores <- pca$x[,1:2]
-# k <- kmeans(scores, centers = 6)
-# scores <- data.frame(scores) |>
-#   mutate(cluster = factor(k$cluster), country = ratings$country)
-# g4 <- ggplot(scores, aes(PC1, PC2, color = cluster, label = country)) +
-#   geom_point() +
-#   geom_text(nudge_y = .2) +
-#   guides(color="none")
-# g4
-
 pca <- prcomp(df_num_pca, scale. = TRUE)
 summary(pca)
 
 
 ```
+
+
+In the first table below, PC1 and PC2 contribute to a majority (~60% = PC2 cumulative proportion) of the total variation. With this information, we plotted our benchmarks on the above graphs for PC1 and PC2. The left graph shows how each row, or model, compares in score. For example, row 26 (the Grok 4 model in the frontier_merged dataset) has the highest performance by a wide margin. This makes sense because when you look at the right graph, we can draw a perpendicular line from that bottom point to each of our most important vectors (prolonged), and the distance to each of the intersections will be high.
+
+Ultimately, our most important variables: Training compute in the form of FLOP_math, 2023 USD, Upfront, and FLOP_model as well as hardware quantity rank highly in our PCA analysis. This is consistent with everything we have seen so far from these frontier developers.
+
 
 ```{r}
 print('Sanity check with total contribution to PC1 & PC2')
@@ -883,7 +847,7 @@ total_contribution <- sqrt(loadings_12[,1]^2 + loadings_12[,2]^2)
 sort(total_contribution, decreasing = TRUE)
 ```
 
-## GPU Cluster Geographic Distribution
+## Which Countries Are Becoming the Global Centers of Compute?
 
 Clearly, AI developers are prioritizing increasing their compute capacity as evident by the exponential increase in compute capacity that every major AI-developing company has experienced. Naturally, the construction and operation of these GPU clusters will have huge effects in the communities they are built, their governance will be influenced by their location, and localities with more compute capacity will have more leverage on growing tech and companies. To explore this further, we map the number of GPU clusters per country.
 
@@ -1045,4 +1009,4 @@ To understand the future of GPU cluster allocation, we also map the number of pl
 map_combined
 ```
 
-Combining existing and planned GPU cluster maps, we see that the countries that have previously benefitted from AI development and GPU cluster development (namely the US and China) will continue to be the countries that benefit from further development, while most of the rest of the world sees lagging development.
+Combining existing and planned GPU cluster maps, we see that the countries that have previously benefitted from AI development and GPU cluster development (namely the US and China) will continue to be the countries that benefit from further development, while most of the rest of the world sees lagging development. 
