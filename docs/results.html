@@ -1042,9 +1042,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>In this plot we see a trend that follows almost exactly the same trend as the trends in dataset size. Untill the the transformer, parameter count is increase rapidly (exponentially, in fact) already, but once the transformer is introduced we start to see an even more rapid increase.</p>
 </section>
 <section id="training-time-analysis" class="level3" data-number="3.2.8">
 <h3 data-number="3.2.8" class="anchored" data-anchor-id="training-time-analysis"><span class="header-section-number">3.2.8</span> Training Time Analysis</h3>
+<p>So overall, we see both an exponential increases in the demand of compute (increases in dataset size and model size) and exponential increases in the supply of compute (GPU cluster computer availability). Naturally, we can wonder whether the supply of compute is keeping pace with the demand, or is the demand putting strain on the supply.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -1091,6 +1093,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>Here we plot the average training time in hours for the top 10 best models at the time of the first operational date of the best GPU cluster at the time of its opening. Simply put, we graph the training time of the best models on the best GPU cluster of the time. We see a really interesting trend here. If compute supply where to keep pace with compute demand, we would expect there to be no change in average training time. Instead, we see that in that in the early 2020s there is an exponential increase in the training time of best models (even using the best GPU cluster). However, nearning 2024 and 2025, we see that compute availability starts to catch up.</p>
 </section>
 <section id="benchmarks" class="level3" data-number="3.2.9">
 <h3 data-number="3.2.9" class="anchored" data-anchor-id="benchmarks"><span class="header-section-number">3.2.9</span> Benchmarks</h3>
