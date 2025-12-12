@@ -192,7 +192,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#compute-spend" id="toc-compute-spend" class="nav-link" data-scroll-target="#compute-spend"><span class="header-section-number">2.2.1</span> Compute Spend</a></li>
   <li><a href="#usage-rates" id="toc-usage-rates" class="nav-link" data-scroll-target="#usage-rates"><span class="header-section-number">2.2.2</span> Usage Rates</a></li>
   <li><a href="#frontier-math-benchmark" id="toc-frontier-math-benchmark" class="nav-link" data-scroll-target="#frontier-math-benchmark"><span class="header-section-number">2.2.3</span> Frontier Math Benchmark</a></li>
-  <li><a href="#gpu-clusters-ai-models" id="toc-gpu-clusters-ai-models" class="nav-link" data-scroll-target="#gpu-clusters-ai-models"><span class="header-section-number">2.2.4</span> GPU Clusters &amp; AI Models</a></li>
+  <li><a href="#ai-models" id="toc-ai-models" class="nav-link" data-scroll-target="#ai-models"><span class="header-section-number">2.2.4</span> AI Models</a></li>
+  <li><a href="#gpu-clusters" id="toc-gpu-clusters" class="nav-link" data-scroll-target="#gpu-clusters"><span class="header-section-number">2.2.5</span> GPU Clusters</a></li>
   </ul></li>
   <li><a href="#other-problems-and-limitations-of-the-data" id="toc-other-problems-and-limitations-of-the-data" class="nav-link" data-scroll-target="#other-problems-and-limitations-of-the-data"><span class="header-section-number">2.3</span> Other problems and limitations of the data</a></li>
   </ul>
@@ -227,7 +228,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Epoch AI is a multidisciplinary non-profit research institute investigating the future of artificial intelligence. We examine the driving forces behind AI and forecast its economic and societal impact. We emphasize making our research accessible through our reports, models and visualizations to help ground the discussion of AI on a solid empirical footing. Our goal is to create a healthy scientific environment, where claims about AI are discussed with the rigor they merit.</p>
 </blockquote>
 <p>In the past, Epoch AI’s work has been cited in <a href="https://ourworldindata.org/brief-history-of-ai">Our World in Data</a>, <a href="https://time.com/6300942/ai-progress-charts/">Time Magazine</a>, by <a href="https://blog.google/technology/ai/bard-google-ai-search-updates/">Google CEO Sundar Pichai</a>, and other reputable sources.</p>
-<p>Generally, we frame our work in terms of inputs factors and output results and further subdivide this into input factors for AI models, input factors for AI companies, output results for AI models, and output results for AI companies:</p>
+<p>Generally, we frame our work in terms of input factors and output results and further subdivide these into input factors for AI models, input factors for AI companies, output results for AI models, and output results for AI companies:</p>
 <ul>
 <li>AI Models:
 <ul>
@@ -257,7 +258,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <section id="collection-methods" class="level3" data-number="2.1.1">
 <h3 data-number="2.1.1" class="anchored" data-anchor-id="collection-methods"><span class="header-section-number">2.1.1</span> Collection Methods</h3>
-<p>Epoch AI collects data on variety of different components related to AI progress including hardware advancements, GPU cluster advancements, model releases, AI company funding, etc. For the most part, Epoch uses a mix of automated collections methods (for example, automatic updates of AI benchmark scores) and manual data collection from public sources of information (company blog posts, new posts, public satellite imagery). Here we link to the full set of data collection methodologies:</p>
+<p>Epoch AI collects data on variety of components related to AI progress including hardware advancements, GPU cluster advancements, model releases, AI company funding, etc. For the most part, Epoch uses a mix of automated collection methods (for example, automatic updates of AI benchmark scores) and manual data collection from public sources of information (company blog posts, news posts, public satellite imagery). Here we link to the full set of data collection methodologies:</p>
 <ul>
 <li><a href="https://epoch.ai/data/gpu-clusters-documentation#inclusion">GPU Cluster Data</a></li>
 <li><a href="https://epoch.ai/data/ai-companies-documentation#inclusion">AI Company Data</a></li>
@@ -364,6 +365,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>The above graph describes the missing values of the compute spend dataset. Fortunately, most of the missing data in this dataset is meta-data like “Source 2” and “Source 3” (sources of the information) or “Exclude from graph view”. However, there are a few columns with high missing values that would be nice to have:</p>
+<ul>
+<li>Inference compute spend (63% missing)</li>
+<li>R&amp;D compute spend (72% missing)</li>
+<li>Total compute spend (63% missing)</li>
+</ul>
 </section>
 <section id="usage-rates" class="level3" data-number="2.2.2">
 <h3 data-number="2.2.2" class="anchored" data-anchor-id="usage-rates"><span class="header-section-number">2.2.2</span> Usage Rates</h3>
@@ -393,6 +400,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>The usage reports datasets follows a similar missing values pattern as the compute spend dataset. Columns with the most missing values are meta-data (“Source 2”, “Graph Note”, “Exclude from graph view”).</p>
+<p>Likewise there are some important columns that are missing in most entries that would be lovely to have and present a limitation of the current data:</p>
+<ul>
+<li>Active Users (30% missing)</li>
+<li>Active Users time period (30% missing)</li>
+<li>Daily Tokens (82% missing)</li>
+<li>Daily Messages (76% missing)</li>
+</ul>
 </section>
 <section id="frontier-math-benchmark" class="level3" data-number="2.2.3">
 <h3 data-number="2.2.3" class="anchored" data-anchor-id="frontier-math-benchmark"><span class="header-section-number">2.2.3</span> Frontier Math Benchmark</h3>
@@ -422,16 +437,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>In the benchmark dataset we used, the FrontierMath benchmark, there are a few notable columns with large percentages of missing values. Notably “Log viewer” has 100% missing data. We expect that Epoch AI added this column to be consistent with other benchmarks but is not applicable to this dataset.</p>
+<p>Otherwise, the only two columns with large percentages of missing values are “Training compute (FLOP)” (75% missing) and “Training compute notes” (42%)</p>
 </section>
-<section id="gpu-clusters-ai-models" class="level3" data-number="2.2.4">
-<h3 data-number="2.2.4" class="anchored" data-anchor-id="gpu-clusters-ai-models"><span class="header-section-number">2.2.4</span> GPU Clusters &amp; AI Models</h3>
+<section id="ai-models" class="level3" data-number="2.2.4">
+<h3 data-number="2.2.4" class="anchored" data-anchor-id="ai-models"><span class="header-section-number">2.2.4</span> AI Models</h3>
+<p>Our GPU Clusters and AI Models dataset did not render properly for the missing values plot, so we will manually describe the missing values below.</p>
+<p>The AI models dataset is likely Epoch’s most comprehensive dataset. However, Epoch has included many columns that are only applicable to a small subset of the models. Some of these columns are meta-data:</p>
+<ul>
+<li>Notability criteria (72% missing)</li>
+<li>Notability criteria notes (76% missing)</li>
+<li>Archived Links (99% missing)</li>
+<li>Utilization Notes (97% missing)</li>
+<li>Frontier Model (95% missing)</li>
+<li>Hugging Face developer id (81% missing)</li>
+</ul>
+<p>and others. We expect not to use any meta-data columns so we are not concerned with the high level of missing values.</p>
+<p>There are many training-related columns with high percentages of missing values, for example:</p>
+<ul>
+<li>Hardware utilization (99% missing)</li>
+<li>Post-training compute (FLOP) (99% missing)</li>
+<li>Training compute cost (92% missing)</li>
+<li>Training chip-hours (93% missing)</li>
+<li>Training data center (97% missing)</li>
+<li>Training time (hours) (82% missing)</li>
+<li>Parameters (35% missing)</li>
+</ul>
+<p>and others. While this provides a significant limitation to our exploration, we expect that the missing value levels are high since the dataset contains models dating back to the 1960s. We expect these percentages to be lower amongst newer models which we care more about.</p>
+</section>
+<section id="gpu-clusters" class="level3" data-number="2.2.5">
+<h3 data-number="2.2.5" class="anchored" data-anchor-id="gpu-clusters"><span class="header-section-number">2.2.5</span> GPU Clusters</h3>
+<p>Like previous datasets, the columns in the GPU clusters dataset are mostly meta-data (Sources 1 through 5, notes of various kinds).</p>
+<p>Notable columns useful for analysis with high missing values include:</p>
+<ul>
+<li>Reported Power Capacity (MW) (83% missing)</li>
+<li>Chip type (primary) (41% missing)</li>
+<li>Owner (36% missing)</li>
+<li>Hardware cost (31% missing)</li>
+<li>Location (22% missing)</li>
+<li>Users (40% missing)</li>
+<li>First operational date (32% missing)</li>
+</ul>
+<p>Though some of these columns have higher than ideal levels of missing values, we expect to have enough data to provide useful analysis.</p>
 </section>
 </section>
 <section id="other-problems-and-limitations-of-the-data" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="other-problems-and-limitations-of-the-data"><span class="header-section-number">2.3</span> Other problems and limitations of the data</h2>
-<ul>
-<li>inconsistent location format in the GPU cluster dataset</li>
-</ul>
+<p>Other than the missing values mentioned above. The data is limited in the fact that many of the columns across the datasets have inconsistent value formats. For example, the location column in the GPU clusters dataset may contain coordinates, addresses, or general regions where the cluster is located.</p>
 
 
 </section>
