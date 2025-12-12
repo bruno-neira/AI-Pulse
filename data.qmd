@@ -154,4 +154,4 @@ Though some of these columns have higher than ideal levels of missing values, we
 
 ## Other problems and limitations of the data
 
-Other than the missing values mentioned above. The data is limited in the fact that many of the columns throughout the datasets have inconsistent value formats. For example, the location column in the GPU clusters dataset may contain coordinates, addresses, or general regions where the cluster is located.
+Other than the missing values mentioned above. The data is limited in the fact that many of the columns across the datasets have inconsistent value formats. For example, the location column in the GPU clusters dataset may contain coordinates, addresses, or general regions where the cluster is located.
