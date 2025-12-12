@@ -182,12 +182,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#compute-spend" id="toc-compute-spend" class="nav-link active" data-scroll-target="#compute-spend"><span class="header-section-number">3.1</span> Compute Spend</a></li>
+  <li><a href="#compute-spend-and-usage" id="toc-compute-spend-and-usage" class="nav-link active" data-scroll-target="#compute-spend-and-usage"><span class="header-section-number">3.1</span> Compute Spend and Usage</a></li>
   <li><a href="#gpu-clusters" id="toc-gpu-clusters" class="nav-link" data-scroll-target="#gpu-clusters"><span class="header-section-number">3.2</span> GPU Clusters</a>
   <ul class="collapse">
   <li><a href="#gpu-clusters-and-model-development-timeline" id="toc-gpu-clusters-and-model-development-timeline" class="nav-link" data-scroll-target="#gpu-clusters-and-model-development-timeline"><span class="header-section-number">3.2.1</span> GPU Clusters and Model Development Timeline</a></li>
   <li><a href="#cumulative-compute-over-time-by-organization" id="toc-cumulative-compute-over-time-by-organization" class="nav-link" data-scroll-target="#cumulative-compute-over-time-by-organization"><span class="header-section-number">3.2.2</span> Cumulative Compute Over Time by Organization</a></li>
   <li><a href="#cumulative-compute-over-time-by-organization-faceted" id="toc-cumulative-compute-over-time-by-organization-faceted" class="nav-link" data-scroll-target="#cumulative-compute-over-time-by-organization-faceted"><span class="header-section-number">3.2.3</span> Cumulative Compute Over Time by Organization (Faceted)</a></li>
+  <li><a href="#gpu-cluster-characteristics" id="toc-gpu-cluster-characteristics" class="nav-link" data-scroll-target="#gpu-cluster-characteristics"><span class="header-section-number">3.2.4</span> GPU Cluster Characteristics</a></li>
+  <li><a href="#gpu-cluster-cost" id="toc-gpu-cluster-cost" class="nav-link" data-scroll-target="#gpu-cluster-cost"><span class="header-section-number">3.2.5</span> GPU Cluster Cost</a></li>
   </ul></li>
   <li><a href="#dataset-size-over-time" id="toc-dataset-size-over-time" class="nav-link" data-scroll-target="#dataset-size-over-time"><span class="header-section-number">3.3</span> Dataset Size Over Time</a>
   <ul class="collapse">
@@ -343,8 +345,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<section id="compute-spend" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="compute-spend"><span class="header-section-number">3.1</span> Compute Spend</h2>
+<section id="compute-spend-and-usage" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="compute-spend-and-usage"><span class="header-section-number">3.1</span> Compute Spend and Usage</h2>
 <p>Looking at active user metrics as they relate to cluster compute capacity – we wanted to start off simple with a scatterplot and trendline to give a taste of the scale and direction the industry of AI is heading towards. Let’s begin by looking at the elephant in the room, OpenAI:</p>
 <div class="cell">
 <details class="code-fold">
@@ -707,6 +709,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Here plot plot notable companies and the increase in their available compute over time. First note that to improve readability of the graph, we free the y-axis. However, it seems like major companies have increased their compute nearly exponentially. As consistent with the previous graphs, cluster opening time do not follow a predictable pattern in terms of model release, though, generally, it seems like different companies take different approaches in either having built infrastructure first or release models first.</p>
+</section>
+<section id="gpu-cluster-characteristics" class="level3" data-number="3.2.4">
+<h3 data-number="3.2.4" class="anchored" data-anchor-id="gpu-cluster-characteristics"><span class="header-section-number">3.2.4</span> GPU Cluster Characteristics</h3>
+<p>Let’s take a step back from looking at cluster compute for each company for a moment and take a peak at the most frequently listed countries from the tibble below. The tibble has a subset (top 5) of all the locations where the GPU clusters originated from. From there making the mosaic plot from other qualitative features such as how certain each cluster project was going to be rolled out, the sector each project was associated with, and whether or not the project was a single cluster was relatively easy to implement through dplyr.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -753,6 +759,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>Note: The data from GPU clusters is more suited for quantitative rather than qualitative analysis. Because there were simply too many variables we could include here, we decided to isolate it to just four vars. to make it as clean as possible in the pair plots! Visually, color did not add anything meaningful and scaling the plot had massive issues for readability so we kept it as plain as possible. - We see sharp associations between certainty of the GPU cluster’s status and the particular sector the frontier model developer is involved with (big differences in the rectangle areas on the bottom right triangle). When the certainty was likely, we see that the pair-plot section becomes dominated for sectors. - In each variable, the US had a fairly dominant proportion of each subrectangle. This makes sense intuitively from what we observe about day-to-day developments in AI; however, this could also suggest that our dataset is imbalanced (oversampling of US based companies).</p>
+</section>
+<section id="gpu-cluster-cost" class="level3" data-number="3.2.5">
+<h3 data-number="3.2.5" class="anchored" data-anchor-id="gpu-cluster-cost"><span class="header-section-number">3.2.5</span> GPU Cluster Cost</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>

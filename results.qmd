@@ -481,6 +481,8 @@ Here plot plot notable companies and the increase in their available compute ove
 
 ### GPU Cluster Characteristics
 
+Let's take a step back from looking at cluster compute for each company for a moment and take a peak at the most frequently listed countries from the tibble below. The tibble has a subset (top 5) of all the locations where the GPU clusters originated from. From there making the mosaic plot from other qualitative features such as how certain each cluster project was going to be rolled out, the sector each project was associated with, and whether or not the project was a single cluster was relatively easy to implement through dplyr.
+
 ```{r}
 mosaic_data <- gpu_clusters_filtered |>
   filter(Certainty %in% c("Confirmed", "Likely"),
@@ -504,6 +506,11 @@ mosaic_data |>
         main_gp = gpar(fontsize = 12)
       )
 ```
+
+Note: The data from GPU clusters is more suited for quantitative rather than qualitative analysis. Because there were simply too many variables we could include here, we decided to isolate it to just four vars. to make it as clean as possible in the pair plots! Visually, color did not add anything meaningful and scaling the plot had massive issues for readability so we kept it as plain as possible.
+
+- We see sharp associations between certainty of the GPU cluster's status and the particular sector the frontier model developer is involved with (big differences in the rectangle areas on the bottom right triangle). When the certainty was likely, we see that the pair-plot section becomes dominated for sectors.
+- In each variable, the US had a fairly dominant proportion of each subrectangle. This makes sense intuitively from what we observe about day-to-day developments in AI; however, this could also suggest that our dataset is imbalanced (oversampling of US based companies).
 
 ### GPU Cluster Cost
 

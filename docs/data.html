@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -152,7 +187,13 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#collection-methods" id="toc-collection-methods" class="nav-link" data-scroll-target="#collection-methods"><span class="header-section-number">2.1.1</span> Collection Methods</a></li>
   <li><a href="#datasets-overview" id="toc-datasets-overview" class="nav-link" data-scroll-target="#datasets-overview"><span class="header-section-number">2.1.2</span> Datasets Overview</a></li>
   </ul></li>
-  <li><a href="#missing-value-analysis" id="toc-missing-value-analysis" class="nav-link" data-scroll-target="#missing-value-analysis"><span class="header-section-number">2.2</span> Missing value analysis</a></li>
+  <li><a href="#missing-value-analysis" id="toc-missing-value-analysis" class="nav-link" data-scroll-target="#missing-value-analysis"><span class="header-section-number">2.2</span> Missing value analysis</a>
+  <ul class="collapse">
+  <li><a href="#compute-spend" id="toc-compute-spend" class="nav-link" data-scroll-target="#compute-spend"><span class="header-section-number">2.2.1</span> Compute Spend</a></li>
+  <li><a href="#usage-rates" id="toc-usage-rates" class="nav-link" data-scroll-target="#usage-rates"><span class="header-section-number">2.2.2</span> Usage Rates</a></li>
+  <li><a href="#frontier-math-benchmark" id="toc-frontier-math-benchmark" class="nav-link" data-scroll-target="#frontier-math-benchmark"><span class="header-section-number">2.2.3</span> Frontier Math Benchmark</a></li>
+  <li><a href="#gpu-clusters-ai-models" id="toc-gpu-clusters-ai-models" class="nav-link" data-scroll-target="#gpu-clusters-ai-models"><span class="header-section-number">2.2.4</span> GPU Clusters &amp; AI Models</a></li>
+  </ul></li>
   <li><a href="#other-problems-and-limitations-of-the-data" id="toc-other-problems-and-limitations-of-the-data" class="nav-link" data-scroll-target="#other-problems-and-limitations-of-the-data"><span class="header-section-number">2.3</span> Other problems and limitations of the data</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/bruno-neira/AI-Pulse/edit/main/data.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/bruno-neira/AI-Pulse/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -181,7 +222,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="description" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="description"><span class="header-section-number">2.1</span> Description</h2>
-<p>Our data is collected by an non-profit organization called <a href="https://epoch.ai/">Epoch AI</a>. From their (website)[https://epoch.ai/about], Epoch AI’s mission is:</p>
+<p>Our data is collected by a non-profit organization called <a href="https://epoch.ai/">Epoch AI</a>. From their (website)[https://epoch.ai/about], Epoch AI’s mission is:</p>
 <blockquote class="blockquote">
 <p>Epoch AI is a multidisciplinary non-profit research institute investigating the future of artificial intelligence. We examine the driving forces behind AI and forecast its economic and societal impact. We emphasize making our research accessible through our reports, models and visualizations to help ground the discussion of AI on a solid empirical footing. Our goal is to create a healthy scientific environment, where claims about AI are discussed with the rigor they merit.</p>
 </blockquote>
@@ -194,9 +235,8 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>GPU Clusters</li>
 <li>Compute Spend</li>
-<li>Hardware advacements</li>
 </ul></li>
-<li>Outpus:
+<li>Outputs:
 <ul>
 <li>Performance on model benchmarks</li>
 </ul></li>
@@ -217,9 +257,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <section id="collection-methods" class="level3" data-number="2.1.1">
 <h3 data-number="2.1.1" class="anchored" data-anchor-id="collection-methods"><span class="header-section-number">2.1.1</span> Collection Methods</h3>
-<p>Epoch AI collects data on variety of different components related to AI progress including hardware advancements, GPU cluster advanacements, model releases, AI company funding, etc. For the most part, Epoch uses a mix of automated collections methods (for example, automatic updates of AI benchmark scores) and manual data collection from public sources of information (company blog posts, new posts, public satellite imagery). Here we link to the full set of data collection methodologies:</p>
+<p>Epoch AI collects data on variety of different components related to AI progress including hardware advancements, GPU cluster advancements, model releases, AI company funding, etc. For the most part, Epoch uses a mix of automated collections methods (for example, automatic updates of AI benchmark scores) and manual data collection from public sources of information (company blog posts, new posts, public satellite imagery). Here we link to the full set of data collection methodologies:</p>
 <ul>
-<li><a href="https://epoch.ai/data/machine-learning-hardware-documentation#inclusion">ML Hardware Data</a></li>
 <li><a href="https://epoch.ai/data/gpu-clusters-documentation#inclusion">GPU Cluster Data</a></li>
 <li><a href="https://epoch.ai/data/ai-companies-documentation#inclusion">AI Company Data</a></li>
 <li><a href="https://epoch.ai/data/ai-models-documentation#inclusion">AI Model Data</a></li>
@@ -247,34 +286,27 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td>ML Hardware</td>
-<td>Dataset listing hardward used to train ML models including GPUs, TPUs, and other less common hardware types</td>
-<td>Daily</td>
-<td>170 rows, 38 columns</td>
-<td></td>
-</tr>
-<tr class="even">
 <td>GPU Clusters</td>
 <td>Dataset listing planned, existing, and previous GPU clusters</td>
 <td>Daily</td>
 <td>786 rows, 55 columns</td>
-<td>Daily refreshes, but data may not necesarily be updated daily.</td>
+<td>Daily refreshes, but data may not necessarily be updated daily.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>AI Companies</td>
 <td>Various different datasets pertaining to AI company revenue, compute spend, staffing, funding rounds, user usage, and general information</td>
 <td>Daily</td>
 <td>Various datasets</td>
 <td></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>AI Models</td>
 <td>Dataset listing AI models over the years (including primitive models)</td>
 <td>Daily</td>
 <td>3000+ rows, 56 columns</td>
 <td>Divided into “Frontier”, “Notable”, and “Large Scale” models</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>AI Benchmark Data</td>
 <td>A collection of different datasets of ML model performance on different benchmarks</td>
 <td>not found</td>
@@ -288,6 +320,112 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="missing-value-analysis" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="missing-value-analysis"><span class="header-section-number">2.2</span> Missing value analysis</h2>
+<section id="compute-spend" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="compute-spend"><span class="header-section-number">2.2.1</span> Compute Spend</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(redav)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>compute_spend <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./Data/ai_companies_dataset/ai_companies_compute_spend.csv"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>usage_rates <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./Data/ai_companies_dataset/ai_companies_usage_reports.csv"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>ai_models <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./Data/ai_models_dataset/all_ai_models.csv"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>fronteir_math <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./Data/benchmark_dataset/frontiermath.csv"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>gpu_cluster_ds <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./Data/gpu_clusters_dataset/gpu_clusters.csv"</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">plot_missing</span>(compute_spend, <span class="at">max_cols =</span> <span class="dv">10</span>, <span class="at">num_char =</span> <span class="dv">7</span>, <span class="at">percent =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">plot_missing</span>(compute_spend, <span class="at">num_char =</span> <span class="dv">2</span>, <span class="at">percent =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>p1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>p2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="usage-rates" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="usage-rates"><span class="header-section-number">2.2.2</span> Usage Rates</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">plot_missing</span>(usage_rates, <span class="at">max_cols =</span> <span class="dv">10</span>, <span class="at">num_char =</span> <span class="dv">7</span>, <span class="at">percent =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">plot_missing</span>(usage_rates, <span class="at">num_char =</span> <span class="dv">2</span>, <span class="at">percent =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>p3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>p4</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="frontier-math-benchmark" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="frontier-math-benchmark"><span class="header-section-number">2.2.3</span> Frontier Math Benchmark</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>p7 <span class="ot">&lt;-</span> <span class="fu">plot_missing</span>(fronteir_math, <span class="at">max_cols =</span> <span class="dv">10</span>, <span class="at">num_char =</span> <span class="dv">7</span>, <span class="at">percent =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>p8 <span class="ot">&lt;-</span> <span class="fu">plot_missing</span>(fronteir_math, <span class="at">num_char =</span> <span class="dv">2</span>, <span class="at">percent =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>p7</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>p8</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="gpu-clusters-ai-models" class="level3" data-number="2.2.4">
+<h3 data-number="2.2.4" class="anchored" data-anchor-id="gpu-clusters-ai-models"><span class="header-section-number">2.2.4</span> GPU Clusters &amp; AI Models</h3>
+</section>
 </section>
 <section id="other-problems-and-limitations-of-the-data" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="other-problems-and-limitations-of-the-data"><span class="header-section-number">2.3</span> Other problems and limitations of the data</h2>
