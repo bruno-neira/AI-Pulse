@@ -285,7 +285,7 @@ ggplot() +
   # Labels and theme
   labs(
     title = "AI Model Releases and GPU Cluster Deployment Timeline by Organization",
-    subtitle = "Each panel shows models and GPU clusters for a single organization",
+    subtitle = "Each panel shows models and GPU clusters\nfor a single organization",
     x = "Date",
     y = "Training Compute (FLOPs, log scale)",
     caption = "Vertical dashed lines represent GPU cluster first operational dates"
@@ -356,7 +356,7 @@ ggplot() +
   # Labels and theme
   labs(
     title = "OpenAI: Cumulative GPU Cluster Compute Over Time",
-    subtitle = "Line shows compute growth; dashed lines indicate model releases",
+    subtitle = "Line shows compute growth\nDashed lines indicate model releases",
     x = "Date",
     y = "Cumulative Compute (H100 equivalents, log scale)",
     caption = "Only existing clusters with known compute capacity included"
@@ -440,7 +440,7 @@ ggplot() +
   # Labels and theme
   labs(
     title = "Cumulative GPU Cluster Compute Over Time by Organization",
-    subtitle = "Lines show compute growth; dashed lines indicate top 10 model releases by training compute",
+    subtitle = "Lines show compute growth\nDashed lines indicate top 10 model releases by training compute",
     x = "Date",
     y = "Cumulative Compute (H100 equivalents, log scale)",
     caption = "Only organizations with GPU clusters; top 10 models by training compute shown"
@@ -578,7 +578,7 @@ ggplot(dataset_plot_data, aes(x = `Publication date`, y = `Training dataset size
   # Labels and theme
   labs(
     title = "AI Model Dataset Size Over Time",
-    subtitle = "Training dataset size has grown exponentially. Dashed lines show AlexNet (red) and Transformer (green) releases.",
+    subtitle = "Training dataset size has grown exponentially.\nDashed lines show AlexNet (red) and Transformer (green) releases.",
     x = "Publication Date",
     y = "Training Dataset Size (gradients, log scale)"
   ) +
@@ -649,7 +649,7 @@ ggplot(dataset_plot_data, aes(x = `Publication date`, y = `Training dataset size
   # Labels and theme
   labs(
     title = "Dataset Size Growth Rate Before and After Transformer",
-    subtitle = "Yellow line: pre-Transformer growth. Green line: post-Transformer growth. Shaded areas show confidence intervals.",
+    subtitle = "Yellow line: pre-Transformer growth.\nGreen line: post-Transformer growth.\nShaded areas show confidence intervals.",
     x = "Publication Date",
     y = "Training Dataset Size (gradients, log scale)"
   ) +
@@ -725,7 +725,7 @@ ggplot(parameters_plot_data, aes(x = `Publication date`, y = Parameters)) +
   # Labels and theme
   labs(
     title = "Model Parameters Growth Rate Before and After Transformer",
-    subtitle = "Yellow line: pre-Transformer growth. Green line: post-Transformer growth. Shaded areas show confidence intervals.",
+    subtitle = "Yellow line: pre-Transformer growth.\nGreen line: post-Transformer growth. Shaded areas show confidence intervals.",
     x = "Publication Date",
     y = "Parameters (log scale)"
   ) +
@@ -767,7 +767,7 @@ ggplot(training_times, aes(x = `First Operational Date`, y = `Training time (hou
   # Format x-axis dates
   scale_x_date(date_breaks = "2 years", date_labels = "%Y") +
   labs(
-    title = "Average Training Time for Top 10 Frontier Models on Rank-1 GPU Clusters",
+    title = "Average Training Time for Top 10 Frontier Models\non Rank-1 GPU Clusters",
     x = "GPU Cluster First Operational Date",
     y = "Average Training Time (hours, log scale)",
     caption = "Based on top 10 frontier models by training compute released before each cluster's operational date"

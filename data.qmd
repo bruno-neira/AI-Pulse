@@ -14,7 +14,6 @@ Generally, we frame our work in terms of inputs factors and output results and f
     - Inputs:
         - GPU Clusters
         - Compute Spend
-        - Hardware advacements
     - Outpus:
         - Performance on model benchmarks
 - AI Companies:
@@ -29,7 +28,6 @@ Generally, we frame our work in terms of inputs factors and output results and f
 
 Epoch AI collects data on variety of different components related to AI progress including hardware advancements, GPU cluster advanacements, model releases, AI company funding, etc. For the most part, Epoch uses a mix of automated collections methods (for example, automatic updates of AI benchmark scores) and manual data collection from public sources of information (company blog posts, new posts, public satellite imagery). Here we link to the full set of data collection methodologies:
 
-- [ML Hardware Data](https://epoch.ai/data/machine-learning-hardware-documentation#inclusion)
 - [GPU Cluster Data](https://epoch.ai/data/gpu-clusters-documentation#inclusion)
 - [AI Company Data](https://epoch.ai/data/ai-companies-documentation#inclusion)
 - [AI Model Data](https://epoch.ai/data/ai-models-documentation#inclusion)
@@ -39,7 +37,6 @@ Epoch AI collects data on variety of different components related to AI progress
 
 | Title | Description | Frequency of Updates | Dimensions | Notes |
 |-------|-------------|---------------------|------------|-------|
-| ML Hardware | Dataset listing hardward used to train ML models including GPUs, TPUs, and other less common hardware types            |  Daily            |    170 rows, 38 columns        |       |
 |  GPU Clusters     |    Dataset listing planned, existing, and previous GPU clusters         |         Daily            |      786 rows,  55 columns     |   Daily refreshes, but data may not necesarily be updated daily.    |
 |  AI Companies     |      Various different datasets pertaining to AI company revenue, compute spend, staffing, funding rounds, user usage, and general information       |         Daily            |     Various datasets       |       |
 |   AI Models    |     Dataset listing AI models over the years (including primitive models)        |         Daily            |     3000+ rows, 56 columns       |  Divided into "Frontier", "Notable", and "Large Scale" models   |
@@ -49,13 +46,47 @@ Please see links above for finer details on the datasets.
 
 ## Missing value analysis
 
+### Compute Spend
 ```{r}
+library(redav)
+
+compute_spend <- read_csv("./Data/ai_companies_dataset/ai_companies_compute_spend.csv")
+
+usage_rates <- read_csv("./Data/ai_companies_dataset/ai_companies_usage_reports.csv")
+
+ai_models <- read_csv("./Data/ai_models_dataset/all_ai_models.csv")
+
+fronteir_math <- read_csv("./Data/benchmark_dataset/frontiermath.csv")
+
+gpu_cluster_ds <- read_csv("./Data/gpu_clusters_dataset/gpu_clusters.csv")
+
+
 p1 <- plot_missing(compute_spend, max_cols = 10, num_char = 7, percent = FALSE)
 p2 <- plot_missing(compute_spend, num_char = 2, percent = TRUE)
 p1
 p2
-# plot_missing(compute_spend, , percent=FALSE)
 ```
+
+### Usage Rates
+
+```{r}
+p3 <- plot_missing(usage_rates, max_cols = 10, num_char = 7, percent = FALSE)
+p4 <- plot_missing(usage_rates, num_char = 2, percent = TRUE)
+p3
+p4
+```
+
+### Frontier Math Benchmark
+
+```{r}
+p7 <- plot_missing(fronteir_math, max_cols = 10, num_char = 7, percent = FALSE)
+p8 <- plot_missing(fronteir_math, num_char = 2, percent = TRUE)
+p7
+p8
+```
+
+### GPU Clusters & AI Models
+
 
 ## Other problems and limitations of the data
 - inconsistent location format in the GPU cluster dataset
