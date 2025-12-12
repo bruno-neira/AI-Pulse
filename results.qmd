@@ -38,7 +38,7 @@ Data loading:
 ```{r}
 compute_spend <- read_csv("./Data/ai_companies_dataset/ai_companies_compute_spend.csv")
 
-usage_reports <- read_csv("ai_companies_usage_reports_clean.csv")
+usage_reports <- read_csv("./Data/ai_companies_usage_reports_clean.csv")
 
 # Create compute_stacked first
 compute_stacked <- compute_spend |>
@@ -60,7 +60,7 @@ openai_stacked <- compute_stacked |>
   dplyr::filter(Company == "OpenAI",
          Category %in% c("Inference compute spend"))
 
-frontier_merged <- read_csv("./frontier_merged.csv")
+frontier_merged <- read_csv("./Data/frontier_merged.csv")
 
 df_num <- frontier_merged |>
   select(where(is.numeric)) |>
@@ -105,7 +105,7 @@ top_countries <- gpu_clusters_filtered |>
   slice_head(n = 6) |>
   pull(Country)
 
-frontier_merged <- read_csv("./frontier_merged.csv")
+frontier_merged <- read_csv("./Data/frontier_merged.csv")
 
 df_num <- frontier_merged |>
   select(where(is.numeric)) |>

@@ -227,7 +227,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>compute_spend <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./Data/ai_companies_dataset/ai_companies_compute_spend.csv"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>usage_reports <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"ai_companies_usage_reports_clean.csv"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>usage_reports <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./Data/ai_companies_usage_reports_clean.csv"</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create compute_stacked first</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>compute_stacked <span class="ot">&lt;-</span> compute_spend <span class="sc">|&gt;</span></span>
@@ -249,7 +249,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(Company <span class="sc">==</span> <span class="st">"OpenAI"</span>,</span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>         Category <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Inference compute spend"</span>))</span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>frontier_merged <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./frontier_merged.csv"</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>frontier_merged <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./Data/frontier_merged.csv"</span>)</span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>df_num <span class="ot">&lt;-</span> frontier_merged <span class="sc">|&gt;</span></span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric)) <span class="sc">|&gt;</span></span>
@@ -294,7 +294,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">6</span>) <span class="sc">|&gt;</span></span>
 <span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(Country)</span>
 <span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>frontier_merged <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./frontier_merged.csv"</span>)</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>frontier_merged <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./Data/frontier_merged.csv"</span>)</span>
 <span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>df_num <span class="ot">&lt;-</span> frontier_merged <span class="sc">|&gt;</span></span>
 <span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric)) <span class="sc">|&gt;</span></span>
@@ -523,11 +523,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>In this graph we visualize the date of model releases (dots) from different leading technolgy and AI companies. Overlayed as dashed lines, we plot the first operational date of GPU clusters from those same companies.</p>
+<p>In this graph we visualize the date of model releases (dots) from different leading technology and AI companies. Overlayed as dashed lines, we plot the first operational date of GPU clusters from those same companies.</p>
 <p>We would expect that model releases are delayed in comparison to GPU cluster opening dates since it would take significant computational resources to train a new model, usually several months of training for the largest models.</p>
 <p>However, we see varied trends across different companies. OpenAI, for example, had released many models before ever opening their first GPU cluster, while Google had many GPU clusters before releasing their first model.</p>
-<p>xAI (behind the Grok set of models) provides and intersting example of a clear cluster-to-model gap. The company seems to follow a very clear trend of having around a half-year delay between cluster opening and model release, with new models being released slightly before or slight after a new cluster becoming operational.</p>
-<p>Overall, the this plot reveals the strengths and weaknesses of different players in the AI ecosystem. Google, being a legacy tech company which has always required heavy computational resouces, already had many compute centers before releasing their first model. Alibaba follows a similar trend. On the other hand, an AI-first company like OpenAI likely had to outsource their model training compute to other companies before having their own clusters.</p>
+<p>xAI (behind the Grok set of models) provides an interesting example of a clear cluster-to-model gap. The company seems to follow a very clear trend of having around a half-year delay between cluster opening and model release, with new models being released slightly before or slight after a new cluster becoming operational.</p>
+<p>Overall, the this plot reveals the strengths and weaknesses of different players in the AI ecosystem. Google, being a legacy tech company which has always required heavy computational resources, already had many compute centers before releasing their first model. Alibaba follows a similar trend. On the other hand, an AI-first company like OpenAI likely had to outsource their model training compute to other companies before having their own clusters.</p>
 </section>
 <section id="cumulative-compute-over-time-by-organization" class="level3" data-number="3.2.2">
 <h3 data-number="3.2.2" class="anchored" data-anchor-id="cumulative-compute-over-time-by-organization"><span class="header-section-number">3.2.2</span> Cumulative Compute Over Time by Organization</h3>
@@ -698,7 +698,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Here plot plot notable companies and the increase in their available compute over time. First note that to improve readability of the graph, we free the y-axis. However, it seems like major companies have increased their compute nearly exponentially. As consitent with the previous graphs, cluster opening time do not follow a predictable pattern in terms of model release, though, generally, it seems like different companies take different approaches in either having built infrascture first or release models first.</p>
+<p>Here plot plot notable companies and the increase in their available compute over time. First note that to improve readability of the graph, we free the y-axis. However, it seems like major companies have increased their compute nearly exponentially. As consistent with the previous graphs, cluster opening time do not follow a predictable pattern in terms of model release, though, generally, it seems like different companies take different approaches in either having built infrastructure first or release models first.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -772,7 +772,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="dataset-size-over-time" class="level3" data-number="3.2.4">
 <h3 data-number="3.2.4" class="anchored" data-anchor-id="dataset-size-over-time"><span class="header-section-number">3.2.4</span> Dataset Size Over Time</h3>
-<p>Clearly, overall compute available to train model has been increasing at an exponential rate. However have the has this increase in compute been a proactive move to be prepared to train data-intensive models? Or has this been a reactive move in response to models that turned out to be more data intensive than expected?</p>
+<p>Clearly, overall compute available to train model has been increasing at an exponential rate. However has this increase in compute been a proactive move to be prepared to train data-intensive models? Or has this been a reactive move in response to models that turned out to be more data intensive than expected?</p>
 <p>To answer this question, we first need to look at trends in dataset size and model size.</p>
 <div class="cell">
 <details class="code-fold">
@@ -880,7 +880,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>However, much of the demand for more data has been driven by new machine learning approaches. First, the advent of deep learning create demand for larger datasets. After, the advent of the transformer architecture allowed feasible training on even larger datasets (parly why large language models are considered “large”). As such, we add two dashed lines, the first being the landmark <a href="https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf">AlexNet</a> paper, which ushered in a new era of deep learning critically, thorough the use of GPU training. The green dashed line represent the release of the landmark <a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a> paper, which introduced the transformer architecture that underlies large language models today. Adding these seperators, we begin to more clearly see trends in the data. Notably, after the introduction of the transformer, we see a sharp increase in dataset size.</p>
+<p>However, much of the demand for more data has been driven by new machine learning approaches. First, the advent of deep learning create demand for larger datasets. After, the advent of the transformer architecture allowed feasible training on even larger datasets (partly why large language models are considered “large”). As such, we add two dashed lines, the first being the landmark <a href="https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf">AlexNet</a> paper, which ushered in a new era of deep learning critically, thorough the use of GPU training. The green dashed line represent the release of the landmark <a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a> paper, which introduced the transformer architecture that underlies large language models today. Adding these separators, we begin to more clearly see trends in the data. Notably, after the introduction of the transformer, we see a sharp increase in dataset size.</p>
 </section>
 <section id="dataset-size-growth-rate-before-and-after-transformer" class="level3" data-number="3.2.6">
 <h3 data-number="3.2.6" class="anchored" data-anchor-id="dataset-size-growth-rate-before-and-after-transformer"><span class="header-section-number">3.2.6</span> Dataset Size Growth Rate Before and After Transformer</h3>
@@ -940,7 +940,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Labels and theme</span></span>
 <span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
 <span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Dataset Size Growth Rate Before and After Transformer"</span>,</span>
-<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Yellow line: pre-Transformer growth.</span><span class="sc">\n</span><span class="st">Green line: post-Transformer growth. Shaded areas show confidence intervals."</span>,</span>
+<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Yellow line: pre-Transformer growth.</span><span class="sc">\n</span><span class="st">Green line: post-Transformer growth.</span><span class="sc">\n</span><span class="st">Shaded areas show confidence intervals."</span>,</span>
 <span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Publication Date"</span>,</span>
 <span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Training Dataset Size (gradients, log scale)"</span></span>
 <span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
@@ -960,7 +960,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>To further quantify the difference between the pre-transformer era and the post-transfomer era of AI, we add regression lines of our data before the transformer and after the transformer. We already see an exponential increase in dataset size before the transformer, as denoted by the yellow line. However, after the transformer, this increase becomes much sharper, as shown by the green line.</p>
+<p>To further quantify the difference between the pre-transformer era and the post-transformer era of AI, we add regression lines of our data before the transformer and after the transformer. We already see an exponential increase in dataset size before the transformer, as denoted by the yellow line. However, after the transformer, this increase becomes much sharper, as shown by the green line.</p>
 <p>By all accounts, dataset used to train ML models is experiencing lightning fast growth.</p>
 </section>
 <section id="model-parameters-over-time" class="level3" data-number="3.2.7">
@@ -1042,7 +1042,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>In this plot we see a trend that follows almost exactly the same trend as the trends in dataset size. Untill the the transformer, parameter count is increase rapidly (exponentially, in fact) already, but once the transformer is introduced we start to see an even more rapid increase.</p>
+<p>In this plot we see a trend that follows almost exactly the same trend as the trends in dataset size. Until the the transformer, parameter count is increase rapidly (exponentially, in fact) already, but once the transformer is introduced we start to see an even more rapid increase.</p>
 </section>
 <section id="training-time-analysis" class="level3" data-number="3.2.8">
 <h3 data-number="3.2.8" class="anchored" data-anchor-id="training-time-analysis"><span class="header-section-number">3.2.8</span> Training Time Analysis</h3>
@@ -1072,7 +1072,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Format x-axis dates</span></span>
 <span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"2 years"</span>, <span class="at">date_labels =</span> <span class="st">"%Y"</span>) <span class="sc">+</span></span>
 <span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Average Training Time for Top 10 Frontier Models on Rank-1 GPU Clusters"</span>,</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Average Training Time for Top 10 Frontier Models</span><span class="sc">\n</span><span class="st">on Rank-1 GPU Clusters"</span>,</span>
 <span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"GPU Cluster First Operational Date"</span>,</span>
 <span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Training Time (hours, log scale)"</span>,</span>
 <span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Based on top 10 frontier models by training compute released before each cluster's operational date"</span></span>
@@ -1093,7 +1093,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Here we plot the average training time in hours for the top 10 best models at the time of the first operational date of the best GPU cluster at the time of its opening. Simply put, we graph the training time of the best models on the best GPU cluster of the time. We see a really interesting trend here. If compute supply where to keep pace with compute demand, we would expect there to be no change in average training time. Instead, we see that in that in the early 2020s there is an exponential increase in the training time of best models (even using the best GPU cluster). However, nearning 2024 and 2025, we see that compute availability starts to catch up.</p>
+<p>Here we plot the average training time in hours for the top 10 best models at the time of the first operational date of the best GPU cluster at the time of its opening. Simply put, we graph the training time of the best models on the best GPU cluster of the time. We see a really interesting trend here. If compute supply where to keep pace with compute demand, we would expect there to be no change in average training time. Instead, we see that in that in the early 2020s there is an exponential increase in the training time of best models (even using the best GPU cluster). However, nearing 2024 and 2025, we see that compute availability starts to catch up.</p>
 </section>
 <section id="benchmarks" class="level3" data-number="3.2.9">
 <h3 data-number="3.2.9" class="anchored" data-anchor-id="benchmarks"><span class="header-section-number">3.2.9</span> Benchmarks</h3>
@@ -1232,7 +1232,7 @@ Cumulative Proportion  1.000e+00 1.00e+00 1.000e+00 1.000e+00</code></pre>
 </section>
 <section id="gpu-cluster-geographic-distribution" class="level3" data-number="3.2.10">
 <h3 data-number="3.2.10" class="anchored" data-anchor-id="gpu-cluster-geographic-distribution"><span class="header-section-number">3.2.10</span> GPU Cluster Geographic Distribution</h3>
-<p>Clearly, AI developers are prioritizing increasing their compute capacity as evident by the exponential increase in compute capacity that every major AI-developing company has experienced. Naturally, the construction and operation of these GPU clusters will have huge effects in the communties they are built, their governance will be influenced by their location, and localities with more compute capacity will have more leverage on growing tech and companies. To explore this further, we map the number of GPU clusters per country.</p>
+<p>Clearly, AI developers are prioritizing increasing their compute capacity as evident by the exponential increase in compute capacity that every major AI-developing company has experienced. Naturally, the construction and operation of these GPU clusters will have huge effects in the communities they are built, their governance will be influenced by their location, and localities with more compute capacity will have more leverage on growing tech and companies. To explore this further, we map the number of GPU clusters per country.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -1416,7 +1416,7 @@ Cumulative Proportion  1.000e+00 1.00e+00 1.000e+00 1.000e+00</code></pre>
 </div>
 </div>
 </div>
-<p>Combining existing and planned GPU cluster maps, we see that the countries that have previously benefitted from AI development and GPU cluster development (namely the US and China) will continue to be the countries that benefit from furter development, while most of the rest of the world sees lagging development.</p>
+<p>Combining existing and planned GPU cluster maps, we see that the countries that have previously benefitted from AI development and GPU cluster development (namely the US and China) will continue to be the countries that benefit from further development, while most of the rest of the world sees lagging development.</p>
 
 
 </section>
