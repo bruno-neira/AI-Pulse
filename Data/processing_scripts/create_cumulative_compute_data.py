@@ -1,5 +1,16 @@
+"""
+Create Cumulative Compute Timeline Data
+This script creates a timeline of cumulative compute capacity for organizations over time,
+combining GPU cluster data with AI model releases.
+"""
+
 import pandas as pd
 import re
+import os
+
+# Get the directory where this script is located
+script_dir = os.path.dirname(os.path.abspath(__file__))
+data_dir = os.path.dirname(script_dir)  # Parent directory (Data/)
 
 # Define the clean_owner_name function
 def clean_owner_name(owner):
@@ -88,8 +99,8 @@ def bucket_owner(owner):
 
 print("Loading datasets...")
 # Load GPU clusters
-gpu_clusters = pd.read_csv('../Data/gpu_clusters_dataset/gpu_clusters.csv')
-notable_models = pd.read_csv('../Data/ai_models_dataset/notable_ai_models.csv')
+gpu_clusters = pd.read_csv(os.path.join(data_dir, 'gpu_clusters_dataset', 'gpu_clusters.csv'))
+notable_models = pd.read_csv(os.path.join(data_dir, 'ai_models_dataset', 'notable_ai_models.csv'))
 
 # Filter to existing clusters with known H100 equivalents
 print("Filtering GPU clusters...")
@@ -155,8 +166,9 @@ print(f"Clusters: {len(cumulative_combined[cumulative_combined['type'] == 'clust
 print(f"Models: {len(cumulative_combined[cumulative_combined['type'] == 'model'])}")
 
 # Save to CSV
-cumulative_combined.to_csv('../Data/cumulative_compute_timeline.csv', index=False)
-print("\nData saved to ../Data/cumulative_compute_timeline.csv")
+output_path = os.path.join(data_dir, 'cumulative_compute_timeline.csv')
+cumulative_combined.to_csv(output_path, index=False)
+print(f"\nData saved to {output_path}")
 
 print("\n=== Final Summary ===")
 print(f"Total rows: {len(cumulative_combined)}")
