@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; Conclusion – YOUR PROJECT TITLE</title>
+<title>4&nbsp; Conclusion – AI Pulse: Exploring the Drivers of AI Development</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,14 +33,15 @@ ul.task-list li input[type="checkbox"] {
 <link href="./results.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -94,11 +95,13 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">YOUR PROJECT TITLE</a> 
+      <a href="./">AI Pulse: Exploring the Drivers of AI Development</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/YOUR_GITHUB_ACCOUNT/REPO_NAME" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/bruno-neira/AI-Pulse" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
@@ -138,8 +141,17 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#takeaways" id="toc-takeaways" class="nav-link active" data-scroll-target="#takeaways"><span class="header-section-number">4.0.1</span> Takeaways</a></li>
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations"><span class="header-section-number">4.0.2</span> Limitations</a></li>
+  <li><a href="#future-directions" id="toc-future-directions" class="nav-link" data-scroll-target="#future-directions"><span class="header-section-number">4.0.3</span> Future Directions</a></li>
+  <li><a href="#lessons-learned" id="toc-lessons-learned" class="nav-link" data-scroll-target="#lessons-learned"><span class="header-section-number">4.0.4</span> Lessons Learned</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/bruno-neira/AI-Pulse/edit/main/conclusion.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/bruno-neira/AI-Pulse/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -163,8 +175,53 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="takeaways" class="level3" data-number="4.0.1">
+<h3 data-number="4.0.1" class="anchored" data-anchor-id="takeaways"><span class="header-section-number">4.0.1</span> Takeaways</h3>
+<p>Our analysis of GPU clusters and AI model development reveals several key insights:</p>
+<p><strong>Compute Infrastructure and Model Development:</strong></p>
+<ul>
+<li>Different AI companies follow distinct strategies for GPU cluster deployment versus model releases. Legacy tech companies like Google and Alibaba built substantial compute infrastructure before releasing models, while AI-first companies like OpenAI released many models before establishing their own GPU clusters (likely relying on cloud providers initially).</li>
+<li>xAI demonstrates a clear pattern of approximately half-year delays between cluster opening and model releases, showing a systematic approach to infrastructure-first development.</li>
+</ul>
+<p><strong>Cumulative Compute Growth:</strong></p>
+<ul>
+<li>Major AI companies have increased their available compute capacity nearly exponentially, demonstrating the prioritization of infrastructure investment across the industry.</li>
+<li>Cluster opening times do not follow a predictable pattern relative to model releases, suggesting companies take varied approaches to balancing infrastructure development and model deployment.</li>
+</ul>
+<p><strong>Exponential Growth in Compute Demand:</strong></p>
+<ul>
+<li>Both dataset size and model parameters have grown exponentially over time, with this growth dramatically accelerating after the introduction of the Transformer architecture in 2017.</li>
+</ul>
+<p><strong>Supply vs.&nbsp;Demand Dynamics:</strong></p>
+<ul>
+<li>Training time analysis reveals that compute supply initially struggled to keep pace with demand—in the early 2020s, there was an exponential increase in training time for the best models even when using the best available GPU clusters.</li>
+<li>However, nearing 2024 and 2025, compute availability has started to catch up with demand, suggesting that infrastructure investments are beginning to match the computational requirements of frontier models.</li>
+</ul>
+<p><strong>Geographic Concentration:</strong></p>
+<ul>
+<li>GPU cluster development is highly concentrated in the United States and China, with these two countries dominating both existing and planned infrastructure.</li>
+<li>This geographic concentration extends to future development—countries that have previously benefitted from AI infrastructure will continue to benefit, while most of the rest of the world sees lagging development.</li>
+<li>Within other regions, certain countries maintain regional leadership: France in Europe, Brazil in Latin America, and Saudi Arabia in the Middle East.</li>
+</ul>
+</section>
+<section id="limitations" class="level3" data-number="4.0.2">
+<h3 data-number="4.0.2" class="anchored" data-anchor-id="limitations"><span class="header-section-number">4.0.2</span> Limitations</h3>
+<p>Our exploration is limited by the lack of data on certain topics. For example, the data on company compute spend was lacking, with less than 10 rows of data to work with. Other datasets may have had more rows, but had many columns with large percentages of missing data, which limited any analysis on those columns.</p>
+</section>
+<section id="future-directions" class="level3" data-number="4.0.3">
+<h3 data-number="4.0.3" class="anchored" data-anchor-id="future-directions"><span class="header-section-number">4.0.3</span> Future Directions</h3>
+<p>In the future, we would like to see further work in two particular regions:</p>
+<ul>
+<li>More in-depth data on compute spend (as mentioned above, data is lacking). It would particularly interesting to have a more in-depth breakdown of trends in R&amp;D investment vs.&nbsp;inference spend, and how that data has changed over time. This work stream will largely be dependent on AI companies being open with some of their data, however.</li>
+<li>Decomposing the different usages of GPU clusters. Clusters can be used for model training, inference, and a variety of other compute tasks, so it would be interesting to see trends on how compute usage has changed over time. For example, we may expect a slowdown in AI progress if a larger share of compute goes to inference.</li>
+</ul>
+</section>
+<section id="lessons-learned" class="level3" data-number="4.0.4">
+<h3 data-number="4.0.4" class="anchored" data-anchor-id="lessons-learned"><span class="header-section-number">4.0.4</span> Lessons Learned</h3>
+<p>The main lesson learned with this project was to look into data beyond the surface level. Some of our personal favorite graph/insights came from askign more of our data. For example, for the dataset and model size scatter plots, the scatterplots themselves were simple, but once we add in historical data (AlexNet, transformer), we see a more interesting trend/insight. Looking at our graph of average traning time for top 10 models with the rank-1 GPU clusters, we ask a multifaceted question, had to do a lot of pre-processing to isolate the top 10 models at the time of a cluster opening and to get the best cluster, but we ended up finding a very interesting trend.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -218,13 +275,14 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -583,7 +641,7 @@ ul.task-list li input[type="checkbox"] {
     </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/YOUR_GITHUB_ACCOUNT/REPO_NAME/edit/main/conclusion.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/YOUR_GITHUB_ACCOUNT/REPO_NAME/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/bruno-neira/AI-Pulse/edit/main/conclusion.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/bruno-neira/AI-Pulse/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
 </div>

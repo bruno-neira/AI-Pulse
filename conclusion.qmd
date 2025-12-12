@@ -1,1 +1,45 @@
 # Conclusion
+
+### Takeaways
+
+Our analysis of GPU clusters and AI model development reveals several key insights:
+
+**Compute Infrastructure and Model Development:**
+
+- Different AI companies follow distinct strategies for GPU cluster deployment versus model releases. Legacy tech companies like Google and Alibaba built substantial compute infrastructure before releasing models, while AI-first companies like OpenAI released many models before establishing their own GPU clusters (likely relying on cloud providers initially).
+- xAI demonstrates a clear pattern of approximately half-year delays between cluster opening and model releases, showing a systematic approach to infrastructure-first development.
+
+**Cumulative Compute Growth:**
+
+- Major AI companies have increased their available compute capacity nearly exponentially, demonstrating the prioritization of infrastructure investment across the industry.
+- Cluster opening times do not follow a predictable pattern relative to model releases, suggesting companies take varied approaches to balancing infrastructure development and model deployment.
+
+**Exponential Growth in Compute Demand:**
+
+- Both dataset size and model parameters have grown exponentially over time, with this growth dramatically accelerating after the introduction of the Transformer architecture in 2017.
+
+**Supply vs. Demand Dynamics:**
+
+- Training time analysis reveals that compute supply initially struggled to keep pace with demand—in the early 2020s, there was an exponential increase in training time for the best models even when using the best available GPU clusters.
+- However, nearing 2024 and 2025, compute availability has started to catch up with demand, suggesting that infrastructure investments are beginning to match the computational requirements of frontier models.
+
+**Geographic Concentration:**
+
+- GPU cluster development is highly concentrated in the United States and China, with these two countries dominating both existing and planned infrastructure.
+- This geographic concentration extends to future development—countries that have previously benefitted from AI infrastructure will continue to benefit, while most of the rest of the world sees lagging development.
+- Within other regions, certain countries maintain regional leadership: France in Europe, Brazil in Latin America, and Saudi Arabia in the Middle East.
+
+### Limitations
+
+Our exploration is limited by the lack of data on certain topics. For example, the data on company compute spend was lacking, with less than 10 rows of data to work with. Other datasets may have had more rows, but had many columns with large percentages of missing data, which limited any analysis on those columns.
+
+### Future Directions
+
+In the future, we would like to see further work in two particular regions:
+
+- More in-depth data on compute spend (as mentioned above, data is lacking). It would be particularly interesting to have a more in-depth breakdown of trends in R&D investment vs. inference spend, and how that data has changed over time. This work stream will largely be dependent on AI companies being open with some of their data, however.
+- Decomposing the different usages of GPU clusters. Clusters can be used for model training, inference, and a variety of other compute tasks, so it would be interesting to see trends on how compute usage has changed over time. For example, we may expect a slowdown in AI progress if a larger share of compute goes to inference.
+
+### Lessons Learned
+
+The main lesson learned with this project was to look into data beyond the surface level. Some of our personal favorite graph/insights came from asking more of our data. For example, for the dataset and model size scatter plots, the scatterplots themselves were simple, but once we add in historical data (AlexNet, transformer), we see a more interesting trend/insight. Looking at our graph of average training time for top 10 models with the rank-1 GPU clusters, we ask a multifaceted question, had to do a lot of pre-processing to isolate the top 10 models at the time of a cluster opening and to get the best cluster, but we ended up finding a very interesting trend.

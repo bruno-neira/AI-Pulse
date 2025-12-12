@@ -188,14 +188,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#gpu-clusters-and-model-development-timeline" id="toc-gpu-clusters-and-model-development-timeline" class="nav-link" data-scroll-target="#gpu-clusters-and-model-development-timeline"><span class="header-section-number">3.2.1</span> GPU Clusters and Model Development Timeline</a></li>
   <li><a href="#cumulative-compute-over-time-by-organization" id="toc-cumulative-compute-over-time-by-organization" class="nav-link" data-scroll-target="#cumulative-compute-over-time-by-organization"><span class="header-section-number">3.2.2</span> Cumulative Compute Over Time by Organization</a></li>
   <li><a href="#cumulative-compute-over-time-by-organization-faceted" id="toc-cumulative-compute-over-time-by-organization-faceted" class="nav-link" data-scroll-target="#cumulative-compute-over-time-by-organization-faceted"><span class="header-section-number">3.2.3</span> Cumulative Compute Over Time by Organization (Faceted)</a></li>
-  <li><a href="#dataset-size-over-time" id="toc-dataset-size-over-time" class="nav-link" data-scroll-target="#dataset-size-over-time"><span class="header-section-number">3.2.4</span> Dataset Size Over Time</a></li>
-  <li><a href="#dataset-size-over-time-with-key-models" id="toc-dataset-size-over-time-with-key-models" class="nav-link" data-scroll-target="#dataset-size-over-time-with-key-models"><span class="header-section-number">3.2.5</span> Dataset Size Over Time with Key Models</a></li>
-  <li><a href="#dataset-size-growth-rate-before-and-after-transformer" id="toc-dataset-size-growth-rate-before-and-after-transformer" class="nav-link" data-scroll-target="#dataset-size-growth-rate-before-and-after-transformer"><span class="header-section-number">3.2.6</span> Dataset Size Growth Rate Before and After Transformer</a></li>
-  <li><a href="#model-parameters-over-time" id="toc-model-parameters-over-time" class="nav-link" data-scroll-target="#model-parameters-over-time"><span class="header-section-number">3.2.7</span> Model Parameters Over Time</a></li>
-  <li><a href="#training-time-analysis" id="toc-training-time-analysis" class="nav-link" data-scroll-target="#training-time-analysis"><span class="header-section-number">3.2.8</span> Training Time Analysis</a></li>
-  <li><a href="#benchmarks" id="toc-benchmarks" class="nav-link" data-scroll-target="#benchmarks"><span class="header-section-number">3.2.9</span> Benchmarks</a></li>
-  <li><a href="#gpu-cluster-geographic-distribution" id="toc-gpu-cluster-geographic-distribution" class="nav-link" data-scroll-target="#gpu-cluster-geographic-distribution"><span class="header-section-number">3.2.10</span> GPU Cluster Geographic Distribution</a></li>
   </ul></li>
+  <li><a href="#dataset-size-over-time" id="toc-dataset-size-over-time" class="nav-link" data-scroll-target="#dataset-size-over-time"><span class="header-section-number">3.3</span> Dataset Size Over Time</a>
+  <ul class="collapse">
+  <li><a href="#dataset-size-over-time-with-key-models" id="toc-dataset-size-over-time-with-key-models" class="nav-link" data-scroll-target="#dataset-size-over-time-with-key-models"><span class="header-section-number">3.3.1</span> Dataset Size Over Time with Key Models</a></li>
+  <li><a href="#dataset-size-growth-rate-before-and-after-transformer" id="toc-dataset-size-growth-rate-before-and-after-transformer" class="nav-link" data-scroll-target="#dataset-size-growth-rate-before-and-after-transformer"><span class="header-section-number">3.3.2</span> Dataset Size Growth Rate Before and After Transformer</a></li>
+  </ul></li>
+  <li><a href="#model-parameters-over-time" id="toc-model-parameters-over-time" class="nav-link" data-scroll-target="#model-parameters-over-time"><span class="header-section-number">3.4</span> Model Parameters Over Time</a></li>
+  <li><a href="#training-time-analysis" id="toc-training-time-analysis" class="nav-link" data-scroll-target="#training-time-analysis"><span class="header-section-number">3.5</span> Training Time Analysis</a></li>
+  <li><a href="#benchmarks" id="toc-benchmarks" class="nav-link" data-scroll-target="#benchmarks"><span class="header-section-number">3.6</span> Benchmarks</a></li>
+  <li><a href="#gpu-cluster-geographic-distribution" id="toc-gpu-cluster-geographic-distribution" class="nav-link" data-scroll-target="#gpu-cluster-geographic-distribution"><span class="header-section-number">3.7</span> GPU Cluster Geographic Distribution</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/bruno-neira/AI-Pulse/edit/main/results.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/bruno-neira/AI-Pulse/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -343,6 +345,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="compute-spend" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="compute-spend"><span class="header-section-number">3.1</span> Compute Spend</h2>
+<p>Looking at active user metrics as they relate to cluster compute capacity – we wanted to start off simple with a scatterplot and trendline to give a taste of the scale and direction the industry of AI is heading towards. Let’s begin by looking at the elephant in the room, OpenAI:</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -376,7 +379,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme_minimal()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<p>(a). Examine the overall amount spent on compute by foundation model developers over time. Filter by compute expenditure category.</p>
+<p>For this graph, we used the Loess method to see if we see could extrapolate some patterns out of our noisy user-metrics - Notably, there was a dip in users of ChatGPT at the start of May 2025 which might be attributable to news of CEO Sam Altman having to testify before the U.S. Senate the same week (anti-AI sentiments) - Even so, the long term trend seems to point towards a steadily rising user base for OpenAI over the next couple of years</p>
+<p>Now let’s take a look at the relationship between the aggregate amount of dollars spent by foundation model developers over time. Comparing OpenAI to Anthropic, we can see how each company prioritizes where to invest in compute. We selected <code>Inference compute spend</code>, <code>R&amp;D compute spend</code>, and <code>Total compute spend</code> columns in pivot longer to be aggregated in my stacked bar chart. This helped to mitigate some of the effects of relevant values being dispersed across other columns and the presence of null entries (more on this in the missing data section).</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -400,6 +404,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>From the bar chart, it appears that OpenAI’s aggregate compute spending is growing exponentially; however, we cannot confirm this is truly the case since at least one of the three categories of expenditures are missing from the years 2022-2024. - This is the same, maybe even more so, in the case of Anthropic’s spending breakdown. - Cost values are completely non-existent in 2022 and 2023 for Anthropic and OpenAI respectively. Poor data collection, perhaps. - At least in 2026, OpenAI’s expenditures seem to be relatively balanced, but unfortunately, we don’t know how their total compute spend decomposes into the other two categories. While we don’t know the rest of the expenditures for Anthropic in 2026, their inference takes up all of their total compute spend in the previous year– signaling a shift in company priorities.</p>
+<p>Combining the previous compute-cost time-series (specifically on inference) with the user-base time-series from the first plot for OpenAI, we can see how these trends unfold when graphed on top of each other:</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -423,6 +429,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>NOTABLE LIMITATIONS: - We combined the y-axis of both graphs since the dollars spent and number of active users have roughly the same number of observations. This is not a recommended practice. - We understand how this can appear misleading to the viewer; this graph may not be suitable should the dollars spent in the future outpace the number of users by a (visually) significant amount or vice versa.</p>
+<p>Back to the analysis though, it just so happens that inference costs align almost 1:1 with the number of users. This is not entirely representative of our data since the total compute costs are not accounted for here! The real ratio of users to inference costs may likely be closer to 1:2, 1:3, etc. Overall, this preliminary look at how usage-compute capacity evolves over time gives us a lot of insight at the company level. Sadly these datasets don’t provide enough information at the moment to see if we are reaching (or will even reach) a plateau in compute and usage for the industry as a whole.</p>
 </section>
 <section id="gpu-clusters" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="gpu-clusters"><span class="header-section-number">3.2</span> GPU Clusters</h2>
@@ -770,8 +778,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="dataset-size-over-time" class="level3" data-number="3.2.4">
-<h3 data-number="3.2.4" class="anchored" data-anchor-id="dataset-size-over-time"><span class="header-section-number">3.2.4</span> Dataset Size Over Time</h3>
+</section>
+<section id="dataset-size-over-time" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="dataset-size-over-time"><span class="header-section-number">3.3</span> Dataset Size Over Time</h2>
 <p>Clearly, overall compute available to train model has been increasing at an exponential rate. However has this increase in compute been a proactive move to be prepared to train data-intensive models? Or has this been a reactive move in response to models that turned out to be more data intensive than expected?</p>
 <p>To answer this question, we first need to look at trends in dataset size and model size.</p>
 <div class="cell">
@@ -821,9 +830,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>This graph simply plots dataset size over time. We adjust the y-axis to be on a log scale, meaning that seemingly linear increases actually correspond to exponential increases in non-log scales. At first it is hard to discern any notable trends other than a clear increase in recent year of dataset size.</p>
-</section>
-<section id="dataset-size-over-time-with-key-models" class="level3" data-number="3.2.5">
-<h3 data-number="3.2.5" class="anchored" data-anchor-id="dataset-size-over-time-with-key-models"><span class="header-section-number">3.2.5</span> Dataset Size Over Time with Key Models</h3>
+<section id="dataset-size-over-time-with-key-models" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="dataset-size-over-time-with-key-models"><span class="header-section-number">3.3.1</span> Dataset Size Over Time with Key Models</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -882,8 +890,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>However, much of the demand for more data has been driven by new machine learning approaches. First, the advent of deep learning create demand for larger datasets. After, the advent of the transformer architecture allowed feasible training on even larger datasets (partly why large language models are considered “large”). As such, we add two dashed lines, the first being the landmark <a href="https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf">AlexNet</a> paper, which ushered in a new era of deep learning critically, thorough the use of GPU training. The green dashed line represent the release of the landmark <a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a> paper, which introduced the transformer architecture that underlies large language models today. Adding these separators, we begin to more clearly see trends in the data. Notably, after the introduction of the transformer, we see a sharp increase in dataset size.</p>
 </section>
-<section id="dataset-size-growth-rate-before-and-after-transformer" class="level3" data-number="3.2.6">
-<h3 data-number="3.2.6" class="anchored" data-anchor-id="dataset-size-growth-rate-before-and-after-transformer"><span class="header-section-number">3.2.6</span> Dataset Size Growth Rate Before and After Transformer</h3>
+<section id="dataset-size-growth-rate-before-and-after-transformer" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="dataset-size-growth-rate-before-and-after-transformer"><span class="header-section-number">3.3.2</span> Dataset Size Growth Rate Before and After Transformer</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -963,8 +971,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>To further quantify the difference between the pre-transformer era and the post-transformer era of AI, we add regression lines of our data before the transformer and after the transformer. We already see an exponential increase in dataset size before the transformer, as denoted by the yellow line. However, after the transformer, this increase becomes much sharper, as shown by the green line.</p>
 <p>By all accounts, dataset used to train ML models is experiencing lightning fast growth.</p>
 </section>
-<section id="model-parameters-over-time" class="level3" data-number="3.2.7">
-<h3 data-number="3.2.7" class="anchored" data-anchor-id="model-parameters-over-time"><span class="header-section-number">3.2.7</span> Model Parameters Over Time</h3>
+</section>
+<section id="model-parameters-over-time" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="model-parameters-over-time"><span class="header-section-number">3.4</span> Model Parameters Over Time</h2>
 <p>Dataset size is only one aspect that increases demand of compute, but the size of the model being trained is another factor that influences how much compute is required. We create a similar graph to those above, but this time plotting model size (number of trainable parameters).</p>
 <div class="cell">
 <details class="code-fold">
@@ -1044,8 +1053,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>In this plot we see a trend that follows almost exactly the same trend as the trends in dataset size. Until the the transformer, parameter count is increase rapidly (exponentially, in fact) already, but once the transformer is introduced we start to see an even more rapid increase.</p>
 </section>
-<section id="training-time-analysis" class="level3" data-number="3.2.8">
-<h3 data-number="3.2.8" class="anchored" data-anchor-id="training-time-analysis"><span class="header-section-number">3.2.8</span> Training Time Analysis</h3>
+<section id="training-time-analysis" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="training-time-analysis"><span class="header-section-number">3.5</span> Training Time Analysis</h2>
 <p>So overall, we see both an exponential increases in the demand of compute (increases in dataset size and model size) and exponential increases in the supply of compute (GPU cluster computer availability). Naturally, we can wonder whether the supply of compute is keeping pace with the demand, or is the demand putting strain on the supply.</p>
 <div class="cell">
 <details class="code-fold">
@@ -1095,8 +1104,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Here we plot the average training time in hours for the top 10 best models at the time of the first operational date of the best GPU cluster at the time of its opening. Simply put, we graph the training time of the best models on the best GPU cluster of the time. We see a really interesting trend here. If compute supply where to keep pace with compute demand, we would expect there to be no change in average training time. Instead, we see that in that in the early 2020s there is an exponential increase in the training time of best models (even using the best GPU cluster). However, nearing 2024 and 2025, we see that compute availability starts to catch up.</p>
 </section>
-<section id="benchmarks" class="level3" data-number="3.2.9">
-<h3 data-number="3.2.9" class="anchored" data-anchor-id="benchmarks"><span class="header-section-number">3.2.9</span> Benchmarks</h3>
+<section id="benchmarks" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="benchmarks"><span class="header-section-number">3.6</span> Benchmarks</h2>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -1230,8 +1239,8 @@ Cumulative Proportion  1.000e+00 1.00e+00 1.000e+00</code></pre>
 </div>
 </div>
 </section>
-<section id="gpu-cluster-geographic-distribution" class="level3" data-number="3.2.10">
-<h3 data-number="3.2.10" class="anchored" data-anchor-id="gpu-cluster-geographic-distribution"><span class="header-section-number">3.2.10</span> GPU Cluster Geographic Distribution</h3>
+<section id="gpu-cluster-geographic-distribution" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="gpu-cluster-geographic-distribution"><span class="header-section-number">3.7</span> GPU Cluster Geographic Distribution</h2>
 <p>Clearly, AI developers are prioritizing increasing their compute capacity as evident by the exponential increase in compute capacity that every major AI-developing company has experienced. Naturally, the construction and operation of these GPU clusters will have huge effects in the communities they are built, their governance will be influenced by their location, and localities with more compute capacity will have more leverage on growing tech and companies. To explore this further, we map the number of GPU clusters per country.</p>
 <div class="cell">
 <details class="code-fold">
@@ -1419,7 +1428,6 @@ Cumulative Proportion  1.000e+00 1.00e+00 1.000e+00</code></pre>
 <p>Combining existing and planned GPU cluster maps, we see that the countries that have previously benefitted from AI development and GPU cluster development (namely the US and China) will continue to be the countries that benefit from further development, while most of the rest of the world sees lagging development.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

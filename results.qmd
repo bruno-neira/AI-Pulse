@@ -154,8 +154,9 @@ plot_data <- cost_by_owner |>
 ```
 
 
-## Compute Spend
+## Compute Spend and Usage
 
+Looking at active user metrics as they relate to cluster compute capacity -- we wanted to start off simple with a scatterplot and trendline to give a taste of the scale and direction the industry of AI is heading towards. Let's begin by looking at the elephant in the room, OpenAI:
 
 ```{r}
 g1 <- ggplot(usage_reports, aes(Date, `Active users`/ 1e9)) +
@@ -178,7 +179,13 @@ g1
 #   theme_minimal()
 ```
 
-(a). Examine the overall amount spent on compute by foundation model developers over time. Filter by compute expenditure category.
+For this graph, we used the Loess method to see if we see could extrapolate some patterns out of our noisy user-metrics
+- Notably, there was a dip in users of ChatGPT at the start of May 2025 which might be attributable to news of CEO Sam Altman having to testify before the U.S. Senate the same week (anti-AI sentiments)
+- Even so, the long term trend seems to point towards a steadily rising user base for OpenAI over the next couple of years
+
+Now let's take a look at the relationship between the aggregate amount of dollars spent by foundation model developers over time. Comparing OpenAI to Anthropic, we can see how each company prioritizes where to invest in compute. We selected `Inference compute spend`, `R&D compute spend`, and `Total compute spend` columns in pivot longer to be aggregated in my stacked bar chart. This helped to mitigate some of the effects of relevant values being dispersed across other columns and the presence of null entries (more on this in the missing data section).
+
+
 ```{r}
 
 
@@ -195,6 +202,14 @@ ggplot(compute_stacked, aes(x = Year, y = Amount, fill = Category)) +
   )
 ```
 
+From the bar chart, it appears that OpenAI's aggregate compute spending is growing exponentially; however, we cannot confirm this is truly the case since at least one of the three categories of expenditures are missing from the years 2022-2024.
+- This is the same, maybe even more so, in the case of Anthropic's spending breakdown.
+- Cost values are completely non-existent in 2022 and 2023 for Anthropic and OpenAI respectively. Poor data collection, perhaps.
+- At least in 2026, OpenAI's expenditures seem to be relatively balanced, but unfortunately, we don't know how their total compute spend decomposes into the other two categories. While we don't know the rest of the expenditures for Anthropic in 2026, their inference takes up all of their total compute spend in the previous year-- signaling a shift in company priorities.
+
+
+Combining the previous compute-cost time-series (specifically on inference) with the user-base time-series from the first plot for OpenAI, we can see how these trends unfold when graphed on top of each other:
+
 ```{r}
 g2 <- ggplot() +
   geom_col(data = openai_stacked, aes(x = Date, y = Amount / 1e9, fill = Category), position = "stack") +
@@ -208,6 +223,12 @@ g2 <- ggplot() +
  
 g2
 ```
+
+NOTABLE LIMITATIONS:
+- We combined the y-axis of both graphs since the dollars spent and number of active users have roughly the same number of observations. This is not a recommended practice.
+- We understand how this can appear misleading to the viewer; this graph may not be suitable should the dollars spent in the future outpace the number of users by a (visually) significant amount or vice versa.
+
+Back to the analysis though, it just so happens that inference costs align almost 1:1 with the number of users. This is not entirely representative of our data since the total compute costs are not accounted for here! The real ratio of users to inference costs may likely be closer to 1:2, 1:3, etc. Overall, this preliminary look at how usage-compute capacity evolves over time gives us a lot of insight at the company level. Sadly these datasets don't provide enough information at the moment to see if we are reaching (or will even reach) a plateau in compute and usage for the industry as a whole.
 
 
 ## GPU Clusters
@@ -458,6 +479,8 @@ ggplot() +
 
 Here plot plot notable companies and the increase in their available compute over time. First note that to improve readability of the graph, we free the y-axis. However, it seems like major companies have increased their compute nearly exponentially. As consistent with the previous graphs, cluster opening time do not follow a predictable pattern in terms of model release, though, generally, it seems like different companies take different approaches in either having built infrastructure first or release models first. 
 
+### GPU Cluster Characteristics
+
 ```{r}
 mosaic_data <- gpu_clusters_filtered |>
   filter(Certainty %in% c("Confirmed", "Likely"),
@@ -482,6 +505,8 @@ mosaic_data |>
       )
 ```
 
+### GPU Cluster Cost
+
 ```{r}
 ggplot(plot_data, aes(x = total_calculated_cost, y = owner_short)) +
   geom_point(size=2, color='blue') +
@@ -497,7 +522,7 @@ ggplot(plot_data, aes(x = total_calculated_cost, y = owner_short)) +
   )
 ```
 
-### Dataset Size Over Time
+## Dataset Size Over Time
 
 Clearly, overall compute available to train model has been increasing at an exponential rate. However has this increase in compute been a proactive move to be prepared to train data-intensive models? Or has this been a reactive move in response to models that turned out to be more data intensive than expected?
 
@@ -667,7 +692,7 @@ To further quantify the difference between the pre-transformer era and the post-
 By all accounts, dataset used to train ML models is experiencing lightning fast growth.
 
 
-### Model Parameters Over Time
+## Model Parameters Over Time
 
 Dataset size is only one aspect that increases demand of compute, but the size of the model being trained is another factor that influences how much compute is required. We create a similar graph to those above, but this time plotting model size (number of trainable parameters).
 
@@ -740,7 +765,7 @@ ggplot(parameters_plot_data, aes(x = `Publication date`, y = Parameters)) +
 
 In this plot we see a trend that follows almost exactly the same trend as the trends in dataset size. Until the the transformer, parameter count is increase rapidly (exponentially, in fact) already, but once the transformer is introduced we start to see an even more rapid increase.
 
-### Training Time Analysis
+## Training Time Analysis
 
 So overall, we see both an exponential increases in the demand of compute (increases in dataset size and model size) and exponential increases in the supply of compute (GPU cluster computer availability). Naturally, we can wonder whether the supply of compute is keeping pace with the demand, or is the demand putting strain on the supply.
 
@@ -783,7 +808,7 @@ ggplot(training_times, aes(x = `First Operational Date`, y = `Training time (hou
 
 Here we plot the average training time in hours for the top 10 best models at the time of the first operational date of the best GPU cluster at the time of its opening. Simply put, we graph the training time of the best models on the best GPU cluster of the time. We see a really interesting trend here. If compute supply where to keep pace with compute demand, we would expect there to be no change in average training time. Instead, we see that in that in the early 2020s there is an exponential increase in the training time of best models (even using the best GPU cluster). However, nearing 2024 and 2025, we see that compute availability starts to catch up.
 
-### Benchmarks
+## Benchmarks
 
 ```{r}
 # names(df_num_imputed)
@@ -851,7 +876,7 @@ total_contribution <- sqrt(loadings_12[,1]^2 + loadings_12[,2]^2)
 sort(total_contribution, decreasing = TRUE)
 ```
 
-### GPU Cluster Geographic Distribution
+## GPU Cluster Geographic Distribution
 
 Clearly, AI developers are prioritizing increasing their compute capacity as evident by the exponential increase in compute capacity that every major AI-developing company has experienced. Naturally, the construction and operation of these GPU clusters will have huge effects in the communities they are built, their governance will be influenced by their location, and localities with more compute capacity will have more leverage on growing tech and companies. To explore this further, we map the number of GPU clusters per country.
 
