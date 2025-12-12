@@ -14,7 +14,7 @@ format:
 ---
 
 ```{r}
-remotes::install_github("jtr13/redav")
+# remotes::install_github("jtr13/redav")
 library(ggplot2)
 install.packages('alr4', repos = "https://cloud.r-project.org")
 library(alr4)
@@ -26,11 +26,11 @@ library(readr)
 library(stringr)
 install.packages('patchwork')
 
-compute_spend <- read_csv("C:/Users/micha/Downloads/AI-Pulse/Data/ai_companies_dataset/ai_companies_compute_spend.csv")
+compute_spend <- read_csv("./Data/ai_companies_dataset/ai_companies_compute_spend.csv")
 compute_spend
 
 # library(readr)
-# compute_spend <- read.csv("C:/Users/micha/Downloads/AI-Pulse/Data/ai_companies_dataset/ai_companies_compute_spend.csv", 
+# compute_spend <- read.csv("./Data/ai_companies_dataset/ai_companies_compute_spend.csv", 
 #                          sep = ",", 
 #                          quote = '"', 
 #                          fill = TRUE, 
@@ -67,7 +67,7 @@ compute_stacked <- compute_spend |>
 compute_stacked
 ```
 
-```{R}
+```{r}
 ggplot(compute_stacked, aes(x = Year, y = Amount, fill = Category)) +
   geom_col(position = "stack") +  # Stacked bars
   facet_wrap(~Company) +
@@ -90,10 +90,10 @@ p2
 # plot_missing(compute_spend, , percent=FALSE)
 ```
 ```{r}
-usage_reports <- read_csv("C:/Users/micha/Downloads/ai_companies_usage_reports_clean.csv")
+usage_reports <- read_csv("ai_companies_usage_reports_clean.csv")
 usage_reports
 ```
-```{R}
+```{r}
 g1 <- ggplot(usage_reports, aes(Date, `Active users`/ 1e9)) + 
   # geom_line(color = "grey30") + 
   geom_point(size = 1) +  
@@ -131,6 +131,7 @@ g2
 #        y = "Dollars Spent (stacked bars) / Users (loess curve)") +
 #   theme_minimal()
 ```
+
 In May 2025, key OpenAI news focused on a major corporate restructuring and the announcement of a multi-billion dollar data center project, with CEO Sam Altman also testifying before the U.S. Senate. 
 - limitations of this graph; combined into one y-axis since the dollars spent and number of users have roughly the same number of observations. it just so happens that inference costs align almost 1:1 with the number of users but this is not entirely representative of our data since the total compute costs are not accounted for. this graph will not be suitable should dollars spent outpace the number of users by a (visually) significant amount or vice versa.
 - 
@@ -138,7 +139,7 @@ In May 2025, key OpenAI news focused on a major corporate restructuring and the 
 
 (b). Outline the trend of major releases of consumer facing products. How does this map onto the trend in compute spending shown in the previous graph?
 ```{r}
-frontier_ai_models <- read_csv("C:/Users/micha/Downloads/frontier_ai_models.csv")
+frontier_ai_models <- read_csv("./Data/ai_models/frontier_ai_models.csv")
 frontier_ai_models
 ```
 ```{r}
@@ -166,7 +167,7 @@ frontier_ai_models
 
 (c). Show compute spending for non-improbable GPU cluster projects in across the the private and public sector. ..... maps onto GPU cluster opening for OpenAI???.
 ```{r}
-gpu_clusters <- read_csv("C:/Users/micha/Downloads/gpu_clusters.csv")
+gpu_clusters <- read_csv("./Data/gpu_clusters_dataset/gpu_clusters.csv")
 gpu_clusters <- gpu_clusters |>
   rename(
     first_operational_date = `First Operational Date`,
@@ -303,7 +304,7 @@ From previous bullshit, Outline the trend of major releases of consumer facing p
 ```
 PCA Biplot of best performing models? and Time series 
 ```{r}
-frontier_merged <- read_csv("C:/Users/micha/Downloads/frontier_merged.csv")
+frontier_merged <- read_csv("./frontier_merged.csv")
 frontier_merged
 ```
 

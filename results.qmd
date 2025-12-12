@@ -1,5 +1,131 @@
 # Results
 
+```{r}
+# remotes::install_github("jtr13/redav")
+library(ggplot2)
+install.packages('alr4', repos = "https://cloud.r-project.org")
+library(alr4)
+install.packages('gridExtra', repos = "https://cloud.r-project.org")
+library(gridExtra)
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+install.packages("readr") 
+library(readr)   
+library(stringr)
+install.packages('patchwork')
+
+compute_spend <- read_csv("./Data/ai_companies_dataset/ai_companies_compute_spend.csv")
+compute_spend
+
+# library(readr)
+# compute_spend <- read.csv("./Data/ai_companies_dataset/ai_companies_compute_spend.csv", 
+#                          sep = ",", 
+#                          quote = '"', 
+#                          fill = TRUE, 
+#                          stringsAsFactors = FALSE)
+# 
+# compute_spend
+# lines <- readLines("C:/Users/micha/Downloads/AI-Pulse/Data/ai_companies_dataset/ai_companies_compute_spend.csv", n=5)
+# print(lines)
+```
+
+## Compute Spend
+
+```{r}
+usage_reports <- read_csv("ai_companies_usage_reports_clean.csv")
+
+usage_reports
+```
+
+```{r}
+g1 <- ggplot(usage_reports, aes(Date, `Active users`/ 1e9)) + 
+  # geom_line(color = "grey30") + 
+  geom_point(size = 1) +  
+  geom_smooth(method = "loess", span = 0.5, se = FALSE) +
+  labs(title = "Loess Curve of OpenAI's Monthly Active Users Over Time",
+       x = "Date",
+       y = "Number of Users (in billions)") +
+  theme_minimal()
+
+# Only keep OpenAI rows
+openai_stacked <- compute_stacked |>
+  filter(Company == "OpenAI",
+         Category %in% c("Inference compute spend"))
+  
+g1
+
+
+# ggplot() +
+#   geom_col(data = openai_stacked, aes(x = Date, y = Amount, fill = Category), position = "stack") +
+#   geom_point(data = usage_reports, aes(x = Date, y = `Active users`), size = 1, color = "black") +
+#   geom_smooth(data = usage_reports, aes(x = Date, y = `Active users`), method = "loess", span = 0.5, se = FALSE) +
+#   labs(title = "OpenAI's Inference Spending overlayed by Monthly Active Users",
+#        x = "Date",
+#        y = "Dollars Spent (stacked bars) / Users (loess curve)") +
+#   theme_minimal()
+```
+
+(a). Examine the overall amount spent on compute by foundation model developers over time. Filter by compute expenditure category. 
+```{r}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(scales)
+library(lubridate)
+
+compute_stacked <- compute_spend |>
+  select(Date, Company, 
+         `Inference compute spend`, 
+         `R&D compute spend`, 
+         `Total compute spend`) |>
+  pivot_longer(cols = ends_with("compute spend"), 
+               names_to = "Category", 
+               values_to = "Amount") |>
+  filter(!is.na(Amount)) |>
+  mutate(
+    Date = ymd(Date),
+    Year = year(Date)
+  )
+
+compute_stacked
+
+
+ggplot(compute_stacked, aes(x = Year, y = Amount, fill = Category)) +
+  geom_col(position = "stack") +  # Stacked bars
+  facet_wrap(~Company) +
+  labs(title = "Breakdown of Total Compute Spend Over Time", 
+       y = "Amount of Dollars Spent",
+       fill = "Expenditure Type") +
+  theme_minimal() + 
+  theme(
+    strip.text = element_text(),
+    strip.background = element_rect(fill = "gray", color = "lightgray"),
+  )
+```
+
+```{r}
+g2 <- ggplot() +
+  geom_col(data = openai_stacked, aes(x = Date, y = Amount / 1e9, fill = Category), position = "stack") +
+  geom_point(data = usage_reports, aes(x = Date, y = `Active users` / 1e9), size = 1, color = "black") +
+  geom_smooth(data = usage_reports, aes(x = Date, y = `Active users` / 1e9), method = "loess", span = 0.5, se = FALSE) +
+  labs(title = "OpenAI's Inference Spending overlayed by Monthly Active Users (in billions)",
+       x = "Date",
+       y = "Dollars Spent (bars) / Users (loess curve)") +
+  theme_minimal() + 
+  theme(legend.position = "none")
+ 
+g2
+```
+
+```{r}
+library(redav)
+p1 <- plot_missing(compute_spend, max_cols = 10, num_char = 7, percent = FALSE)
+p2 <- plot_missing(compute_spend, num_char = 2, percent = TRUE)
+p1
+p2
+# plot_missing(compute_spend, , percent=FALSE)
+```
+
+
 ## GPU Clusters
 
 ### GPU Clusters and Model Development Timeline
@@ -247,6 +373,113 @@ ggplot() +
 ```
 
 Here plot plot notable companies and the increase in their available compute over time. First note that to improve readability of the graph, we free the y-axis. However, it seems like major companies have increased their compute nearly exponentially. As consitent with the previous graphs, cluster opening time do not follow a predictable pattern in terms of model release, though, generally, it seems like different companies take different approaches in either having built infrascture first or release models first. 
+
+```{r}
+library(vcd)
+
+# Get top most frequently appearing countries
+top_countries <- gpu_clusters_filtered |>
+  filter(Certainty %in% c("Confirmed", "Likely")) |>
+  count(Country, sort = TRUE) |>
+  slice_head(n = 6) |>
+  pull(Country)
+print(top_countries)
+
+
+mosaic_data <- gpu_clusters_filtered |>
+  filter(Certainty %in% c("Confirmed", "Likely"),
+         Country %in% top_countries) |>
+  mutate(country_short = str_trunc(Country, width = 15, side = "right"))
+mosaic_data |> group_by(Country) |> count()
+
+
+mosaic_data |>
+  dplyr::select(Certainty, Country, Sector, `Single cluster?`) |>
+  table() |>
+  pairs(
+        space = .15,
+        lower_panel = pairs_mosaic(highlighting = 2, spacing = spacing_equal(0)),
+        upper_panel = pairs_mosaic(spacing = spacing_equal(0)),
+        diag_panel = pairs_barplot(
+          gp_vartext = gpar(fontsize = 8),
+          gp_leveltext = gpar(fontsize = 8),
+          abbreviate = 2),
+        main = "Pairwise Associations: GPU Cluster Characteristics",
+        main_gp = gpar(fontsize = 12)
+      )
+
+# vcd::mosaic(
+#   Certainty ~ Country + Sector, mosaic_data,
+#   direction = c("v", "v", "h"),
+#   highlighting_fill = RColorBrewer::brewer.pal(3, "Accent"),
+#   labeling_args = list(
+#     gp_labels   = gpar(fontsize = 6),
+#     gp_varnames = gpar(fontsize = 10)
+#   )
+# )
+
+```
+
+```{r}
+gpu_clusters <- read_csv("./Data/gpu_clusters_dataset/gpu_clusters.csv")
+gpu_clusters <- gpu_clusters |>
+  rename(
+    first_operational_date = `First Operational Date`,
+    calculated_cost        = `Calculated Cost`,
+    owner                  = `Owner`
+  ) |>
+  mutate(
+    calculated_cost = as.numeric(calculated_cost)
+  )
+gpu_clusters
+```
+```{r}
+gpu_clusters_filtered <- gpu_clusters |>
+  filter(
+    !is.na(first_operational_date),
+    !is.na(calculated_cost),
+    !is.na(owner),
+    !is.na(Sector),
+    Certainty %in% c("Confirmed", "Likely"),
+    Sector %in% c("Private", 'Public', 'Public/Private')
+  ) |>
+  mutate(calculated_cost_billions = calculated_cost / 1e9)
+
+cost_by_owner <- gpu_clusters_filtered |>
+  group_by(owner, Sector) |>
+  summarise(
+    total_calculated_cost = sum(calculated_cost_billions, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+top_n <- 10  # or 10, etc.
+
+plot_data <- cost_by_owner |>
+  group_by(Sector) |>
+  mutate(
+    owner_rank = min_rank(desc(total_calculated_cost))
+  ) |>
+  filter(owner_rank <= top_n) |>
+  arrange(Sector, total_calculated_cost) |>
+  mutate(
+    owner_short = str_trunc(as.character(owner), width = 30, side = "right"),
+    owner_short = factor(owner_short, levels = owner_short)
+  ) |>
+  ungroup()
+
+ggplot(plot_data, aes(x = total_calculated_cost, y = owner_short)) +
+  geom_point(size=2, color='blue') +
+  facet_grid(Sector ~ ., scales = "free_y", space = "free_y") +
+  ggtitle(paste('Top', top_n, "Total Calculated Cost in GPU Cluster Projects \nGrouped By Owner")) +
+  xlab("Total Calculated Cost (in billions of USD)") +
+  ylab("") +
+  theme_linedraw() +
+  theme(
+    axis.text.y = element_text(size = 7),  # smaller text
+    strip.text.y = element_text(size = 8, margin = margin(2, 2, 2, 2)),
+    legend.position = "none"
+  )
+```
 
 ### Dataset Size Over Time
 
@@ -526,6 +759,71 @@ ggplot(training_times, aes(x = `First Operational Date`, y = `Training time (hou
     axis.text.x = element_text(angle = 45, hjust = 1),
     panel.grid.minor = element_blank()
   )
+```
+
+### Benchmarks
+
+```{r}
+library(redav)
+library(patchwork)
+
+# names(df_num_imputed)
+# constant_cols <- sapply(df_num_imputed, function(x) length(unique(x[!is.na(x)])) == 1)
+# names(df_num_imputed)[constant_cols]
+p1 <- draw_biplot(
+  df_num_imputed,
+  key_axis = "Best score (across scorers)",
+  fix_sign = TRUE,
+  point_color = "grey20",
+  point_labels = TRUE,
+  arrows = FALSE,
+  mult = 5
+)
+
+p2 <- draw_biplot(
+  df_num_imputed,
+  fix_sign = TRUE,
+  point_labels = FALSE,
+  point_color = "grey20",
+  arrows = TRUE,
+  mult = 5
+)
+
+# Side by side
+p1 + p2 + 
+  plot_annotation(
+    title = "Frontier Model Benchmarks (PCA biplots)",
+    subtitle = "Best Scoring Model Indicators"
+  )
+
+# install.packages('ggfortify')
+# library(ggfortify)
+# p <- prcomp(df_num_imputed_clean, scale = TRUE)
+# 
+# autoplot(
+#   p,
+#   loadings = TRUE, # arrows
+#   loadings.label = TRUE, # text
+#   loadings.colour = 'deepskyblue3',
+#   loadings.label.colour = 'deepskyblue3',
+#   loadings.label.repel = TRUE # overlap
+# )
+
+# scores <- pca$x[,1:2]
+# k <- kmeans(scores, centers = 6)
+# scores <- data.frame(scores) |>
+#   mutate(cluster = factor(k$cluster), country = ratings$country)
+# g4 <- ggplot(scores, aes(PC1, PC2, color = cluster, label = country)) +
+#   geom_point() +
+#   geom_text(nudge_y = .2) +
+#   guides(color="none")
+# g4
+```
+```{r}
+print('Sanity check with total contribution to PC1 & PC2')
+loadings_12 <- pca$rotation[, 1:2]
+total_contribution <- sqrt(loadings_12[,1]^2 + loadings_12[,2]^2)
+sort(total_contribution, decreasing = TRUE)
 ```
 
 ### GPU Cluster Geographic Distribution
