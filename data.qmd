@@ -49,5 +49,13 @@ Please see links above for finer details on the datasets.
 
 ## Missing value analysis
 
+```{r}
+p1 <- plot_missing(compute_spend, max_cols = 10, num_char = 7, percent = FALSE)
+p2 <- plot_missing(compute_spend, num_char = 2, percent = TRUE)
+p1
+p2
+# plot_missing(compute_spend, , percent=FALSE)
+```
+
 ## Other problems and limitations of the data
 - inconsistent location format in the GPU cluster dataset

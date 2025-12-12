@@ -1,6 +1,6 @@
 # Results
 
-```{r}
+```{r, messages=FALSE, include=FALSE}
 # remotes::install_github("jtr13/redav")
 library(ggplot2)
 install.packages('alr4', repos = "https://cloud.r-project.org")
@@ -8,13 +8,18 @@ library(alr4)
 install.packages('gridExtra', repos = "https://cloud.r-project.org")
 library(gridExtra)
 options(repos = c(CRAN = "https://cloud.r-project.org"))
-install.packages("readr") 
-library(readr)   
+install.packages("readr")
+library(readr)
+install.packages("dplyr")
+library(dplyr)
 library(stringr)
 install.packages('patchwork')
-
-compute_spend <- read_csv("./Data/ai_companies_dataset/ai_companies_compute_spend.csv")
-compute_spend
+library(tidyr)
+library(scales)
+library(lubridate)
+library(redav)
+library(patchwork)
+library(vcd)
 
 # library(readr)
 # compute_spend <- read.csv("./Data/ai_companies_dataset/ai_companies_compute_spend.csv", 
@@ -28,32 +33,141 @@ compute_spend
 # print(lines)
 ```
 
-## Compute Spend
+Data loading:
 
 ```{r}
+compute_spend <- read_csv("./Data/ai_companies_dataset/ai_companies_compute_spend.csv")
+
 usage_reports <- read_csv("ai_companies_usage_reports_clean.csv")
 
-usage_reports
+# Create compute_stacked first
+compute_stacked <- compute_spend |>
+  select(Date, Company,
+         `Inference compute spend`,
+         `R&D compute spend`,
+         `Total compute spend`) |>
+  pivot_longer(cols = ends_with("compute spend"),
+               names_to = "Category",
+               values_to = "Amount") |>
+  dplyr::filter(!is.na(Amount)) |>
+  mutate(
+    Date = ymd(Date),
+    Year = year(Date)
+  )
+
+# Only keep OpenAI rows
+openai_stacked <- compute_stacked |>
+  dplyr::filter(Company == "OpenAI",
+         Category %in% c("Inference compute spend"))
+
+frontier_merged <- read_csv("./frontier_merged.csv")
+
+df_num <- frontier_merged |>
+  select(where(is.numeric)) |>
+  select(where(~ !all(is.na(.)))) |>
+  mutate(across(everything(), ~ ifelse(is.na(.), mean(., na.rm = TRUE), .)))
+
+df_num_imputed <- df_num |>
+  select(where(~ var(.x, na.rm = TRUE) > 0 & !is.na(var(.x, na.rm = TRUE))))
+
+# version for PCA (no Best score + no zero-variance)
+df_num_pca <- df_num |>
+  select(-`Best score (across scorers)`) |>
+  select(where(~ var(.x, na.rm = TRUE) > 0 & !is.na(var(.x, na.rm = TRUE))))
+
+gpu_clusters <- read_csv("./Data/gpu_clusters_dataset/gpu_clusters.csv")
+
+gpu_clusters <- gpu_clusters |>
+  rename(
+    first_operational_date = `First Operational Date`,
+    calculated_cost        = `Calculated Cost`,
+    owner                  = `Owner`
+  ) |>
+  mutate(
+    calculated_cost = as.numeric(calculated_cost)
+  )
+
+gpu_clusters_filtered <- gpu_clusters |>
+  filter(
+    !is.na(first_operational_date),
+    !is.na(calculated_cost),
+    !is.na(owner),
+    !is.na(Sector),
+    Certainty %in% c("Confirmed", "Likely"),
+    Sector %in% c("Private", 'Public', 'Public/Private')
+  ) |>
+  mutate(calculated_cost_billions = calculated_cost / 1e9)
+
+# Get top most frequently appearing countries
+top_countries <- gpu_clusters_filtered |>
+  filter(Certainty %in% c("Confirmed", "Likely")) |>
+  count(Country, sort = TRUE) |>
+  slice_head(n = 6) |>
+  pull(Country)
+
+frontier_merged <- read_csv("./frontier_merged.csv")
+
+df_num <- frontier_merged |>
+  select(where(is.numeric)) |>
+  select(where(~ !all(is.na(.)))) |>
+  mutate(across(everything(), ~ ifelse(is.na(.), mean(., na.rm = TRUE), .)))
+
+df_num_imputed <- df_num |>
+  select(where(~ var(.x, na.rm = TRUE) > 0 & !is.na(var(.x, na.rm = TRUE))))
+
+# version for PCA (no Best score + no zero-variance)
+df_num_pca <- df_num |>
+  select(-`Best score (across scorers)`) |>
+  select(where(~ var(.x, na.rm = TRUE) > 0 & !is.na(var(.x, na.rm = TRUE))))
+
+cost_by_owner <- gpu_clusters_filtered |>
+  group_by(owner, Sector) |>
+  summarise(
+    total_calculated_cost = sum(calculated_cost_billions, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+top_n <- 10  # or 10, etc.
+plot_data <- cost_by_owner |>
+  group_by(Sector) |>
+  mutate(
+    owner_rank = min_rank(desc(total_calculated_cost))
+  ) |>
+  filter(owner_rank <= top_n) |>
+  arrange(Sector, total_calculated_cost) |>
+  mutate(
+    owner_short = str_trunc(as.character(owner), width = 30, side = "right"),
+    owner_short = factor(owner_short, levels = owner_short)
+  ) |>
+  ungroup()
+
+# vcd::mosaic(
+#   Certainty ~ Country + Sector, mosaic_data,
+#   direction = c("v", "v", "h"),
+#   highlighting_fill = RColorBrewer::brewer.pal(3, "Accent"),
+#   labeling_args = list(
+#     gp_labels   = gpar(fontsize = 6),
+#     gp_varnames = gpar(fontsize = 10)
+#   )
+# )
+
 ```
 
+
+## Compute Spend
+
+
 ```{r}
-g1 <- ggplot(usage_reports, aes(Date, `Active users`/ 1e9)) + 
-  # geom_line(color = "grey30") + 
-  geom_point(size = 1) +  
+g1 <- ggplot(usage_reports, aes(Date, `Active users`/ 1e9)) +
+  # geom_line(color = "grey30") +
+  geom_point(size = 1) +
   geom_smooth(method = "loess", span = 0.5, se = FALSE) +
   labs(title = "Loess Curve of OpenAI's Monthly Active Users Over Time",
        x = "Date",
        y = "Number of Users (in billions)") +
   theme_minimal()
 
-# Only keep OpenAI rows
-openai_stacked <- compute_stacked |>
-  filter(Company == "OpenAI",
-         Category %in% c("Inference compute spend"))
-  
 g1
-
-
 # ggplot() +
 #   geom_col(data = openai_stacked, aes(x = Date, y = Amount, fill = Category), position = "stack") +
 #   geom_point(data = usage_reports, aes(x = Date, y = `Active users`), size = 1, color = "black") +
@@ -64,29 +178,8 @@ g1
 #   theme_minimal()
 ```
 
-(a). Examine the overall amount spent on compute by foundation model developers over time. Filter by compute expenditure category. 
+(a). Examine the overall amount spent on compute by foundation model developers over time. Filter by compute expenditure category.
 ```{r}
-library(ggplot2)
-library(dplyr)
-library(tidyr)
-library(scales)
-library(lubridate)
-
-compute_stacked <- compute_spend |>
-  select(Date, Company, 
-         `Inference compute spend`, 
-         `R&D compute spend`, 
-         `Total compute spend`) |>
-  pivot_longer(cols = ends_with("compute spend"), 
-               names_to = "Category", 
-               values_to = "Amount") |>
-  filter(!is.na(Amount)) |>
-  mutate(
-    Date = ymd(Date),
-    Year = year(Date)
-  )
-
-compute_stacked
 
 
 ggplot(compute_stacked, aes(x = Year, y = Amount, fill = Category)) +
@@ -114,15 +207,6 @@ g2 <- ggplot() +
   theme(legend.position = "none")
  
 g2
-```
-
-```{r}
-library(redav)
-p1 <- plot_missing(compute_spend, max_cols = 10, num_char = 7, percent = FALSE)
-p2 <- plot_missing(compute_spend, num_char = 2, percent = TRUE)
-p1
-p2
-# plot_missing(compute_spend, , percent=FALSE)
 ```
 
 
@@ -154,20 +238,20 @@ bucket_owners <- function(owner) {
 }
 
 # Apply bucketing
-combined_data <- combined_data %>%
+combined_data <- combined_data |>
   mutate(owner_bucket = bucket_owners(owner))
 
 # Separate models and clusters
-models <- combined_data %>% filter(type == "model")
-clusters <- combined_data %>%
+models <- combined_data |> filter(type == "model")
+clusters <- combined_data |>
   filter(type == "cluster", owner_bucket != "Other")  # Exclude "Other" clusters for lines
 
 # Find the date of the first GPU cluster
 first_cluster_date <- min(combined_data$date[combined_data$type == "cluster"], na.rm = TRUE)
 
 # Filter both models and clusters to only include data after first cluster
-models <- models %>% filter(date >= first_cluster_date)
-clusters <- clusters %>% filter(date >= first_cluster_date)
+models <- models |> filter(date >= first_cluster_date)
+clusters <- clusters |> filter(date >= first_cluster_date)
 
 # Define color palette for the buckets
 color_palette <- c(
@@ -237,19 +321,19 @@ library(readr)
 cumulative_data <- read_csv("./Data/cumulative_compute_timeline.csv")
 
 # Convert date to datetime and training_compute to numeric
-cumulative_data <- cumulative_data %>%
+cumulative_data <- cumulative_data |>
   mutate(date = as.Date(date))
 
 # Filter to only OpenAI
-cumulative_data <- cumulative_data %>% filter(owner_bucket == "OpenAI")
+cumulative_data <- cumulative_data |> filter(owner_bucket == "OpenAI")
 
 # Separate clusters and models
-clusters <- cumulative_data %>% filter(type == "cluster")
+clusters <- cumulative_data |> filter(type == "cluster")
 
 # For models, only keep those with known training_compute and get top 10 by training_compute
-models <- cumulative_data %>%
-  filter(type == "model", !is.na(training_compute)) %>%
-  arrange(desc(training_compute)) %>%
+models <- cumulative_data |>
+  filter(type == "model", !is.na(training_compute)) |>
+  arrange(desc(training_compute)) |>
   head(10)
 
 print(paste("Number of model release lines:", nrow(models)))
@@ -299,28 +383,28 @@ library(readr)
 cumulative_data <- read_csv("./Data/cumulative_compute_timeline.csv")
 
 # Convert date to datetime
-cumulative_data <- cumulative_data %>%
+cumulative_data <- cumulative_data |>
   mutate(date = as.Date(date))
 
 # Get companies that have clusters
-companies_with_clusters <- cumulative_data %>%
-  filter(type == "cluster") %>%
-  pull(owner_bucket) %>%
+companies_with_clusters <- cumulative_data |>
+  filter(type == "cluster") |>
+  pull(owner_bucket) |>
   unique()
 
 # Filter to only companies with clusters and exclude "Other"
-cumulative_data <- cumulative_data %>%
+cumulative_data <- cumulative_data |>
   filter(owner_bucket %in% companies_with_clusters, owner_bucket != "Other")
 
 # Separate clusters
-clusters <- cumulative_data %>% filter(type == "cluster")
+clusters <- cumulative_data |> filter(type == "cluster")
 
 # For models, get top 10 by training_compute for each organization
-models <- cumulative_data %>%
-  filter(type == "model", !is.na(training_compute)) %>%
-  group_by(owner_bucket) %>%
-  arrange(desc(training_compute)) %>%
-  slice_head(n = 10) %>%
+models <- cumulative_data |>
+  filter(type == "model", !is.na(training_compute)) |>
+  group_by(owner_bucket) |>
+  arrange(desc(training_compute)) |>
+  slice_head(n = 10) |>
   ungroup()
 
 # Define color palette (consistent with previous graphs)
@@ -375,17 +459,6 @@ ggplot() +
 Here plot plot notable companies and the increase in their available compute over time. First note that to improve readability of the graph, we free the y-axis. However, it seems like major companies have increased their compute nearly exponentially. As consitent with the previous graphs, cluster opening time do not follow a predictable pattern in terms of model release, though, generally, it seems like different companies take different approaches in either having built infrascture first or release models first. 
 
 ```{r}
-library(vcd)
-
-# Get top most frequently appearing countries
-top_countries <- gpu_clusters_filtered |>
-  filter(Certainty %in% c("Confirmed", "Likely")) |>
-  count(Country, sort = TRUE) |>
-  slice_head(n = 6) |>
-  pull(Country)
-print(top_countries)
-
-
 mosaic_data <- gpu_clusters_filtered |>
   filter(Certainty %in% c("Confirmed", "Likely"),
          Country %in% top_countries) |>
@@ -407,66 +480,9 @@ mosaic_data |>
         main = "Pairwise Associations: GPU Cluster Characteristics",
         main_gp = gpar(fontsize = 12)
       )
-
-# vcd::mosaic(
-#   Certainty ~ Country + Sector, mosaic_data,
-#   direction = c("v", "v", "h"),
-#   highlighting_fill = RColorBrewer::brewer.pal(3, "Accent"),
-#   labeling_args = list(
-#     gp_labels   = gpar(fontsize = 6),
-#     gp_varnames = gpar(fontsize = 10)
-#   )
-# )
-
 ```
 
 ```{r}
-gpu_clusters <- read_csv("./Data/gpu_clusters_dataset/gpu_clusters.csv")
-gpu_clusters <- gpu_clusters |>
-  rename(
-    first_operational_date = `First Operational Date`,
-    calculated_cost        = `Calculated Cost`,
-    owner                  = `Owner`
-  ) |>
-  mutate(
-    calculated_cost = as.numeric(calculated_cost)
-  )
-gpu_clusters
-```
-```{r}
-gpu_clusters_filtered <- gpu_clusters |>
-  filter(
-    !is.na(first_operational_date),
-    !is.na(calculated_cost),
-    !is.na(owner),
-    !is.na(Sector),
-    Certainty %in% c("Confirmed", "Likely"),
-    Sector %in% c("Private", 'Public', 'Public/Private')
-  ) |>
-  mutate(calculated_cost_billions = calculated_cost / 1e9)
-
-cost_by_owner <- gpu_clusters_filtered |>
-  group_by(owner, Sector) |>
-  summarise(
-    total_calculated_cost = sum(calculated_cost_billions, na.rm = TRUE),
-    .groups = "drop"
-  )
-
-top_n <- 10  # or 10, etc.
-
-plot_data <- cost_by_owner |>
-  group_by(Sector) |>
-  mutate(
-    owner_rank = min_rank(desc(total_calculated_cost))
-  ) |>
-  filter(owner_rank <= top_n) |>
-  arrange(Sector, total_calculated_cost) |>
-  mutate(
-    owner_short = str_trunc(as.character(owner), width = 30, side = "right"),
-    owner_short = factor(owner_short, levels = owner_short)
-  ) |>
-  ungroup()
-
 ggplot(plot_data, aes(x = total_calculated_cost, y = owner_short)) +
   geom_point(size=2, color='blue') +
   facet_grid(Sector ~ ., scales = "free_y", space = "free_y") +
@@ -497,9 +513,9 @@ library(scales)
 models_data <- read_csv("./Data/ai_models_dataset/notable_ai_models.csv")
 
 # Filter to models with known dataset size and publication date
-dataset_plot_data <- models_data %>%
+dataset_plot_data <- models_data |>
   filter(!is.na(`Training dataset size (gradients)`),
-         !is.na(`Publication date`)) %>%
+         !is.na(`Publication date`)) |>
   mutate(`Publication date` = as.Date(`Publication date`),
          `Training dataset size (gradients)` = as.numeric(`Training dataset size (gradients)`))
 
@@ -538,9 +554,9 @@ library(scales)
 models_data <- read_csv("./Data/ai_models_dataset/notable_ai_models.csv")
 
 # Filter to models with known dataset size and publication date
-dataset_plot_data <- models_data %>%
+dataset_plot_data <- models_data |>
   filter(!is.na(`Training dataset size (gradients)`),
-         !is.na(`Publication date`)) %>%
+         !is.na(`Publication date`)) |>
   mutate(`Publication date` = as.Date(`Publication date`),
          `Training dataset size (gradients)` = as.numeric(`Training dataset size (gradients)`))
 
@@ -589,9 +605,9 @@ library(scales)
 models_data <- read_csv("./Data/ai_models_dataset/notable_ai_models.csv")
 
 # Filter to models with known dataset size and publication date
-dataset_plot_data <- models_data %>%
+dataset_plot_data <- models_data |>
   filter(!is.na(`Training dataset size (gradients)`),
-         !is.na(`Publication date`)) %>%
+         !is.na(`Publication date`)) |>
   mutate(`Publication date` = as.Date(`Publication date`),
          `Training dataset size (gradients)` = as.numeric(`Training dataset size (gradients)`))
 
@@ -600,8 +616,8 @@ alexnet_date <- as.Date("2012-09-29")
 transformer_date <- as.Date("2017-06-11")
 
 # Split data into pre-Transformer and post-Transformer periods
-pre_transformer <- dataset_plot_data %>% filter(`Publication date` < transformer_date)
-post_transformer <- dataset_plot_data %>% filter(`Publication date` >= transformer_date)
+pre_transformer <- dataset_plot_data |> filter(`Publication date` < transformer_date)
+post_transformer <- dataset_plot_data |> filter(`Publication date` >= transformer_date)
 
 # Create scatter plot with two linear regression lines
 ggplot(dataset_plot_data, aes(x = `Publication date`, y = `Training dataset size (gradients)`)) +
@@ -665,9 +681,9 @@ library(scales)
 models_data <- read_csv("./Data/ai_models_dataset/notable_ai_models.csv")
 
 # Filter to models with known parameters and publication date
-parameters_plot_data <- models_data %>%
+parameters_plot_data <- models_data |>
   filter(!is.na(Parameters),
-         !is.na(`Publication date`)) %>%
+         !is.na(`Publication date`)) |>
   mutate(`Publication date` = as.Date(`Publication date`),
          Parameters = as.numeric(Parameters))
 
@@ -676,8 +692,8 @@ alexnet_date <- as.Date("2012-09-29")
 transformer_date <- as.Date("2017-06-11")
 
 # Split data into pre-Transformer and post-Transformer periods
-pre_transformer <- parameters_plot_data %>% filter(`Publication date` < transformer_date)
-post_transformer <- parameters_plot_data %>% filter(`Publication date` >= transformer_date)
+pre_transformer <- parameters_plot_data |> filter(`Publication date` < transformer_date)
+post_transformer <- parameters_plot_data |> filter(`Publication date` >= transformer_date)
 
 # Create scatter plot with two linear regression lines
 ggplot(parameters_plot_data, aes(x = `Publication date`, y = Parameters)) +
@@ -734,7 +750,7 @@ library(scales)
 training_times <- read_csv("./Data/gpu_cluster_training_times.csv")
 
 # Convert date to datetime
-training_times <- training_times %>%
+training_times <- training_times |>
   mutate(`First Operational Date` = as.Date(`First Operational Date`))
 
 # Create scatter plot
@@ -764,9 +780,6 @@ ggplot(training_times, aes(x = `First Operational Date`, y = `Training time (hou
 ### Benchmarks
 
 ```{r}
-library(redav)
-library(patchwork)
-
 # names(df_num_imputed)
 # constant_cols <- sapply(df_num_imputed, function(x) length(unique(x[!is.na(x)])) == 1)
 # names(df_num_imputed)[constant_cols]
@@ -818,7 +831,13 @@ p1 + p2 +
 #   geom_text(nudge_y = .2) +
 #   guides(color="none")
 # g4
+
+pca <- prcomp(df_num_pca, scale. = TRUE)
+summary(pca)
+
+
 ```
+
 ```{r}
 print('Sanity check with total contribution to PC1 & PC2')
 loadings_12 <- pca$rotation[, 1:2]
@@ -846,22 +865,22 @@ gpu_clusters <- read_csv("./Data/gpu_clusters_dataset/gpu_clusters.csv")
 world_map <- map_data("world")
 
 # Count existing clusters by country
-existing_clusters <- gpu_clusters %>%
-  filter(Status == "Existing") %>%
-  group_by(Country) %>%
-  summarise(count = n()) %>%
+existing_clusters <- gpu_clusters |>
+  filter(Status == "Existing") |>
+  group_by(Country) |>
+  summarise(count = n()) |>
   rename(region = Country)
 
 # Count planned clusters by country
-planned_clusters <- gpu_clusters %>%
-  filter(Status == "Planned") %>%
-  group_by(Country) %>%
-  summarise(count = n()) %>%
+planned_clusters <- gpu_clusters |>
+  filter(Status == "Planned") |>
+  group_by(Country) |>
+  summarise(count = n()) |>
   rename(region = Country)
 
 # Standardize country names to match map_data
 standardize_country_names <- function(df) {
-  df %>%
+  df |>
     mutate(region = case_when(
       region == "United States of America" ~ "USA",
       region == "United Kingdom of Great Britain and Northern Ireland" ~ "UK",
@@ -877,26 +896,26 @@ existing_clusters <- standardize_country_names(existing_clusters)
 planned_clusters <- standardize_country_names(planned_clusters)
 
 # Join with world map
-world_existing <- world_map %>%
+world_existing <- world_map |>
   left_join(existing_clusters, by = "region")
 
-world_planned <- world_map %>%
+world_planned <- world_map |>
   left_join(planned_clusters, by = "region")
 
 # Calculate Jenks natural breaks for existing clusters
 existing_breaks <- classIntervals(existing_clusters$count, n = 5, style = "jenks")
-existing_clusters <- existing_clusters %>%
+existing_clusters <- existing_clusters |>
   mutate(count_binned = cut(count, breaks = existing_breaks$brks, include.lowest = TRUE, dig.lab = 10))
 
-world_existing <- world_map %>%
+world_existing <- world_map |>
   left_join(existing_clusters, by = "region")
 
 # Calculate Jenks natural breaks for planned clusters
 planned_breaks <- classIntervals(planned_clusters$count, n = 5, style = "jenks")
-planned_clusters <- planned_clusters %>%
+planned_clusters <- planned_clusters |>
   mutate(count_binned = cut(count, breaks = planned_breaks$brks, include.lowest = TRUE, dig.lab = 10))
 
-world_planned <- world_map %>%
+world_planned <- world_map |>
   left_join(planned_clusters, by = "region")
 
 # Map 1: Existing GPU Clusters
@@ -938,20 +957,20 @@ map_planned <- ggplot(world_planned, aes(x = long, y = lat, group = group, fill 
   coord_fixed(1.3)
 
 # Map 3: Combined (Existing + Planned Total)
-combined_clusters <- gpu_clusters %>%
-  filter(Status %in% c("Existing", "Planned")) %>%
-  group_by(Country) %>%
-  summarise(count = n(), .groups = "drop") %>%
+combined_clusters <- gpu_clusters |>
+  filter(Status %in% c("Existing", "Planned")) |>
+  group_by(Country) |>
+  summarise(count = n(), .groups = "drop") |>
   rename(region = Country)
 
 combined_clusters <- standardize_country_names(combined_clusters)
 
 # Calculate Jenks natural breaks for combined clusters
 combined_breaks <- classIntervals(combined_clusters$count, n = 5, style = "jenks")
-combined_clusters <- combined_clusters %>%
+combined_clusters <- combined_clusters |>
   mutate(count_binned = cut(count, breaks = combined_breaks$brks, include.lowest = TRUE, dig.lab = 10))
 
-world_combined <- world_map %>%
+world_combined <- world_map |>
   left_join(combined_clusters, by = "region")
 
 map_combined <- ggplot(world_combined, aes(x = long, y = lat, group = group, fill = count_binned)) +

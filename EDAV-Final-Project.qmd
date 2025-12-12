@@ -327,11 +327,11 @@ pca <- prcomp(df_num_pca, scale. = TRUE)
 summary(pca)
 
 ```
-```{R}
+```{r}
 mat_round <- function(matrix, n = 3) apply(matrix, 2, function(x) round(x, n))
 mat_round(pca$rotation)
 ```
-```{R}
+```{r}
 library(redav)
 library(patchwork)
 
@@ -387,7 +387,7 @@ p1 + p2 +
 #   guides(color="none")
 # g4
 ```
-```{R}
+```{r}
 print('Sanity check with total contribution to PC1 & PC2')
 loadings_12 <- pca$rotation[, 1:2]
 total_contribution <- sqrt(loadings_12[,1]^2 + loadings_12[,2]^2)
