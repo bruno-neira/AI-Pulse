@@ -1170,14 +1170,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Standard deviation     2.5312 1.8018 1.6492 1.3765 0.87135 0.76408 0.53317
 Proportion of Variance 0.4004 0.2029 0.1700 0.1184 0.04745 0.03649 0.01777
 Cumulative Proportion  0.4004 0.6034 0.7733 0.8918 0.93922 0.97571 0.99347
-                           PC8       PC9      PC10      PC11      PC12
-Standard deviation     0.32312 2.087e-15 2.958e-16 1.431e-16 1.007e-16
-Proportion of Variance 0.00653 0.000e+00 0.000e+00 0.000e+00 0.000e+00
-Cumulative Proportion  1.00000 1.000e+00 1.000e+00 1.000e+00 1.000e+00
-                            PC13     PC14      PC15      PC16
-Standard deviation     7.328e-17 3.15e-17 2.438e-17 9.144e-33
-Proportion of Variance 0.000e+00 0.00e+00 0.000e+00 0.000e+00
-Cumulative Proportion  1.000e+00 1.00e+00 1.000e+00 1.000e+00</code></pre>
+                           PC8       PC9     PC10      PC11      PC12      PC13
+Standard deviation     0.32312 2.058e-15 2.83e-16 1.215e-16 8.629e-17 6.105e-17
+Proportion of Variance 0.00653 0.000e+00 0.00e+00 0.000e+00 0.000e+00 0.000e+00
+Cumulative Proportion  1.00000 1.000e+00 1.00e+00 1.000e+00 1.000e+00 1.000e+00
+                            PC14     PC15      PC16
+Standard deviation     3.786e-17 3.09e-17 5.978e-33
+Proportion of Variance 0.000e+00 0.00e+00 0.000e+00
+Cumulative Proportion  1.000e+00 1.00e+00 1.000e+00</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1195,7 +1195,7 @@ Cumulative Proportion  1.000e+00 1.00e+00 1.000e+00 1.000e+00</code></pre>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(total_contribution, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>                      Training compute (FLOP)_y 
+<pre><code>                   Training compute (FLOP)_math 
                                      0.49605964 
                Training compute cost (2023 USD) 
                                      0.46668279 
@@ -1203,7 +1203,7 @@ Cumulative Proportion  1.000e+00 1.00e+00 1.000e+00 1.000e+00</code></pre>
                                      0.46501992 
                               Hardware quantity 
                                      0.46501992 
-                      Training compute (FLOP)_x 
+                  Training compute (FLOP)_model 
                                      0.44961325 
                                   Hardware FP16 
                                      0.39030088 
@@ -1217,9 +1217,9 @@ Cumulative Proportion  1.000e+00 1.00e+00 1.000e+00 1.000e+00</code></pre>
                                      0.37974732 
                                          stderr 
                                      0.24851261 
-                                     Parameters 
-                                     0.16681305 
 (DEPRECATED) Training dataset size (datapoints) 
+                                     0.16681305 
+                                     Parameters 
                                      0.16681305 
                    Training compute lower bound 
                                      0.12107563 
